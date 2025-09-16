@@ -78,6 +78,42 @@
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
       }
 
+      /* Champion mode styling */
+      .champion-btn {
+        background: linear-gradient(135deg, #ffd700, #ffb347);
+        color: #8b4513;
+        font-weight: 600;
+        border: 2px solid #ffd700;
+      }
+
+      .champion-btn.active {
+        background: linear-gradient(135deg, #ffd700, #daa520);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4);
+      }
+
+      .champion-btn:hover {
+        background: linear-gradient(135deg, #ffd700, #daa520);
+        box-shadow: 0 5px 20px rgba(255, 215, 0, 0.3);
+      }
+
+      .champion-mode .header {
+        background: linear-gradient(135deg, #ffd700 0%, #daa520 100%);
+        color: #8b4513;
+      }
+
+      .champion-mode .stats {
+        background: linear-gradient(135deg, #fff8dc 0%, #fffacd 100%);
+      }
+
+      .champion-mode .stat-value {
+        color: #b8860b;
+      }
+
+      .champion-mode .controls {
+        background: linear-gradient(135deg, #fff8dc 0%, #fffacd 100%);
+      }
+
       .stats {
         display: flex;
         justify-content: space-around;
@@ -438,6 +474,7 @@
         <button id="mode-datatypes" class="mode-btn" onclick="switchMode('datatypes', this)">Data Types</button>
         <button id="mode-constructs" class="mode-btn" onclick="switchMode('constructs', this)">Constructs</button>
         <button id="mode-operators" class="mode-btn" onclick="switchMode('operators', this)">Operators</button>
+        <button id="mode-champion" class="mode-btn champion-btn" onclick="switchMode('champion', this)">🏆 Champion</button>
       </div>
       <div class="stats">
         <div class="stat">
@@ -477,6 +514,7 @@
     <script>
       let currentMode = 'datatypes';
       let currentQuestion = {};
+      let championQuestionType = ''; // Track which mode type for champion questions
       let supportMode = false;
       let selectedAnswer = '';
       let questionAnswered = false;
@@ -497,6 +535,13 @@
           recordStreak: 0
         },
         operators: {
+          score: 0,
+          streak: 0,
+          totalQuestions: 0,
+          correctAnswers: 0,
+          recordStreak: 0
+        },
+        champion: {
           score: 0,
           streak: 0,
           totalQuestions: 0,
@@ -962,6 +1007,7 @@ print(greeting)`,
         answer: "10",
         explanation: "Brackets first (2+3=5), then multiplication (5*2=10)"
       }];
+
       //FIXED: This function no longer relies on a click event, so it can be called directly.
       function switchMode(mode, btnElement) {
         currentMode = mode;
@@ -973,6 +1019,15 @@ print(greeting)`,
         } else {
           document.getElementById(`mode-${mode}`).classList.add('active');
         }
+
+        // Apply champion mode styling
+        const container = document.querySelector('.container');
+        if (mode === 'champion') {
+          container.classList.add('champion-mode');
+        } else {
+          container.classList.remove('champion-mode');
+        }
+        
         // Update header
         const headerDesc = document.getElementById('headerDescription');
         switch (mode) {
@@ -985,21 +1040,35 @@ print(greeting)`,
           case 'operators':
             headerDesc.textContent = 'Calculate the result of each expression';
             break;
+          case 'champion':
+            headerDesc.textContent = 'Master all programming fundamentals - no hints!';
+            break;
         }
         // Update stats display for current mode
         updateStats();
-        // Hide hints section
-        document.getElementById('hintSection').classList.remove('show');
-        document.getElementById('hintToggle').classList.remove('active');
-        document.getElementById('hintToggle').textContent = 'Show Hints';
+        // Hide hints section and remove hints toggle for champion mode
+        const hintToggle = document.getElementById('hintToggle');
+        if (mode === 'champion') {
+          document.getElementById('hintSection').classList.remove('show');
+          hintToggle.style.display = 'none';
+        } else {
+          hintToggle.style.display = 'block';
+          document.getElementById('hintSection').classList.remove('show');
+          hintToggle.classList.remove('active');
+          hintToggle.textContent = 'Show Hints';
+        }
+        
         // Reset support mode state if active
         if (supportMode) {
           supportMode = false;
           document.getElementById('textInput').style.display = 'block';
           document.getElementById('buttonSection').classList.remove('show');
           document.querySelector('.submit-btn').style.display = 'block';
-          supportToggle.classList.remove('active');
-          supportToggle.textContent = 'Support Mode';
+          const supportToggle = document.getElementById('supportToggle');
+          if (supportToggle) {
+            supportToggle.classList.remove('active');
+            supportToggle.textContent = 'Support Mode';
+          }
         }
         generateQuestion();
       }
@@ -1017,7 +1086,20 @@ print(greeting)`,
         const feedbackEl = document.getElementById('feedback');
         feedbackEl.textContent = '';
         feedbackEl.className = 'feedback'; // Resets to hidden state
-        if (currentMode === 'datatypes') {
+
+        if (currentMode === 'champion') {
+          // Randomly select a question type for champion mode
+          const questionTypes = ['datatypes', 'constructs', 'operators'];
+          championQuestionType = questionTypes[Math.floor(Math.random() * questionTypes.length)];
+          
+          if (championQuestionType === 'datatypes') {
+            generateDataTypeQuestion();
+          } else if (championQuestionType === 'constructs') {
+            generateConstructQuestion();
+          } else if (championQuestionType === 'operators') {
+            generateOperatorQuestion();
+          }
+        } else if (currentMode === 'datatypes') {
           generateDataTypeQuestion();
         } else if (currentMode === 'constructs') {
           generateConstructQuestion();
@@ -1179,7 +1261,14 @@ print(greeting)`,
         if (questionAnswered) return;
         let userAnswer = '';
         let isCorrect = false;
-        if (currentMode === 'datatypes') {
+        
+        // Determine which question type we're dealing with
+        let questionType = currentMode;
+        if (currentMode === 'champion') {
+          questionType = championQuestionType;
+        }
+        
+        if (questionType === 'datatypes') {
           if (supportMode) {
             userAnswer = selectedAnswer.toLowerCase();
             if (!userAnswer) {
@@ -1195,7 +1284,7 @@ print(greeting)`,
           }
           const correctType = currentQuestion.type;
           isCorrect = userAnswer === correctType || (correctType === 'float' && ['real', 'float/real'].includes(userAnswer));
-        } else if (currentMode === 'constructs') {
+        } else if (questionType === 'constructs') {
           const selectedConstructs = Array.from(document.querySelectorAll('#checkboxSection input:checked')).map(cb => cb.value);
           if (selectedConstructs.length === 0) {
             alert('Please select at least one construct!');
@@ -1203,7 +1292,7 @@ print(greeting)`,
           }
           const expectedConstructs = currentQuestion.constructs.sort();
           isCorrect = JSON.stringify(expectedConstructs) === JSON.stringify(selectedConstructs.sort());
-        } else if (currentMode === 'operators') {
+        } else if (questionType === 'operators') {
           userAnswer = document.getElementById('textInput').value.toLowerCase().trim();
           if (!userAnswer) {
             alert('Please enter an answer!');
@@ -1228,15 +1317,15 @@ print(greeting)`,
         } else {
           currentStats.streak = 0;
           let feedbackText = '';
-          if (currentMode === 'datatypes') {
+          if (questionType === 'datatypes') {
             const article = ['a', 'e', 'i', 'o', 'u'].includes(currentQuestion.type[0]) ? 'an' : 'a';
             feedbackText = `No, this is ${article} 
 									<strong>${currentQuestion.type}</strong> because ${currentQuestion.explanation}. 😢`;
-          } else if (currentMode === 'constructs') {
+          } else if (questionType === 'constructs') {
             const correctConstructs = currentQuestion.constructs.join(', ');
             feedbackText = `No, the correct constructs are 
 									<strong>${correctConstructs}</strong> because ${currentQuestion.explanation}. 😢`;
-          } else if (currentMode === 'operators') {
+          } else if (questionType === 'operators') {
             feedbackText = `No, the correct answer is 
 									<strong>${currentQuestion.answer}</strong> because ${currentQuestion.explanation}. 😢`;
           }
