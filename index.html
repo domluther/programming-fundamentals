@@ -1,594 +1,727 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Programming Fundamentals</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-        
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            overflow: hidden;
-        }
-        
-        .header {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            color: white;
-            padding: 30px;
-            text-align: center;
-        }
-        
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+      }
+
+      .header {
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        color: white;
+        padding: 30px;
+        text-align: center;
+      }
+
+      .header h1 {
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+        font-weight: 700;
+      }
+
+      .header p {
+        font-size: 1.1rem;
+        opacity: 0.9;
+      }
+
+      .mode-selector {
+        display: flex;
+        justify-content: center;
+        background: #f8f9fa;
+        padding: 20px;
+        gap: 10px;
+        flex-wrap: wrap;
+        border-bottom: 1px solid #e9ecef;
+      }
+
+      .mode-btn {
+        background: #6c757d;
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 25px;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        font-weight: 500;
+      }
+
+      .mode-btn.active {
+        background: #4facfe;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(79, 172, 254, 0.3);
+      }
+
+      .mode-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      .stats {
+        display: flex;
+        justify-content: space-around;
+        background: #f8f9fa;
+        padding: 20px;
+        border-bottom: 1px solid #e9ecef;
+      }
+
+      .stat {
+        text-align: center;
+      }
+
+      .stat-value {
+        font-size: 1.8rem;
+        font-weight: bold;
+        color: #4facfe;
+      }
+
+      .stat-label {
+        font-size: 0.9rem;
+        color: #6c757d;
+        margin-top: 5px;
+      }
+
+      .controls {
+        padding: 20px;
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+        background: #f8f9fa;
+        border-bottom: 1px solid #e9ecef;
+      }
+
+      .toggle-btn {
+        background: #6c757d;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 25px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+      }
+
+      .toggle-btn.active {
+        background: #4facfe;
+        transform: translateY(-2px);
+      }
+
+      .toggle-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      .hint-section {
+        background: #fff3cd;
+        border: 1px solid #ffeaa7;
+        margin: 20px;
+        border-radius: 10px;
+        padding: 20px;
+        display: none;
+      }
+
+      .hint-section.show {
+        display: block;
+      }
+
+      .hint-item {
+        margin-bottom: 15px;
+        padding: 10px;
+        background: white;
+        border-radius: 8px;
+        border-left: 4px solid #4facfe;
+      }
+
+      .hint-title {
+        font-weight: bold;
+        color: #4facfe;
+        margin-bottom: 5px;
+      }
+
+      .hint-description {
+        color: #6c757d;
+        margin-bottom: 5px;
+      }
+
+      .hint-examples {
+        font-family: 'Consolas', 'Courier New', monospace;
+        background: #f8f9fa;
+        padding: 5px 10px;
+        border-radius: 4px;
+        color: #495057;
+      }
+
+      .question-section {
+        padding: 40px;
+        text-align: center;
+      }
+
+      /* Consistent styling for both question types */
+      .question,
+      .code-block {
+        font-size: 1.8rem;
+        font-family: 'Consolas', 'Courier New', monospace;
+        background: #f8f9fa;
+        padding: 25px;
+        border-radius: 15px;
+        margin-bottom: 30px;
+        border: 2px solid #e9ecef;
+        color: #495057;
+        white-space: pre-wrap;
+        text-align: left;
+        line-height: 1.4;
+      }
+
+      .input-section {
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .text-input {
+        width: 100%;
+        max-width: 300px;
+        padding: 15px;
+        font-size: 1.2rem;
+        border: 2px solid #e9ecef;
+        border-radius: 10px;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      .text-input:focus {
+        outline: none;
+        border-color: #4facfe;
+        box-shadow: 0 0 0 3px rgba(79, 172, 254, 0.1);
+      }
+
+      .button-section {
+        display: none;
+        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-bottom: 20px;
+      }
+
+      .button-section.show {
+        display: flex;
+      }
+
+      .checkbox-section {
+        display: none;
+        gap: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-bottom: 30px;
+      }
+
+      .checkbox-section.show {
+        display: flex;
+      }
+
+      .checkbox-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 1.1rem;
+        background: #f8f9fa;
+        padding: 15px 20px;
+        border-radius: 10px;
+        border: 2px solid #e9ecef;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .checkbox-item:hover {
+        border-color: #4facfe;
+        background: #e7f3ff;
+      }
+
+      .checkbox-item input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+      }
+
+      .answer-btn {
+        background: #4facfe;
+        color: white;
+        border: none;
+        padding: 15px 25px;
+        border-radius: 10px;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .answer-btn:hover {
+        background: #3a8bfd;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(79, 172, 254, 0.3);
+      }
+
+      .submit-btn {
+        background: #28a745;
+        color: white;
+        border: none;
+        padding: 15px 30px;
+        border-radius: 10px;
+        font-size: 1.2rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .submit-btn:hover {
+        background: #218838;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+      }
+
+      /* Added styles for disabled elements */
+      .submit-btn:disabled,
+      .answer-btn:disabled {
+        background: #6c757d !important;
+        /* Grey color, !important to override inline styles */
+        cursor: not-allowed;
+        opacity: 0.6;
+        transform: none;
+        box-shadow: none;
+      }
+
+      input:disabled {
+        cursor: not-allowed;
+        opacity: 0.6;
+      }
+
+      .feedback {
+        display: none;
+        /* Hidden by default */
+        margin-top: 20px;
+        padding: 15px;
+        border-radius: 10px;
+        font-size: 1.1rem;
+        font-weight: 500;
+        min-height: 60px;
+        text-align: center;
+        line-height: 1.5;
+      }
+
+      .feedback.show {
+        display: block;
+        /* Shown when populated */
+      }
+
+      .feedback.correct {
+        background: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+      }
+
+      .feedback.incorrect {
+        background: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+      }
+
+      #nextQuestionContainer {
+        margin-top: 20px;
+      }
+
+      .next-btn {
+        background: #4facfe;
+        color: white;
+        border: none;
+        padding: 12px 25px;
+        border-radius: 8px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .next-btn:hover {
+        background: #3a8bfd;
+        transform: translateY(-2px);
+      }
+
+      /* Styles for the new duck support mode */
+      .duck-support-container {
+        margin-top: 20px;
+        padding-top: 15px;
+        border-top: 1px solid #ddc894;
+        text-align: center;
+      }
+
+      #supportDuck {
+        cursor: pointer;
+        transition: transform 0.2s ease, filter 0.2s;
+      }
+
+      #supportDuck:hover {
+        transform: scale(1.1);
+      }
+
+      #supportDuck.active {
+        filter: drop-shadow(0 0 8px #4facfe);
+        transform: scale(1.1);
+      }
+
+      .duck-support-container p {
+        color: #856404;
+        font-size: 0.9rem;
+        margin-top: 5px;
+      }
+
+      @media (max-width: 768px) {
         .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            font-weight: 700;
+          font-size: 2rem;
         }
-        
-        .header p {
-            font-size: 1.1rem;
-            opacity: 0.9;
+
+        .question,
+        .code-block {
+          font-size: 1.2rem;
+          padding: 20px;
         }
-        
-        .mode-selector {
-            display: flex;
-            justify-content: center;
-            background: #f8f9fa;
-            padding: 20px;
-            gap: 10px;
-            flex-wrap: wrap;
-            border-bottom: 1px solid #e9ecef;
-        }
-        
-        .mode-btn {
-            background: #6c757d;
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            font-weight: 500;
-        }
-        
-        .mode-btn.active {
-            background: #4facfe;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(79, 172, 254, 0.3);
-        }
-        
-        .mode-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-        
+
         .stats {
-            display: flex;
-            justify-content: space-around;
-            background: #f8f9fa;
-            padding: 20px;
-            border-bottom: 1px solid #e9ecef;
+          flex-direction: column;
+          gap: 15px;
         }
-        
-        .stat {
-            text-align: center;
-        }
-        
-        .stat-value {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #4facfe;
-        }
-        
-        .stat-label {
-            font-size: 0.9rem;
-            color: #6c757d;
-            margin-top: 5px;
-        }
-        
+
         .controls {
-            padding: 20px;
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-            justify-content: center;
-            background: #f8f9fa;
-            border-bottom: 1px solid #e9ecef;
+          flex-direction: column;
+          align-items: center;
         }
-        
-        .toggle-btn {
-            background: #6c757d;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-        }
-        
-        .toggle-btn.active {
-            background: #4facfe;
-            transform: translateY(-2px);
-        }
-        
-        .toggle-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-        
-        .hint-section {
-            background: #fff3cd;
-            border: 1px solid #ffeaa7;
-            margin: 20px;
-            border-radius: 10px;
-            padding: 20px;
-            display: none;
-        }
-        
-        .hint-section.show {
-            display: block;
-        }
-        
-        .hint-item {
-            margin-bottom: 15px;
-            padding: 10px;
-            background: white;
-            border-radius: 8px;
-            border-left: 4px solid #4facfe;
-        }
-        
-        .hint-title {
-            font-weight: bold;
-            color: #4facfe;
-            margin-bottom: 5px;
-        }
-        
-        .hint-description {
-            color: #6c757d;
-            margin-bottom: 5px;
-        }
-        
-        .hint-examples {
-            font-family: 'Consolas', 'Courier New', monospace;
-            background: #f8f9fa;
-            padding: 5px 10px;
-            border-radius: 4px;
-            color: #495057;
-        }
-        
-        .question-section {
-            padding: 40px;
-            text-align: center;
-        }
-        
-        /* Consistent styling for both question types */
-        .question, .code-block {
-            font-size: 1.8rem;
-            font-family: 'Consolas', 'Courier New', monospace;
-            background: #f8f9fa;
-            padding: 25px;
-            border-radius: 15px;
-            margin-bottom: 30px;
-            border: 2px solid #e9ecef;
-            color: #495057;
-            white-space: pre-wrap;
-            text-align: left;
-            line-height: 1.4;
-        }
-        
-        .input-section {
-            margin-bottom: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        .text-input {
-            width: 100%;
-            max-width: 300px;
-            padding: 15px;
-            font-size: 1.2rem;
-            border: 2px solid #e9ecef;
-            border-radius: 10px;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        
-        .text-input:focus {
-            outline: none;
-            border-color: #4facfe;
-            box-shadow: 0 0 0 3px rgba(79, 172, 254, 0.1);
-        }
-        
-        .button-section {
-            display: none;
-            gap: 15px;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin-bottom: 20px;
-        }
-        
-        .button-section.show {
-            display: flex;
-        }
-        
+
+        .button-section,
         .checkbox-section {
-            display: none;
-            gap: 20px;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin-bottom: 30px;
-        }
-        
-        .checkbox-section.show {
-            display: flex;
-        }
-        
-        .checkbox-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.1rem;
-            background: #f8f9fa;
-            padding: 15px 20px;
-            border-radius: 10px;
-            border: 2px solid #e9ecef;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .checkbox-item:hover {
-            border-color: #4facfe;
-            background: #e7f3ff;
-        }
-        
-        .checkbox-item input[type="checkbox"] {
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
-        }
-        
-        .answer-btn {
-            background: #4facfe;
-            color: white;
-            border: none;
-            padding: 15px 25px;
-            border-radius: 10px;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .answer-btn:hover {
-            background: #3a8bfd;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(79, 172, 254, 0.3);
-        }
-        
-        .submit-btn {
-            background: #28a745;
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 10px;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .submit-btn:hover {
-            background: #218838;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+          flex-direction: column;
+          align-items: center;
         }
 
-        /* Added styles for disabled elements */
-        .submit-btn:disabled, .answer-btn:disabled {
-            background: #6c757d !important; /* Grey color, !important to override inline styles */
-            cursor: not-allowed;
-            opacity: 0.6;
-            transform: none;
-            box-shadow: none;
+        .mode-selector {
+          flex-direction: column;
+          align-items: center;
         }
-
-        input:disabled {
-            cursor: not-allowed;
-            opacity: 0.6;
-        }
-        
-        .feedback {
-            display: none; /* Hidden by default */
-            margin-top: 20px;
-            padding: 15px;
-            border-radius: 10px;
-            font-size: 1.1rem;
-            font-weight: 500;
-            min-height: 60px;
-            text-align: center;
-            line-height: 1.5;
-        }
-
-        .feedback.show {
-            display: block; /* Shown when populated */
-        }
-        
-        .feedback.correct {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-        
-        .feedback.incorrect {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-        
-        #nextQuestionContainer {
-            margin-top: 20px;
-        }
-        
-        .next-btn {
-            background: #4facfe;
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 8px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .next-btn:hover {
-            background: #3a8bfd;
-            transform: translateY(-2px);
-        }
-
-        /* Styles for the new duck support mode */
-        .duck-support-container {
-            margin-top: 20px;
-            padding-top: 15px;
-            border-top: 1px solid #ddc894;
-            text-align: center;
-        }
-
-        #supportDuck {
-            cursor: pointer;
-            transition: transform 0.2s ease, filter 0.2s;
-        }
-
-        #supportDuck:hover {
-            transform: scale(1.1);
-        }
-
-        #supportDuck.active {
-            filter: drop-shadow(0 0 8px #4facfe);
-            transform: scale(1.1);
-        }
-        .duck-support-container p {
-             color: #856404;
-             font-size: 0.9rem;
-             margin-top: 5px;
-        }
-
-        
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2rem;
-            }
-            
-            .question, .code-block {
-                font-size: 1.2rem;
-                padding: 20px;
-            }
-            
-            .stats {
-                flex-direction: column;
-                gap: 15px;
-            }
-            
-            .controls {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .button-section, .checkbox-section {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .mode-selector {
-                flex-direction: column;
-                align-items: center;
-            }
-        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <div class="header">
-            <h1>Programming Fundamentals</h1>
-            <p id="headerDescription">Identify the data type of each value</p>
+      <div class="header">
+        <h1>Programming Fundamentals</h1>
+        <p id="headerDescription">Identify the data type of each value</p>
+      </div>
+      <div class="mode-selector">
+        <button id="mode-datatypes" class="mode-btn" onclick="switchMode('datatypes', this)">Data Types</button>
+        <button id="mode-constructs" class="mode-btn" onclick="switchMode('constructs', this)">Constructs</button>
+        <button id="mode-operators" class="mode-btn" onclick="switchMode('operators', this)">Operators</button>
+      </div>
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-value" id="score">0</div>
+          <div class="stat-label">Points</div>
         </div>
-        
-        <div class="mode-selector">
-            <button id="mode-datatypes" class="mode-btn" onclick="switchMode('datatypes', this)">Data Types</button>
-            <button id="mode-constructs" class="mode-btn" onclick="switchMode('constructs', this)">Constructs</button>
-            <button id="mode-operators" class="mode-btn" onclick="switchMode('operators', this)">Operators</button>
+        <div class="stat">
+          <div class="stat-value" id="streak">0</div>
+          <div class="stat-label">Current Streak</div>
         </div>
-        
-        <div class="stats">
-            <div class="stat">
-                <div class="stat-value" id="score">0</div>
-                <div class="stat-label">Points</div>
-            </div>
-            <div class="stat">
-                <div class="stat-value" id="streak">0</div>
-                <div class="stat-label">Current Streak</div>
-            </div>
-            <div class="stat">
-                <div class="stat-value" id="recordStreak">0</div>
-                <div class="stat-label">Record Streak</div>
-            </div>
-            <div class="stat">
-                <div class="stat-value" id="accuracy">0%</div>
-                <div class="stat-label">Accuracy</div>
-            </div>
+        <div class="stat">
+          <div class="stat-value" id="recordStreak">0</div>
+          <div class="stat-label">Record Streak</div>
         </div>
-        
-        <div class="controls">
-            <button class="toggle-btn" id="hintToggle">Show Hints</button>
+        <div class="stat">
+          <div class="stat-value" id="accuracy">0%</div>
+          <div class="stat-label">Accuracy</div>
         </div>
-        
-        <div class="hint-section" id="hintSection">
-            </div>
-        
-        <div class="question-section">
-            <div class="question" id="questionValue">Loading...</div>
-            <div class="code-block" id="codeBlock" style="display: none;">Loading...</div>
-            
-            <div class="input-section">
-                <input type="text" class="text-input" id="textInput" placeholder="Enter your answer...">
-                
-                <div class="button-section" id="buttonSection">
-                    </div>
-                
-                <div class="checkbox-section" id="checkboxSection">
-                    </div>
-                
-                <button class="submit-btn" onclick="checkAnswer()">Submit Answer</button>
-            </div>
-            
-            <div class="feedback" id="feedback"></div>
-            <div id="nextQuestionContainer"></div>
+      </div>
+      <div class="controls">
+        <button class="toggle-btn" id="hintToggle">Show Hints</button>
+      </div>
+      <div class="hint-section" id="hintSection"></div>
+      <div class="question-section">
+        <div class="question" id="questionValue">Loading...</div>
+        <div class="code-block" id="codeBlock" style="display: none;">Loading...</div>
+        <div class="input-section">
+          <input type="text" class="text-input" id="textInput" placeholder="Enter your answer...">
+          <div class="button-section" id="buttonSection"></div>
+          <div class="checkbox-section" id="checkboxSection"></div>
+          <button class="submit-btn" onclick="checkAnswer()">Submit Answer</button>
         </div>
+        <div class="feedback" id="feedback"></div>
+        <div id="nextQuestionContainer"></div>
+      </div>
     </div>
-
     <script>
-        let currentMode = 'datatypes';
-        let currentQuestion = {};
-        let supportMode = false;
-        let selectedAnswer = '';
-        let questionAnswered = false;
-        
-        // Separate stats for each mode
-        let modeStats = {
-            datatypes: { score: 0, streak: 0, totalQuestions: 0, correctAnswers: 0, recordStreak: 0 },
-            constructs: { score: 0, streak: 0, totalQuestions: 0, correctAnswers: 0, recordStreak: 0 },
-            operators: { score: 0, streak: 0, totalQuestions: 0, correctAnswers: 0, recordStreak: 0 }
-        };
-        
-        // Data Types Questions
-        const dataTypeQuestions = {
-            character: [
-                { value: "'a'", type: "character", explanation: "it's a single letter with quotes" },
-                { value: "'!'", type: "character", explanation: "it's a single symbol with quotes" },
-                { value: "'9'", type: "character", explanation: "it's a single number with quotes" },
-                { value: "'@'", type: "character", explanation: "it's a single symbol with quotes" },
-                { value: "' '", type: "character", explanation: "it's a single space character with quotes" },
-                { value: "'Z'", type: "character", explanation: "it's a single letter with quotes" },
-                { value: "'$'", type: "character", explanation: "it's a single symbol with quotes" },
-                { value: "'%'", type: "character", explanation: "it's a single symbol with quotes" },
-                { value: "'&'", type: "character", explanation: "it's a single symbol with quotes" },
-                { value: "'*'", type: "character", explanation: "it's a single symbol with quotes" }
-            ],
-            
-            string: [
-                { value: "'hello'", type: "string", explanation: "it's a collection of characters with quotes" },
-                { value: "\"world\"", type: "string", explanation: "it's a collection of characters with quotes" },
-                { value: "\":D\"", type: "string", explanation: "it's a collection of symbols with quotes" },
-                { value: "\"panda1\"", type: "string", explanation: "it's a collection of characters and numbers with quotes" },
-                { value: "'Python'", type: "string", explanation: "it's a collection of characters with quotes" },
-                { value: "\"123abc\"", type: "string", explanation: "it's a collection of characters and numbers with quotes" },
-                { value: "'Good morning!'", type: "string", explanation: "it's a collection of characters with quotes" },
-                { value: "\"Hello World\"", type: "string", explanation: "it's a collection of characters with quotes" },
-                { value: "'abc123'", type: "string", explanation: "it's a collection of characters and numbers with quotes" },
-                { value: "\"\"", type: "string", explanation: "it's an empty collection of characters with quotes" }
-            ],
-            
-            integer: [
-                { value: "42", type: "integer", explanation: "it's a whole number" },
-                { value: "-7", type: "integer", explanation: "it's a whole number (negative)" },
-                { value: "0", type: "integer", explanation: "it's a whole number" },
-                { value: "-999", type: "integer", explanation: "it's a whole number (negative)" },
-                { value: "1", type: "integer", explanation: "it's a whole number" },
-                { value: "100", type: "integer", explanation: "it's a whole number" },
-                { value: "-1", type: "integer", explanation: "it's a whole number (negative)" },
-                { value: "2023", type: "integer", explanation: "it's a whole number" },
-                { value: "-50", type: "integer", explanation: "it's a whole number (negative)" },
-                { value: "365", type: "integer", explanation: "it's a whole number" }
-            ],
-            
-            float: [
-                { value: "3.14", type: "float", explanation: "it's a number with a decimal point" },
-                { value: "-2.5", type: "float", explanation: "it's a number with a decimal point" },
-                { value: "100.0", type: "float", explanation: "it's a number with a decimal point" },
-                { value: "0.001", type: "float", explanation: "it's a number with a decimal point" },
-                { value: "-0.5", type: "float", explanation: "it's a number with a decimal point" },
-                { value: "2.718", type: "float", explanation: "it's a number with a decimal point" },
-                { value: "-3.14159", type: "float", explanation: "it's a number with a decimal point" },
-                { value: "0.0", type: "float", explanation: "it's a number with a decimal point" },
-                { value: "99.99", type: "float", explanation: "it's a number with a decimal point" },
-                { value: "-1.0", type: "float", explanation: "it's a number with a decimal point" }
-            ],
-            
-            boolean: [
-                { value: "true", type: "boolean", explanation: "it's either true or false" },
-                { value: "false", type: "boolean", explanation: "it's either true or false" },
-                { value: "True", type: "boolean", explanation: "it's either true or false" },
-                { value: "False", type: "boolean", explanation: "it's either true or false" },
-                { value: "TRUE", type: "boolean", explanation: "it's either true or false" },
-                { value: "FALSE", type: "boolean", explanation: "it's either true or false" }
-            ]
-        };
-                
-        // Constructs Questions
-        const constructQuestions = [
-            {
-                code: `a = 5
+      let currentMode = 'datatypes';
+      let currentQuestion = {};
+      let supportMode = false;
+      let selectedAnswer = '';
+      let questionAnswered = false;
+      // Separate stats for each mode
+      let modeStats = {
+        datatypes: {
+          score: 0,
+          streak: 0,
+          totalQuestions: 0,
+          correctAnswers: 0,
+          recordStreak: 0
+        },
+        constructs: {
+          score: 0,
+          streak: 0,
+          totalQuestions: 0,
+          correctAnswers: 0,
+          recordStreak: 0
+        },
+        operators: {
+          score: 0,
+          streak: 0,
+          totalQuestions: 0,
+          correctAnswers: 0,
+          recordStreak: 0
+        }
+      };
+      // Data Types Questions
+      const dataTypeQuestions = {
+        character: [{
+          value: "'a'",
+          type: "character",
+          explanation: "it's a single letter with quotes"
+        }, {
+          value: "'!'",
+          type: "character",
+          explanation: "it's a single symbol with quotes"
+        }, {
+          value: "'9'",
+          type: "character",
+          explanation: "it's a single number with quotes"
+        }, {
+          value: "'@'",
+          type: "character",
+          explanation: "it's a single symbol with quotes"
+        }, {
+          value: "' '",
+          type: "character",
+          explanation: "it's a single space character with quotes"
+        }, {
+          value: "'Z'",
+          type: "character",
+          explanation: "it's a single letter with quotes"
+        }, {
+          value: "'$'",
+          type: "character",
+          explanation: "it's a single symbol with quotes"
+        }, {
+          value: "'%'",
+          type: "character",
+          explanation: "it's a single symbol with quotes"
+        }, {
+          value: "'&'",
+          type: "character",
+          explanation: "it's a single symbol with quotes"
+        }, {
+          value: "'*'",
+          type: "character",
+          explanation: "it's a single symbol with quotes"
+        }],
+        string: [{
+          value: "'hello'",
+          type: "string",
+          explanation: "it's a collection of characters with quotes"
+        }, {
+          value: "\"world\"",
+          type: "string",
+          explanation: "it's a collection of characters with quotes"
+        }, {
+          value: "\":D\"",
+          type: "string",
+          explanation: "it's a collection of symbols with quotes"
+        }, {
+          value: "\"panda1\"",
+          type: "string",
+          explanation: "it's a collection of characters and numbers with quotes"
+        }, {
+          value: "'Python'",
+          type: "string",
+          explanation: "it's a collection of characters with quotes"
+        }, {
+          value: "\"123abc\"",
+          type: "string",
+          explanation: "it's a collection of characters and numbers with quotes"
+        }, {
+          value: "'Good morning!'",
+          type: "string",
+          explanation: "it's a collection of characters with quotes"
+        }, {
+          value: "\"Hello World\"",
+          type: "string",
+          explanation: "it's a collection of characters with quotes"
+        }, {
+          value: "'abc123'",
+          type: "string",
+          explanation: "it's a collection of characters and numbers with quotes"
+        }, {
+          value: "\"\"",
+          type: "string",
+          explanation: "it's an empty collection of characters with quotes"
+        }],
+        integer: [{
+          value: "42",
+          type: "integer",
+          explanation: "it's a whole number"
+        }, {
+          value: "-7",
+          type: "integer",
+          explanation: "it's a whole number (negative)"
+        }, {
+          value: "0",
+          type: "integer",
+          explanation: "it's a whole number"
+        }, {
+          value: "-999",
+          type: "integer",
+          explanation: "it's a whole number (negative)"
+        }, {
+          value: "1",
+          type: "integer",
+          explanation: "it's a whole number"
+        }, {
+          value: "100",
+          type: "integer",
+          explanation: "it's a whole number"
+        }, {
+          value: "-1",
+          type: "integer",
+          explanation: "it's a whole number (negative)"
+        }, {
+          value: "2023",
+          type: "integer",
+          explanation: "it's a whole number"
+        }, {
+          value: "-50",
+          type: "integer",
+          explanation: "it's a whole number (negative)"
+        }, {
+          value: "365",
+          type: "integer",
+          explanation: "it's a whole number"
+        }],
+        float: [{
+          value: "3.14",
+          type: "float",
+          explanation: "it's a number with a decimal point"
+        }, {
+          value: "-2.5",
+          type: "float",
+          explanation: "it's a number with a decimal point"
+        }, {
+          value: "100.0",
+          type: "float",
+          explanation: "it's a number with a decimal point"
+        }, {
+          value: "0.001",
+          type: "float",
+          explanation: "it's a number with a decimal point"
+        }, {
+          value: "-0.5",
+          type: "float",
+          explanation: "it's a number with a decimal point"
+        }, {
+          value: "2.718",
+          type: "float",
+          explanation: "it's a number with a decimal point"
+        }, {
+          value: "-3.14159",
+          type: "float",
+          explanation: "it's a number with a decimal point"
+        }, {
+          value: "0.0",
+          type: "float",
+          explanation: "it's a number with a decimal point"
+        }, {
+          value: "99.99",
+          type: "float",
+          explanation: "it's a number with a decimal point"
+        }, {
+          value: "-1.0",
+          type: "float",
+          explanation: "it's a number with a decimal point"
+        }],
+        boolean: [{
+          value: "true",
+          type: "boolean",
+          explanation: "it's either true or false"
+        }, {
+          value: "false",
+          type: "boolean",
+          explanation: "it's either true or false"
+        }, {
+          value: "True",
+          type: "boolean",
+          explanation: "it's either true or false"
+        }, {
+          value: "False",
+          type: "boolean",
+          explanation: "it's either true or false"
+        }, {
+          value: "TRUE",
+          type: "boolean",
+          explanation: "it's either true or false"
+        }, {
+          value: "FALSE",
+          type: "boolean",
+          explanation: "it's either true or false"
+        }]
+      };
+      // Constructs Questions
+      const constructQuestions = [{
+          code: `a = 5
 b = 10
 print(a + b)`,
-                constructs: ['sequence'],
-                explanation: "the code only uses sequence as instructions are executed in order without any decisions or loops."
-            },
-            {
-                code: `age = int(input("How old are you?"))
+          constructs: ['sequence'],
+          explanation: "the code only uses sequence as instructions are executed in order without any decisions or loops."
+        }, {
+          code: `age = int(input("How old are you?"))
 if age < 18 then
     print("You are a student!")
 else
     print("You finished school")
 endif`,
-                constructs: ['sequence', 'selection'],
-                explanation: "the code uses sequence to get input and selection (if-else) to make a decision."
-            },
-            {
-                code: `total = 0
+          constructs: ['sequence', 'selection'],
+          explanation: "the code uses sequence to get input and selection (if-else) to make a decision."
+        }, {
+          code: `total = 0
 for i = 1 to 3
     total = total + i
 next i
 print("Final: " + str(total))`,
-                constructs: ['sequence', 'iteration'],
-                explanation: "the code uses sequence for assignments and iteration (a for loop) to repeat the addition."
-            },
-            {
-                code: `score = 75
+          constructs: ['sequence', 'iteration'],
+          explanation: "the code uses sequence for assignments and iteration (a for loop) to repeat the addition."
+        }, {
+          code: `score = 75
 if score >= 90 then
     print("Grade A")
 elseif score >= 70 then
@@ -596,372 +729,586 @@ elseif score >= 70 then
 else
     print("Grade C")
 endif`,
-                constructs: ['sequence', 'selection'],
-                explanation: "the code uses sequence to set the score and selection (if-elseif-else) to determine the grade."
-            },
-            {
-                code: `count = 0
+          constructs: ['sequence', 'selection'],
+          explanation: "the code uses sequence to set the score and selection (if-elseif-else) to determine the grade."
+        }, {
+          code: `count = 0
 while count < 5
     print(count)
     count = count + 1
 endwhile`,
-                constructs: ['sequence', 'iteration'],
-                explanation: "the code uses sequence for the initial assignment and iteration (a while loop) to repeat the print statement."
-            },
-            {
-                code: `for i = 1 to 5
+          constructs: ['sequence', 'iteration'],
+          explanation: "the code uses sequence for the initial assignment and iteration (a while loop) to repeat the print statement."
+        }, {
+          code: `for i = 1 to 5
     if i MOD 2 == 0 then
         print("Even")
     else
         print("Odd")
     endif
 next i`,
-                constructs: ['sequence', 'selection', 'iteration'],
-                explanation: "the code uses all three constructs: sequence (instructions in order), selection (if-else), and iteration (for loop)."
-            }
-        ];
-        
-        // Operators Questions - Added more questions
-        const operatorQuestions = [
-            { code: "a = 4 + 3", answer: "7", explanation: "4 + 3 equals 7" },
-            { code: "b = 10 - 6", answer: "4", explanation: "10 - 6 equals 4" },
-            { code: "c = 5 * 3", answer: "15", explanation: "5 * 3 equals 15" },
-            { code: "d = 15 / 3", answer: "5", explanation: "15 / 3 equals 5" },
-            { code: "e = 17 MOD 5", answer: "2", explanation: "17 divided by 5 is 3 with a remainder of 2" },
-            { code: "f = 17 DIV 5", answer: "3", explanation: "5 goes into 17 three whole times" },
-            { code: "g = 2 ^ 3", answer: "8", explanation: "2 to the power of 3 is 8" },
-            { code: `h = "A" == "a"`, answer: "false", explanation: "the comparison is case-sensitive" },
-            { code: "i = 3 != 5", answer: "true", explanation: "3 is not equal to 5" },
-            { code: "j = 7 > 5", answer: "true", explanation: "7 is greater than 5" },
-            { code: "k = 4 < 2", answer: "false", explanation: "4 is not less than 2" },
-            { code: "l = 6 >= 6", answer: "true", explanation: "6 is greater than or equal to 6" },
-            { code: "m = 3 <= 2", answer: "false", explanation: "3 is not less than or equal to 2" },
-            { code: "n = 8 + 2 * 3", answer: "14", explanation: "multiplication is performed first (2 * 3 = 6), then addition (8 + 6 = 14)" },
-            { code: "o = (5 + 3) * 2", answer: "16", explanation: "brackets are performed first (5 + 3 = 8), then multiplication (8 * 2 = 16)" },
-            { code: "p = (10 - 2) * 3", answer: "24", explanation: "brackets are performed first (10 - 2 = 8), then multiplication (8 * 3 = 24)" },
-            { code: "q = 10 - 2 * 3", answer: "4", explanation: "multiplication is performed first (2 * 3 = 6), then subtraction (10 - 6 = 4)" },
-            { code: "a = 3\na = a + 2", answer: "5", explanation: "a starts as 3, then 2 is added, resulting in 5" },
-            { code: "x = 10\nx = x / 2", answer: "5", explanation: "x starts as 10, then is divided by 2, resulting in 5" },
-            { code: "count = 0\ncount = count + 1\ncount = count + 1", answer: "2", explanation: "count starts at 0 and is incremented twice" },
-            { code: "val = 20\nval = val - 8\nval = val / 2", answer: "6", explanation: "20 minus 8 is 12, then 12 divided by 2 is 6" },
-            { code: "a = 2\nb = 3\nc = (a + b) * 2", answer: "10", explanation: "Brackets first (2+3=5), then multiplication (5*2=10)"}
-        ];
-        
-        //FIXED: This function no longer relies on a click event, so it can be called directly.
-        function switchMode(mode, btnElement) {
-            currentMode = mode;
-            
-            // Update mode buttons
-            document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
-            // If called by a click, use the element. If called by script, find the element by ID.
-            if (btnElement) {
-                btnElement.classList.add('active');
-            } else {
-                document.getElementById(`mode-${mode}`).classList.add('active');
-            }
-            
-            // Update header
-            const headerDesc = document.getElementById('headerDescription');
-            switch(mode) {
-                case 'datatypes':
-                    headerDesc.textContent = 'Identify the data type of each value';
-                    break;
-                case 'constructs':
-                    headerDesc.textContent = 'Identify which programming constructs are used';
-                    break;
-                case 'operators':
-                    headerDesc.textContent = 'Calculate the result of each expression';
-                    break;
-            }
-            
-            // Update stats display for current mode
-            updateStats();
-            
-            // Hide hints section
-            document.getElementById('hintSection').classList.remove('show');
-            document.getElementById('hintToggle').classList.remove('active');
-            document.getElementById('hintToggle').textContent = 'Show Hints';
-            
-            // Reset support mode state if active
-            if (supportMode) {
-                supportMode = false;
-                document.getElementById('textInput').style.display = 'block';
-                document.getElementById('buttonSection').classList.remove('show');
-                document.querySelector('.submit-btn').style.display = 'block';
-                supportToggle.classList.remove('active');
-                supportToggle.textContent = 'Support Mode';
-            }
-            
-            generateQuestion();
+          constructs: ['sequence', 'selection', 'iteration'],
+          explanation: "the code uses all three constructs: sequence (instructions in order), selection (if-else), and iteration (for loop)."
+        },
+        // --- New 10 Questions Below ---
+        {
+          code: `number = int(input("Enter a number: "))
+switch number
+    case 1:
+        print("One")
+    case 2:
+        print("Two")
+    default:
+        print("Other")
+endswitch`,
+          constructs: ['sequence', 'selection'],
+          explanation: "the code uses sequence for input and selection (switch case) to choose between different outputs."
+        }, {
+          code: `do
+    password = input("Enter password: ")
+until password == "letmein"
+print("Access granted")`,
+          constructs: ['sequence', 'iteration'],
+          explanation: "the code uses sequence for input and iteration (a do until loop) to repeat until the correct password is entered."
+        }, {
+          code: `marks = [85, 40, 67]
+for i = 0 to 2
+    if marks[i] >= 50 then
+        print("Pass")
+    else
+        print("Fail")
+    endif
+next i`,
+          constructs: ['sequence', 'selection', 'iteration'],
+          explanation: "the code uses sequence for data setup, iteration (for loop) to go through marks, and selection (if-else) to check pass or fail."
+        }, {
+          code: `x = 10
+while x > 0
+    print(x)
+    x = x - 2
+endwhile`,
+          constructs: ['sequence', 'iteration'],
+          explanation: "the code uses sequence for assignment and iteration (while loop) to keep subtracting until the condition is false."
+        }, {
+          code: `day = input("Enter day: ")
+switch day
+    case "Monday":
+        print("Start of week")
+    case "Friday":
+        print("Almost weekend")
+    default:
+        print("Normal day")
+endswitch`,
+          constructs: ['sequence', 'selection'],
+          explanation: "the code uses sequence for input and selection (switch case) to decide based on the day."
+        }, {
+          code: `sum = 0
+do
+    num = int(input("Enter number: "))
+    sum = sum + num
+until num == 0
+print("Total: " + str(sum))`,
+          constructs: ['sequence', 'iteration'],
+          explanation: "the code uses sequence for assignment and addition, and iteration (do until loop) to keep adding numbers until 0 is entered."
+        }, {
+          code: `for i = 1 to 3
+    for j = 1 to 2
+        print("i=" + str(i) + ", j=" + str(j))
+    next j
+next i`,
+          constructs: ['sequence', 'iteration'],
+          explanation: "the code uses sequence for printing and iteration with nested for loops to generate pairs of values."
+        }, {
+          code: `temperature = int(input("Enter temperature: "))
+if temperature < 0 then
+    print("Freezing")
+elseif temperature < 20 then
+    print("Cold")
+elseif temperature < 30 then
+    print("Warm")
+else
+    print("Hot")
+endif`,
+          constructs: ['sequence', 'selection'],
+          explanation: "the code uses sequence for input and selection (if-elseif-else) to classify the temperature."
+        }, {
+          code: `count = 1
+do
+    print("Square: " + str(count * count))
+    count = count + 1
+until count > 5`,
+          constructs: ['sequence', 'iteration'],
+          explanation: "the code uses sequence for calculation and iteration (do until loop) to repeat 5 times."
+        }, {
+          code: `name = input("Enter your name: ")
+age = int(input("Enter your age: "))
+if age >= 18 then
+    print("Welcome, " + name)
+else
+    print("Sorry, too young")
+endif`,
+          constructs: ['sequence', 'selection'],
+          explanation: "the code uses sequence for input and selection (if-else) to make a decision based on age."
+        }, {
+          code: `total = 1
+for i = 1 to 4
+    total = total * i
+next i
+print("Factorial is " + str(total))`,
+          constructs: ['sequence', 'iteration'],
+          explanation: "the code uses sequence for the multiplication and iteration (for loop) to calculate the factorial."
+        }, {
+          code: `a = 3
+b = 4
+c = a * b
+print("Area: " + str(c))`,
+          constructs: ['sequence'],
+          explanation: "the code only uses sequence as instructions are carried out one after another without decisions or loops."
+        }, {
+          code: `name = input("Enter your name: ")
+greeting = "Hello, " + name
+print(greeting)`,
+          constructs: ['sequence'],
+          explanation: "the code only uses sequence as it just takes input, creates a message, and prints it in order."
         }
-        
-        function generateQuestion() {
-            questionAnswered = false;
-            selectedAnswer = '';
-            
-            // Clear previous question display
-            document.getElementById('questionValue').style.display = 'none';
-            document.getElementById('codeBlock').style.display = 'none';
-            document.getElementById('textInput').style.display = 'block';
-            document.getElementById('buttonSection').classList.remove('show');
-            document.getElementById('checkboxSection').classList.remove('show');
-            document.getElementById('nextQuestionContainer').innerHTML = '';
-            
-            const feedbackEl = document.getElementById('feedback');
-            feedbackEl.textContent = '';
-            feedbackEl.className = 'feedback'; // Resets to hidden state
-            
-            if (currentMode === 'datatypes') {
-                generateDataTypeQuestion();
-            } else if (currentMode === 'constructs') {
-                generateConstructQuestion();
-            } else if (currentMode === 'operators') {
-                generateOperatorQuestion();
-            }
-            
-            resetUI();
-            
-            // Focus on text input if visible
-            setTimeout(() => {
-                const textInput = document.getElementById('textInput');
-                if (textInput.style.display !== 'none' && !textInput.disabled) {
-                    textInput.focus();
-                }
-            }, 100);
+      ];
+      // Operators Questions - Added more questions
+      const operatorQuestions = [{
+        code: "a = 4 + 3",
+        answer: "7",
+        explanation: "4 + 3 equals 7"
+      }, {
+        code: "b = 10 - 6",
+        answer: "4",
+        explanation: "10 - 6 equals 4"
+      }, {
+        code: "c = 5 * 3",
+        answer: "15",
+        explanation: "5 * 3 equals 15"
+      }, {
+        code: "d = 15 / 3",
+        answer: "5",
+        explanation: "15 / 3 equals 5"
+      }, {
+        code: "e = 17 MOD 5",
+        answer: "2",
+        explanation: "17 divided by 5 is 3 with a remainder of 2"
+      }, {
+        code: "f = 17 DIV 5",
+        answer: "3",
+        explanation: "5 goes into 17 three whole times"
+      }, {
+        code: "g = 2 ^ 3",
+        answer: "8",
+        explanation: "2 to the power of 3 is 8"
+      }, {
+        code: `h = "A" == "a"`,
+        answer: "false",
+        explanation: "the comparison is case-sensitive"
+      }, {
+        code: "i = 3 != 5",
+        answer: "true",
+        explanation: "3 is not equal to 5"
+      }, {
+        code: "j = 7 > 5",
+        answer: "true",
+        explanation: "7 is greater than 5"
+      }, {
+        code: "k = 4 < 2",
+        answer: "false",
+        explanation: "4 is not less than 2"
+      }, {
+        code: "l = 6 >= 6",
+        answer: "true",
+        explanation: "6 is greater than or equal to 6"
+      }, {
+        code: "m = 3 <= 2",
+        answer: "false",
+        explanation: "3 is not less than or equal to 2"
+      }, {
+        code: "n = 8 + 2 * 3",
+        answer: "14",
+        explanation: "multiplication is performed first (2 * 3 = 6), then addition (8 + 6 = 14)"
+      }, {
+        code: "o = (5 + 3) * 2",
+        answer: "16",
+        explanation: "brackets are performed first (5 + 3 = 8), then multiplication (8 * 2 = 16)"
+      }, {
+        code: "p = (10 - 2) * 3",
+        answer: "24",
+        explanation: "brackets are performed first (10 - 2 = 8), then multiplication (8 * 3 = 24)"
+      }, {
+        code: "q = 10 - 2 * 3",
+        answer: "4",
+        explanation: "multiplication is performed first (2 * 3 = 6), then subtraction (10 - 6 = 4)"
+      }, {
+        code: "a = 3\na = a + 2",
+        answer: "5",
+        explanation: "a starts as 3, then 2 is added, resulting in 5"
+      }, {
+        code: "x = 10\nx = x / 2",
+        answer: "5",
+        explanation: "x starts as 10, then is divided by 2, resulting in 5"
+      }, {
+        code: "count = 0\ncount = count + 1\ncount = count + 1",
+        answer: "2",
+        explanation: "count starts at 0 and is incremented twice"
+      }, {
+        code: "val = 20\nval = val - 8\nval = val / 2",
+        answer: "6",
+        explanation: "20 minus 8 is 12, then 12 divided by 2 is 6"
+      }, {
+        code: "a = 2\nb = 3\nc = (a + b) * 2",
+        answer: "10",
+        explanation: "Brackets first (2+3=5), then multiplication (5*2=10)"
+      }];
+      //FIXED: This function no longer relies on a click event, so it can be called directly.
+      function switchMode(mode, btnElement) {
+        currentMode = mode;
+        // Update mode buttons
+        document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
+        // If called by a click, use the element. If called by script, find the element by ID.
+        if (btnElement) {
+          btnElement.classList.add('active');
+        } else {
+          document.getElementById(`mode-${mode}`).classList.add('active');
         }
-        
-        function generateDataTypeQuestion() {
-            const dataTypes = ['character', 'string', 'integer', 'float', 'boolean'];
-            const selectedType = dataTypes[Math.floor(Math.random() * dataTypes.length)];
-            const questionsOfType = dataTypeQuestions[selectedType];
-            currentQuestion = questionsOfType[Math.floor(Math.random() * questionsOfType.length)];
-            
-            document.getElementById('questionValue').textContent = currentQuestion.value;
-            document.getElementById('questionValue').style.display = 'block';
-            document.getElementById('textInput').placeholder = 'Enter data type...';
-            
-            // Setup support mode buttons
-            const buttonSection = document.getElementById('buttonSection');
-            buttonSection.innerHTML = `
-                <button class="answer-btn" onclick="selectAnswer('boolean')">Boolean</button>
-                <button class="answer-btn" onclick="selectAnswer('character')">Character</button>
-                <button class="answer-btn" onclick="selectAnswer('string')">String</button>
-                <button class="answer-btn" onclick="selectAnswer('integer')">Integer</button>
-                <button class="answer-btn" onclick="selectAnswer('float')">Float</button>
-            `;
+        // Update header
+        const headerDesc = document.getElementById('headerDescription');
+        switch (mode) {
+          case 'datatypes':
+            headerDesc.textContent = 'Identify the data type of each value';
+            break;
+          case 'constructs':
+            headerDesc.textContent = 'Identify which programming constructs are used';
+            break;
+          case 'operators':
+            headerDesc.textContent = 'Calculate the result of each expression';
+            break;
         }
-        
-        function generateConstructQuestion() {
-            currentQuestion = constructQuestions[Math.floor(Math.random() * constructQuestions.length)];
-            
-            document.getElementById('codeBlock').textContent = currentQuestion.code;
-            document.getElementById('codeBlock').style.display = 'block';
-            document.getElementById('textInput').style.display = 'none';
-            
-            // Setup checkboxes
-            const checkboxSection = document.getElementById('checkboxSection');
-            checkboxSection.innerHTML = `
-                <div class="checkbox-item">
-                    <input type="checkbox" id="sequence" value="sequence">
-                    <label for="sequence">Sequence</label>
-                </div>
-                <div class="checkbox-item">
-                    <input type="checkbox" id="selection" value="selection">
-                    <label for="selection">Selection</label>
-                </div>
-                <div class="checkbox-item">
-                    <input type="checkbox" id="iteration" value="iteration">
-                    <label for="iteration">Iteration</label>
-                </div>
-            `;
-            checkboxSection.classList.add('show');
+        // Update stats display for current mode
+        updateStats();
+        // Hide hints section
+        document.getElementById('hintSection').classList.remove('show');
+        document.getElementById('hintToggle').classList.remove('active');
+        document.getElementById('hintToggle').textContent = 'Show Hints';
+        // Reset support mode state if active
+        if (supportMode) {
+          supportMode = false;
+          document.getElementById('textInput').style.display = 'block';
+          document.getElementById('buttonSection').classList.remove('show');
+          document.querySelector('.submit-btn').style.display = 'block';
+          supportToggle.classList.remove('active');
+          supportToggle.textContent = 'Support Mode';
         }
-        
-        function generateOperatorQuestion() {
-            currentQuestion = operatorQuestions[Math.floor(Math.random() * operatorQuestions.length)];
-            
-            document.getElementById('codeBlock').textContent = currentQuestion.code;
-            document.getElementById('codeBlock').style.display = 'block';
-            document.getElementById('textInput').placeholder = 'Enter the result...';
-        }
-        
-        function updateHints() {
-            const hintSection = document.getElementById('hintSection');
-            let hintsHTML = '';
-            
-            if (currentMode === 'datatypes') {
-                hintsHTML = `
-                    <div class="hint-item"><div class="hint-title">Character</div><div class="hint-description">A single letter, number or symbol</div><div class="hint-examples">'a', '!', '2', ' '</div></div>
-                    <div class="hint-item"><div class="hint-title">String</div><div class="hint-description">A collection of characters</div><div class="hint-examples">'hello', "panda1", ":D"</div></div>
-                    <div class="hint-item"><div class="hint-title">Integer</div><div class="hint-description">A whole number</div><div class="hint-examples">2, 5, -1</div></div>
-                    <div class="hint-item"><div class="hint-title">Float / Real</div><div class="hint-description">A number with a decimal</div><div class="hint-examples">-2.2, 3.14</div></div>
-                    <div class="hint-item"><div class="hint-title">Boolean</div><div class="hint-description">Has only two options</div><div class="hint-examples">True or False</div></div>`;
-                            // Add the duck support section only for datatypes mode
-                hintsHTML += `<div class="duck-support-container"><button id="supportDuck" onclick="toggleSupportMode()" class="${supportMode ? 'active' : ''}">🦆</button></div>`;
+        generateQuestion();
+      }
 
-            } else if (currentMode === 'constructs') {
-                hintsHTML = `
-                    <div class="hint-item"><div class="hint-title">Sequence</div><div class="hint-description">Instructions executed one after another in order.</div><div class="hint-examples">Always present in any code.</div></div>
-                    <div class="hint-item"><div class="hint-title">Selection</div><div class="hint-description">Making decisions in code.</div><div class="hint-examples">Look for: if, elif, else, switch</div></div>
-                    <div class="hint-item"><div class="hint-title">Iteration</div><div class="hint-description">Repeating code (loops).</div><div class="hint-examples">Look for: for, while, do until</div></div>`;
-            } else if (currentMode === 'operators') {
-                hintsHTML = `
-                    <div class="hint-item"><div class="hint-title">Arithmetic Operators</div><div class="hint-description">Mathematical operations.</div><div class="hint-examples">+ (add), - (subtract), * (multiply), / (divide)</div></div>
-                    <div class="hint-item"><div class="hint-title">Special Operators</div><div class="hint-description">OCR specific operations.</div><div class="hint-examples">MOD (remainder), DIV (integer division), ^ (power)</div></div>
-                    <div class="hint-item"><div class="hint-title">Comparison Operators</div><div class="hint-description">Compare values (result is true or false).</div><div class="hint-examples">== (equal), != (not equal), < > <= >=</div></div>`;
-            }
-            
-            hintSection.innerHTML = hintsHTML;
+      function generateQuestion() {
+        questionAnswered = false;
+        selectedAnswer = '';
+        // Clear previous question display
+        document.getElementById('questionValue').style.display = 'none';
+        document.getElementById('codeBlock').style.display = 'none';
+        document.getElementById('textInput').style.display = 'block';
+        document.getElementById('buttonSection').classList.remove('show');
+        document.getElementById('checkboxSection').classList.remove('show');
+        document.getElementById('nextQuestionContainer').innerHTML = '';
+        const feedbackEl = document.getElementById('feedback');
+        feedbackEl.textContent = '';
+        feedbackEl.className = 'feedback'; // Resets to hidden state
+        if (currentMode === 'datatypes') {
+          generateDataTypeQuestion();
+        } else if (currentMode === 'constructs') {
+          generateConstructQuestion();
+        } else if (currentMode === 'operators') {
+          generateOperatorQuestion();
         }
-        
-        function selectAnswer(answer) {
-            selectedAnswer = answer;
-            
-            // Reset all buttons
-            document.querySelectorAll('.answer-btn').forEach(btn => btn.style.background = '#4facfe');
-            
-            // Highlight selected button
-            event.target.style.background = '#28a745';
-            
-            // Auto-submit in support mode
-            if (supportMode && currentMode === 'datatypes') {
-                setTimeout(checkAnswer, 200);
-            }
-        }
-        
-        function checkAnswer() {
-            if (questionAnswered) return;
-            
-            let userAnswer = '';
-            let isCorrect = false;
-            
-            if (currentMode === 'datatypes') {
-                if (supportMode) {
-                    userAnswer = selectedAnswer.toLowerCase();
-                    if (!userAnswer) { alert('Please select an answer first!'); return; }
-                } else {
-                    userAnswer = document.getElementById('textInput').value.toLowerCase().trim();
-                    if (!userAnswer) { alert('Please enter an answer!'); return; }
-                }
-                const correctType = currentQuestion.type;
-                isCorrect = userAnswer === correctType || (correctType === 'float' && ['real', 'float/real'].includes(userAnswer));
-            } else if (currentMode === 'constructs') {
-                const selectedConstructs = Array.from(document.querySelectorAll('#checkboxSection input:checked')).map(cb => cb.value);
-                if (selectedConstructs.length === 0) { alert('Please select at least one construct!'); return; }
-                const expectedConstructs = currentQuestion.constructs.sort();
-                isCorrect = JSON.stringify(expectedConstructs) === JSON.stringify(selectedConstructs.sort());
-            } else if (currentMode === 'operators') {
-                userAnswer = document.getElementById('textInput').value.toLowerCase().trim();
-                if (!userAnswer) { alert('Please enter an answer!'); return; }
-                isCorrect = userAnswer === currentQuestion.answer.toLowerCase();
-            }
-            
-            questionAnswered = true;
-            disableUI();
-            
-            const currentStats = modeStats[currentMode];
-            currentStats.totalQuestions++;
-            const feedbackEl = document.getElementById('feedback');
-            
-            if (isCorrect) {
-                currentStats.correctAnswers++;
-                currentStats.score++;
-                currentStats.streak++;
-                if (currentStats.streak > currentStats.recordStreak) {
-                    currentStats.recordStreak = currentStats.streak;
-                }
-                feedbackEl.innerHTML = 'Well done! 🥳';
-                feedbackEl.className = 'feedback correct show';
-            } else {
-                currentStats.streak = 0;
-                let feedbackText = '';
+        resetUI();
+        // Focus on text input if visible
+        setTimeout(() => {
+          const textInput = document.getElementById('textInput');
+          if (textInput.style.display !== 'none' && !textInput.disabled) {
+            textInput.focus();
+          }
+        }, 100);
+      }
+
+      function generateDataTypeQuestion() {
+        const dataTypes = ['character', 'string', 'integer', 'float', 'boolean'];
+        const selectedType = dataTypes[Math.floor(Math.random() * dataTypes.length)];
+        const questionsOfType = dataTypeQuestions[selectedType];
+        currentQuestion = questionsOfType[Math.floor(Math.random() * questionsOfType.length)];
+        document.getElementById('questionValue').textContent = currentQuestion.value;
+        document.getElementById('questionValue').style.display = 'block';
+        document.getElementById('textInput').placeholder = 'Enter data type...';
+        // Setup support mode buttons
+        const buttonSection = document.getElementById('buttonSection');
+        buttonSection.innerHTML = `
                 
-                if (currentMode === 'datatypes') {
-                    const article = ['a', 'e', 'i', 'o', 'u'].includes(currentQuestion.type[0]) ? 'an' : 'a';
-                    feedbackText = `No, this is ${article} <strong>${currentQuestion.type}</strong> because ${currentQuestion.explanation}. 😢`;
-                } else if (currentMode === 'constructs') {
-                    const correctConstructs = currentQuestion.constructs.join(', ');
-                    feedbackText = `No, the correct constructs are <strong>${correctConstructs}</strong> because ${currentQuestion.explanation}. 😢`;
-                } else if (currentMode === 'operators') {
-                    feedbackText = `No, the correct answer is <strong>${currentQuestion.answer}</strong> because ${currentQuestion.explanation}. 😢`;
-                }
+						<button class="answer-btn" onclick="selectAnswer('boolean')">Boolean</button>
+						<button class="answer-btn" onclick="selectAnswer('character')">Character</button>
+						<button class="answer-btn" onclick="selectAnswer('string')">String</button>
+						<button class="answer-btn" onclick="selectAnswer('integer')">Integer</button>
+						<button class="answer-btn" onclick="selectAnswer('float')">Float</button>
+            `;
+      }
+
+      function generateConstructQuestion() {
+        currentQuestion = constructQuestions[Math.floor(Math.random() * constructQuestions.length)];
+        document.getElementById('codeBlock').textContent = currentQuestion.code;
+        document.getElementById('codeBlock').style.display = 'block';
+        document.getElementById('textInput').style.display = 'none';
+        // Setup checkboxes
+        const checkboxSection = document.getElementById('checkboxSection');
+        checkboxSection.innerHTML = `
                 
-                feedbackEl.innerHTML = feedbackText;
-                feedbackEl.className = 'feedback incorrect show';
+						<div class="checkbox-item">
+							<input type="checkbox" id="sequence" value="sequence">
+								<label for="sequence">Sequence</label>
+							</div>
+							<div class="checkbox-item">
+								<input type="checkbox" id="selection" value="selection">
+									<label for="selection">Selection</label>
+								</div>
+								<div class="checkbox-item">
+									<input type="checkbox" id="iteration" value="iteration">
+										<label for="iteration">Iteration</label>
+									</div>
+            `;
+        checkboxSection.classList.add('show');
+      }
+
+      function generateOperatorQuestion() {
+        currentQuestion = operatorQuestions[Math.floor(Math.random() * operatorQuestions.length)];
+        document.getElementById('codeBlock').textContent = currentQuestion.code;
+        document.getElementById('codeBlock').style.display = 'block';
+        document.getElementById('textInput').placeholder = 'Enter the result...';
+      }
+
+      function updateHints() {
+        const hintSection = document.getElementById('hintSection');
+        let hintsHTML = '';
+        if (currentMode === 'datatypes') {
+          hintsHTML = `
+                    
+									<div class="hint-item">
+										<div class="hint-title">Character</div>
+										<div class="hint-description">A single letter, number or symbol</div>
+										<div class="hint-examples">'a', '!', '2', ' '</div>
+									</div>
+									<div class="hint-item">
+										<div class="hint-title">String</div>
+										<div class="hint-description">A collection of characters</div>
+										<div class="hint-examples">'hello', "panda1", ":D"</div>
+									</div>
+									<div class="hint-item">
+										<div class="hint-title">Integer</div>
+										<div class="hint-description">A whole number</div>
+										<div class="hint-examples">2, 5, -1</div>
+									</div>
+									<div class="hint-item">
+										<div class="hint-title">Float / Real</div>
+										<div class="hint-description">A number with a decimal</div>
+										<div class="hint-examples">-2.2, 3.14</div>
+									</div>
+									<div class="hint-item">
+										<div class="hint-title">Boolean</div>
+										<div class="hint-description">Has only two options</div>
+										<div class="hint-examples">True or False</div>
+									</div>`;
+          // Add the duck support section only for datatypes mode
+          hintsHTML += `
+									<div class="duck-support-container">
+										<button id="supportDuck" onclick="toggleSupportMode()" class="${supportMode ? 'active' : ''}">🦆</button>
+									</div>`;
+        } else if (currentMode === 'constructs') {
+          hintsHTML = `
+                    
+									<div class="hint-item">
+										<div class="hint-title">Sequence</div>
+										<div class="hint-description">Instructions executed one after another in order.</div>
+										<div class="hint-examples">Always present in any code.</div>
+									</div>
+									<div class="hint-item">
+										<div class="hint-title">Selection</div>
+										<div class="hint-description">Making decisions in code.</div>
+										<div class="hint-examples">Look for: if, elif, else, switch</div>
+									</div>
+									<div class="hint-item">
+										<div class="hint-title">Iteration</div>
+										<div class="hint-description">Repeating code (loops).</div>
+										<div class="hint-examples">Look for: for, while, do until</div>
+									</div>`;
+        } else if (currentMode === 'operators') {
+          hintsHTML = `
+                    
+									<div class="hint-item">
+										<div class="hint-title">Arithmetic Operators</div>
+										<div class="hint-description">Mathematical operations.</div>
+										<div class="hint-examples">+ (add), - (subtract), * (multiply), / (divide)</div>
+									</div>
+									<div class="hint-item">
+										<div class="hint-title">Special Operators</div>
+										<div class="hint-description">OCR specific operations.</div>
+										<div class="hint-examples">MOD (remainder), DIV (integer division), ^ (power)</div>
+									</div>
+									<div class="hint-item">
+										<div class="hint-title">Comparison Operators</div>
+										<div class="hint-description">Compare values (result is true or false).</div>
+										<div class="hint-examples">== (equal), != (not equal), < ><= >=
+										</div>
+									</div>`;
+        }
+        hintSection.innerHTML = hintsHTML;
+      }
+
+      function selectAnswer(answer) {
+        selectedAnswer = answer;
+        // Reset all buttons
+        document.querySelectorAll('.answer-btn').forEach(btn => btn.style.background = '#4facfe');
+        // Highlight selected button
+        event.target.style.background = '#28a745';
+        // Auto-submit in support mode
+        if (supportMode && currentMode === 'datatypes') {
+          setTimeout(checkAnswer, 200);
+        }
+      }
+
+      function checkAnswer() {
+        if (questionAnswered) return;
+        let userAnswer = '';
+        let isCorrect = false;
+        if (currentMode === 'datatypes') {
+          if (supportMode) {
+            userAnswer = selectedAnswer.toLowerCase();
+            if (!userAnswer) {
+              alert('Please select an answer first!');
+              return;
             }
-            
-            const nextBtnContainer = document.getElementById('nextQuestionContainer');
-            nextBtnContainer.innerHTML = `<button class="next-btn" onclick="generateQuestion()">Next Question</button>`;
-            
-            updateStats();
-        }
-        
-        function resetUI() {
-            document.querySelector('.submit-btn').disabled = false;
-            const textInput = document.getElementById('textInput');
-            textInput.disabled = false;
-            textInput.value = '';
-            document.querySelectorAll('.answer-btn').forEach(btn => {
-                btn.disabled = false;
-                btn.style.background = '#4facfe';
-            });
-            document.querySelectorAll('#checkboxSection input').forEach(cb => {
-                cb.checked = false;
-                cb.disabled = false;
-            });
-        }
-        
-        function disableUI() {
-            document.querySelector('.submit-btn').disabled = true;
-            document.getElementById('textInput').disabled = true;
-            document.querySelectorAll('.answer-btn').forEach(btn => btn.disabled = true);
-            document.querySelectorAll('#checkboxSection input').forEach(cb => cb.disabled = true);
-        }
-        
-        function updateStats() {
-            const currentStats = modeStats[currentMode];
-            document.getElementById('score').textContent = currentStats.score;
-            document.getElementById('streak').textContent = currentStats.streak;
-            document.getElementById('recordStreak').textContent = currentStats.recordStreak;
-            const accuracy = currentStats.totalQuestions > 0 ? Math.round((currentStats.correctAnswers / currentStats.totalQuestions) * 100) : 0;
-            document.getElementById('accuracy').textContent = accuracy + '%';
-        }
-
-        function toggleSupportMode() {
-            supportMode = !supportMode;
-            const duck = document.getElementById('supportDuck');
-            const duckFeedback = document.getElementById('duckFeedback');
-            if (duck) duck.classList.toggle('active', supportMode);
-            if (duckFeedback) duckFeedback.textContent = supportMode ? 'Support mode is ON!' : 'Click the duck to switch to button answers.';
-            
-            document.getElementById('textInput').style.display = supportMode ? 'none' : 'block';
-            document.getElementById('buttonSection').classList.toggle('show', supportMode);
-            document.querySelector('.submit-btn').style.display = supportMode ? 'none' : 'block';
-        }
-
-        
-        document.getElementById('hintToggle').addEventListener('click', function() {
-            const hintSection = document.getElementById('hintSection');
-            hintSection.classList.toggle('show');
-            this.classList.toggle('active');
-            this.textContent = hintSection.classList.contains('show') ? 'Hide Hints' : 'Show Hints';
-            if (hintSection.classList.contains('show')) updateHints();
-        });
-
-
-        document.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                if (questionAnswered) {
-                    document.querySelector('.next-btn')?.click();
-                } else if (document.getElementById('textInput').style.display !== 'none') {
-                    // This condition prevents submission when text input is hidden
-                    checkAnswer();
-                }
+          } else {
+            userAnswer = document.getElementById('textInput').value.toLowerCase().trim();
+            if (!userAnswer) {
+              alert('Please enter an answer!');
+              return;
             }
+          }
+          const correctType = currentQuestion.type;
+          isCorrect = userAnswer === correctType || (correctType === 'float' && ['real', 'float/real'].includes(userAnswer));
+        } else if (currentMode === 'constructs') {
+          const selectedConstructs = Array.from(document.querySelectorAll('#checkboxSection input:checked')).map(cb => cb.value);
+          if (selectedConstructs.length === 0) {
+            alert('Please select at least one construct!');
+            return;
+          }
+          const expectedConstructs = currentQuestion.constructs.sort();
+          isCorrect = JSON.stringify(expectedConstructs) === JSON.stringify(selectedConstructs.sort());
+        } else if (currentMode === 'operators') {
+          userAnswer = document.getElementById('textInput').value.toLowerCase().trim();
+          if (!userAnswer) {
+            alert('Please enter an answer!');
+            return;
+          }
+          isCorrect = userAnswer === currentQuestion.answer.toLowerCase();
+        }
+        questionAnswered = true;
+        disableUI();
+        const currentStats = modeStats[currentMode];
+        currentStats.totalQuestions++;
+        const feedbackEl = document.getElementById('feedback');
+        if (isCorrect) {
+          currentStats.correctAnswers++;
+          currentStats.score++;
+          currentStats.streak++;
+          if (currentStats.streak > currentStats.recordStreak) {
+            currentStats.recordStreak = currentStats.streak;
+          }
+          feedbackEl.innerHTML = 'Well done! 🥳';
+          feedbackEl.className = 'feedback correct show';
+        } else {
+          currentStats.streak = 0;
+          let feedbackText = '';
+          if (currentMode === 'datatypes') {
+            const article = ['a', 'e', 'i', 'o', 'u'].includes(currentQuestion.type[0]) ? 'an' : 'a';
+            feedbackText = `No, this is ${article} 
+									<strong>${currentQuestion.type}</strong> because ${currentQuestion.explanation}. 😢`;
+          } else if (currentMode === 'constructs') {
+            const correctConstructs = currentQuestion.constructs.join(', ');
+            feedbackText = `No, the correct constructs are 
+									<strong>${correctConstructs}</strong> because ${currentQuestion.explanation}. 😢`;
+          } else if (currentMode === 'operators') {
+            feedbackText = `No, the correct answer is 
+									<strong>${currentQuestion.answer}</strong> because ${currentQuestion.explanation}. 😢`;
+          }
+          feedbackEl.innerHTML = feedbackText;
+          feedbackEl.className = 'feedback incorrect show';
+        }
+        const nextBtnContainer = document.getElementById('nextQuestionContainer');
+        nextBtnContainer.innerHTML = `
+									<button class="next-btn" onclick="generateQuestion()">Next Question</button>`;
+        updateStats();
+      }
+
+      function resetUI() {
+        document.querySelector('.submit-btn').disabled = false;
+        const textInput = document.getElementById('textInput');
+        textInput.disabled = false;
+        textInput.value = '';
+        document.querySelectorAll('.answer-btn').forEach(btn => {
+          btn.disabled = false;
+          btn.style.background = '#4facfe';
         });
-        
-        // This now works on page load without causing an error.
-        switchMode('datatypes');
+        document.querySelectorAll('#checkboxSection input').forEach(cb => {
+          cb.checked = false;
+          cb.disabled = false;
+        });
+      }
+
+      function disableUI() {
+        document.querySelector('.submit-btn').disabled = true;
+        document.getElementById('textInput').disabled = true;
+        document.querySelectorAll('.answer-btn').forEach(btn => btn.disabled = true);
+        document.querySelectorAll('#checkboxSection input').forEach(cb => cb.disabled = true);
+      }
+
+      function updateStats() {
+        const currentStats = modeStats[currentMode];
+        document.getElementById('score').textContent = currentStats.score;
+        document.getElementById('streak').textContent = currentStats.streak;
+        document.getElementById('recordStreak').textContent = currentStats.recordStreak;
+        const accuracy = currentStats.totalQuestions > 0 ? Math.round((currentStats.correctAnswers / currentStats.totalQuestions) * 100) : 0;
+        document.getElementById('accuracy').textContent = accuracy + '%';
+      }
+
+      function toggleSupportMode() {
+        supportMode = !supportMode;
+        const duck = document.getElementById('supportDuck');
+        const duckFeedback = document.getElementById('duckFeedback');
+        if (duck) duck.classList.toggle('active', supportMode);
+        if (duckFeedback) duckFeedback.textContent = supportMode ? 'Support mode is ON!' : 'Click the duck to switch to button answers.';
+        document.getElementById('textInput').style.display = supportMode ? 'none' : 'block';
+        document.getElementById('buttonSection').classList.toggle('show', supportMode);
+        document.querySelector('.submit-btn').style.display = supportMode ? 'none' : 'block';
+      }
+      document.getElementById('hintToggle').addEventListener('click', function() {
+        const hintSection = document.getElementById('hintSection');
+        hintSection.classList.toggle('show');
+        this.classList.toggle('active');
+        this.textContent = hintSection.classList.contains('show') ? 'Hide Hints' : 'Show Hints';
+        if (hintSection.classList.contains('show')) updateHints();
+      });
+      document.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          if (questionAnswered) {
+            document.querySelector('.next-btn')?.click();
+          } else if (document.getElementById('textInput').style.display !== 'none') {
+            // This condition prevents submission when text input is hidden
+            checkAnswer();
+          }
+        }
+      });
+      // This now works on page load without causing an error.
+      switchMode('datatypes');
     </script>
-</body>
+  </body>
 </html>
