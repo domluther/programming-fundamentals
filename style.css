@@ -719,6 +719,25 @@ input:disabled {
   font-weight: 700;
 }
 
+/* Performance color coding for accuracy percentages */
+.overall-stat-value.strong,
+span.strong {
+  color: #28a745 !important;
+  font-weight: 700;
+}
+
+.overall-stat-value.medium,
+span.medium {
+  color: #fd7e14 !important;
+  font-weight: 700;
+}
+
+.overall-stat-value.weak,
+span.weak {
+  color: #dc3545 !important;
+  font-weight: 700;
+}
+
 @media (max-width: 768px) {
   .header h1 {
     font-size: 2rem;

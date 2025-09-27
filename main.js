@@ -480,6 +480,13 @@ function checkAnswer() {
 	const currentStats = modeStats[currentMode];
 	currentStats.totalQuestions++;
 
+	// In champion mode, also update the original mode's main stats
+	let originalModeStats = null;
+	if (currentMode === 'champion') {
+		originalModeStats = modeStats[questionType];
+		originalModeStats.totalQuestions++;
+	}
+
 	// Track detailed stats based on question type
 	trackDetailedStats(questionType, isCorrect);
 
@@ -491,10 +498,26 @@ function checkAnswer() {
 		if (currentStats.streak > currentStats.recordStreak) {
 			currentStats.recordStreak = currentStats.streak;
 		}
+		
+		// In champion mode, also update the original mode's main stats
+		if (originalModeStats) {
+			originalModeStats.correctAnswers++;
+			originalModeStats.score++;
+			originalModeStats.streak++;
+			if (originalModeStats.streak > originalModeStats.recordStreak) {
+				originalModeStats.recordStreak = originalModeStats.streak;
+			}
+		}
+		
 		feedbackEl.innerHTML = 'Well done! 🥳';
 		feedbackEl.className = 'feedback correct show';
 	} else {
 		currentStats.streak = 0;
+		
+		// In champion mode, also reset the original mode's streak
+		if (originalModeStats) {
+			originalModeStats.streak = 0;
+		}
 		let feedbackText = '';
 		if (questionType === 'datatypes') {
 			const article = ['a', 'e', 'i', 'o', 'u'].includes(currentQuestion.type[0]) ? 'an' : 'a';
@@ -682,7 +705,22 @@ function updateStatsModal() {
 
 	// Update overall stats display
 	document.getElementById('overallPoints').textContent = totalPoints;
-	document.getElementById('overallAccuracy').textContent = overallAccuracy + '%';
+	
+	const overallAccuracyElement = document.getElementById('overallAccuracy');
+	if (totalQuestions > 0) {
+		overallAccuracyElement.textContent = overallAccuracy + '%';
+		// Apply color coding based on percentage
+		if (overallAccuracy >= 75) {
+			overallAccuracyElement.className = 'overall-stat-value strong';
+		} else if (overallAccuracy >= 50) {
+			overallAccuracyElement.className = 'overall-stat-value medium';
+		} else {
+			overallAccuracyElement.className = 'overall-stat-value weak';
+		}
+	} else {
+		overallAccuracyElement.textContent = 'N/A';
+		overallAccuracyElement.className = 'overall-stat-value';
+	}
 
 	// Update individual mode stats
 	updateModeStatsDisplay('datatypes', '📝 Data Types');
@@ -696,9 +734,25 @@ function updateModeStatsDisplay(mode, title) {
 	const accuracy = stats.totalQuestions > 0 ? Math.round((stats.correctAnswers / stats.totalQuestions) * 100) : 0;
 
 	document.getElementById(mode + 'Points').textContent = stats.score;
-	document.getElementById(mode + 'Accuracy').textContent = accuracy + '%';
+	
+	const accuracyElement = document.getElementById(mode + 'Accuracy');
+	if (stats.totalQuestions > 0) {
+		accuracyElement.textContent = accuracy + '%';
+		// Apply color coding based on percentage
+		if (accuracy >= 75) {
+			accuracyElement.className = 'strong';
+		} else if (accuracy >= 50) {
+			accuracyElement.className = 'medium';
+		} else {
+			accuracyElement.className = 'weak';
+		}
+	} else {
+		accuracyElement.textContent = 'N/A';
+		accuracyElement.className = '';
+	}
+	
 	document.getElementById(mode + 'Streak').textContent = stats.recordStreak;
-	document.getElementById(mode + 'Questions').textContent = stats.correctAnswers + '/' + stats.totalQuestions;
+	document.getElementById(mode + 'Questions').textContent = stats.totalQuestions > 0 ? stats.correctAnswers + '/' + stats.totalQuestions : 'N/A';
 
 	// Update detailed stats
 	updateDetailedStatsDisplay(mode, stats);
