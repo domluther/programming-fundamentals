@@ -645,6 +645,65 @@
         font-weight: 600;
       }
 
+      /* Question Breakdown Section Styles */
+      .question-breakdown {
+        margin-top: 30px;
+        padding-top: 20px;
+        border-top: 2px solid #dee2e6;
+      }
+
+      .question-breakdown h3 {
+        font-size: 1.4rem;
+        margin-bottom: 20px;
+        color: #333;
+      }
+
+      .breakdown-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+      }
+
+      .breakdown-card {
+        background: #f8f9fa;
+        border-radius: 15px;
+        padding: 20px;
+        border: 1px solid #e9ecef;
+      }
+
+      .breakdown-card h4 {
+        font-size: 1.1rem;
+        margin-bottom: 15px;
+        color: #333;
+        border-bottom: 2px solid #4facfe;
+        padding-bottom: 8px;
+      }
+
+      .breakdown-details {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .breakdown-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 4px 0;
+        font-size: 0.9rem;
+      }
+
+      .breakdown-item span:first-child {
+        color: #666;
+        font-weight: 500;
+      }
+
+      .breakdown-item span:last-child {
+        color: #333;
+        font-weight: 600;
+        font-family: 'Consolas', 'Courier New', monospace;
+      }
+
       @media (max-width: 768px) {
         .header h1 {
           font-size: 2rem;
@@ -698,6 +757,15 @@
         }
 
         .mode-stat-card {
+          padding: 15px;
+        }
+
+        .breakdown-container {
+          grid-template-columns: 1fr;
+          gap: 15px;
+        }
+
+        .breakdown-card {
           padding: 15px;
         }
 
@@ -898,6 +966,124 @@
               </div>
             </div>
           </div>
+
+          <!-- Question Breakdown Section -->
+          <div class="question-breakdown">
+            <h3>Question Breakdown</h3>
+            <div class="breakdown-container">
+              <!-- Data Types Breakdown -->
+              <div class="breakdown-card">
+                <h4>📝 Data Types</h4>
+                <div class="breakdown-details">
+                  <div class="breakdown-item">
+                    <span>Character:</span>
+                    <span id="datatypesCharacter">0/0</span>
+                  </div>
+                  <div class="breakdown-item">
+                    <span>String:</span>
+                    <span id="datatypesString">0/0</span>
+                  </div>
+                  <div class="breakdown-item">
+                    <span>Integer:</span>
+                    <span id="datatypesInteger">0/0</span>
+                  </div>
+                  <div class="breakdown-item">
+                    <span>Float:</span>
+                    <span id="datatypesFloat">0/0</span>
+                  </div>
+                  <div class="breakdown-item">
+                    <span>Boolean:</span>
+                    <span id="datatypesBoolean">0/0</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Constructs Breakdown -->
+              <div class="breakdown-card">
+                <h4>🏗️ Constructs</h4>
+                <div class="breakdown-details">
+                  <div class="breakdown-item">
+                    <span>Sequence Only:</span>
+                    <span id="constructsSequence">0/0</span>
+                  </div>
+                  <div class="breakdown-item">
+                    <span>Sequence + Selection:</span>
+                    <span id="constructsSequenceSelection">0/0</span>
+                  </div>
+                  <div class="breakdown-item">
+                    <span>Sequence + Iteration:</span>
+                    <span id="constructsSequenceIteration">0/0</span>
+                  </div>
+                  <div class="breakdown-item">
+                    <span>All Three Constructs:</span>
+                    <span id="constructsAllThree">0/0</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Operators Breakdown -->
+              <div class="breakdown-card">
+                <h4>🔢 Operators</h4>
+                <div class="breakdown-details">
+                  <div class="breakdown-item">
+                    <span>Addition (+):</span>
+                    <span id="operatorsAddition">0/0</span>
+                  </div>
+                  <div class="breakdown-item">
+                    <span>Subtraction (-):</span>
+                    <span id="operatorsSubtraction">0/0</span>
+                  </div>
+                  <div class="breakdown-item">
+                    <span>Multiplication (*):</span>
+                    <span id="operatorsMultiplication">0/0</span>
+                  </div>
+                  <div class="breakdown-item">
+                    <span>Division (/):</span>
+                    <span id="operatorsDivision">0/0</span>
+                  </div>
+                  <div class="breakdown-item">
+                    <span>Modulo (MOD):</span>
+                    <span id="operatorsModulo">0/0</span>
+                  </div>
+                  <div class="breakdown-item">
+                    <span>Integer Division (DIV):</span>
+                    <span id="operatorsIntegerDivision">0/0</span>
+                  </div>
+                  <div class="breakdown-item">
+                    <span>Exponentiation (^):</span>
+                    <span id="operatorsExponentiation">0/0</span>
+                  </div>
+                  <div class="breakdown-item">
+                    <span>Comparison (==, !=, <, >):</span>
+                    <span id="operatorsComparison">0/0</span>
+                  </div>
+                  <div class="breakdown-item">
+                    <span>Mixed Operations:</span>
+                    <span id="operatorsMixed">0/0</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Champion Breakdown -->
+              <div class="breakdown-card">
+                <h4>🏆 Champion</h4>
+                <div class="breakdown-details">
+                  <div class="breakdown-item">
+                    <span>Data Types:</span>
+                    <span id="championDatatypes">0/0</span>
+                  </div>
+                  <div class="breakdown-item">
+                    <span>Constructs:</span>
+                    <span id="championConstructs">0/0</span>
+                  </div>
+                  <div class="breakdown-item">
+                    <span>Operators:</span>
+                    <span id="championOperators">0/0</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -909,35 +1095,64 @@
       let supportMode = false;
       let selectedAnswer = '';
       let questionAnswered = false;
-      // Separate stats for each mode
+      // Separate stats for each mode with detailed tracking
       let modeStats = {
         datatypes: {
           score: 0,
           streak: 0,
           totalQuestions: 0,
           correctAnswers: 0,
-          recordStreak: 0
+          recordStreak: 0,
+          detailed: {
+            character: { correct: 0, total: 0 },
+            string: { correct: 0, total: 0 },
+            integer: { correct: 0, total: 0 },
+            float: { correct: 0, total: 0 },
+            boolean: { correct: 0, total: 0 }
+          }
         },
         constructs: {
           score: 0,
           streak: 0,
           totalQuestions: 0,
           correctAnswers: 0,
-          recordStreak: 0
+          recordStreak: 0,
+          detailed: {
+            sequence: { correct: 0, total: 0 },
+            'selection-sequence': { correct: 0, total: 0 },
+            'iteration-sequence': { correct: 0, total: 0 },
+            'all-three': { correct: 0, total: 0 }
+          }
         },
         operators: {
           score: 0,
           streak: 0,
           totalQuestions: 0,
           correctAnswers: 0,
-          recordStreak: 0
+          recordStreak: 0,
+          detailed: {
+            addition: { correct: 0, total: 0 },
+            subtraction: { correct: 0, total: 0 },
+            multiplication: { correct: 0, total: 0 },
+            division: { correct: 0, total: 0 },
+            modulo: { correct: 0, total: 0 },
+            'integer-division': { correct: 0, total: 0 },
+            exponentiation: { correct: 0, total: 0 },
+            comparison: { correct: 0, total: 0 },
+            mixed: { correct: 0, total: 0 }
+          }
         },
         champion: {
           score: 0,
           streak: 0,
           totalQuestions: 0,
           correctAnswers: 0,
-          recordStreak: 0
+          recordStreak: 0,
+          detailed: {
+            datatypes: { correct: 0, total: 0 },
+            constructs: { correct: 0, total: 0 },
+            operators: { correct: 0, total: 0 }
+          }
         }
       };
       // Data Types Questions
@@ -1649,390 +1864,477 @@ print("Final total: " + str(total))`,
         {
           code: "a = 4 + 3",
           answer: "7",
-          explanation: "4 + 3 equals 7"
+          explanation: "4 + 3 equals 7",
+          category: "addition"
         }, {
           code: "k = 6 + 9",
           answer: "15",
-          explanation: "6 + 9 equals 15"
+          explanation: "6 + 9 equals 15",
+          category: "addition"
         }, {
           code: "a = 14 + 17",
           answer: "31",
-          explanation: "14 + 17 equals 31"
+          explanation: "14 + 17 equals 31",
+          category: "addition"
         }, {
           code: "k = 19 + 13",
           answer: "32",
-          explanation: "19 + 13 equals 32"
+          explanation: "19 + 13 equals 32",
+          category: "addition"
         }, {
           code: "x = 5\ny = 8\nz = x + y",
           answer: "13",
-          explanation: "x is 5, y is 8, so x + y equals 13"
+          explanation: "x is 5, y is 8, so x + y equals 13",
+          category: "addition"
         }, {
           code: "num1 = 12\nnum2 = 7\ntotal = num1 + num2",
           answer: "19",
-          explanation: "num1 is 12, num2 is 7, so total is 19"
+          explanation: "num1 is 12, num2 is 7, so total is 19",
+          category: "addition"
         },
         
         // SUBTRACTION (-) OPERATORS
         {
           code: "b = 10 - 6",
           answer: "4",
-          explanation: "10 - 6 equals 4"
+          explanation: "10 - 6 equals 4",
+          category: "subtraction"
         }, {
           code: "num = 12 - 4",
           answer: "8",
-          explanation: "12 - 4 equals 8"
+          explanation: "12 - 4 equals 8",
+          category: "subtraction"
         }, {
           code: "b = 20 - 8",
           answer: "12",
-          explanation: "20 - 8 equals 12"
+          explanation: "20 - 8 equals 12",
+          category: "subtraction"
         }, {
           code: "num = 25 - 9",
           answer: "16",
-          explanation: "25 - 9 equals 16"
+          explanation: "25 - 9 equals 16",
+          category: "subtraction"
         }, {
           code: "start = 30\nend = 18\ndifference = start - end",
           answer: "12",
-          explanation: "start is 30, end is 18, so difference is 12"
+          explanation: "start is 30, end is 18, so difference is 12",
+          category: "subtraction"
         }, {
           code: "price = 50\ndiscount = 15\nfinal = price - discount",
           answer: "35",
-          explanation: "price is 50, discount is 15, so final price is 35"
+          explanation: "price is 50, discount is 15, so final price is 35",
+          category: "subtraction"
         },
         
         // MULTIPLICATION (*) OPERATORS
         {
           code: "num = 5 * 3",
           answer: "15",
-          explanation: "5 * 3 equals 15"
+          explanation: "5 * 3 equals 15",
+          category: "multiplication"
         }, {
           code: "num = 7 * 6",
           answer: "42",
-          explanation: "7 * 6 equals 42"
+          explanation: "7 * 6 equals 42",
+          category: "multiplication"
         }, {
           code: "num = 4 * 9",
           answer: "36",
-          explanation: "4 * 9 equals 36"
+          explanation: "4 * 9 equals 36",
+          category: "multiplication"
         }, {
           code: "num = 12 * 4",
           answer: "48",
-          explanation: "12 * 4 equals 48"
+          explanation: "12 * 4 equals 48",
+          category: "multiplication"
         }, {
           code: "width = 6\nheight = 3\narea = width * height",
           answer: "18",
-          explanation: "width is 6, height is 3, so area is 18"
+          explanation: "width is 6, height is 3, so area is 18",
+          category: "multiplication"
         }, {
           code: "rate = 15\nhours = 4\npay = rate * hours",
           answer: "60",
-          explanation: "rate is 15, hours is 4, so pay is 60"
+          explanation: "rate is 15, hours is 4, so pay is 60",
+          category: "multiplication"
         },
         
         // DIVISION (/) OPERATORS
         {
           code: "num = 15 / 3",
           answer: "5",
-          explanation: "15 / 3 equals 5"
+          explanation: "15 / 3 equals 5",
+          category: "division"
         }, {
           code: "num = 24 / 6",
           answer: "4",
-          explanation: "24 / 6 equals 4"
+          explanation: "24 / 6 equals 4",
+          category: "division"
         }, {
           code: "num = 35 / 7",
           answer: "5",
-          explanation: "35 / 7 equals 5"
+          explanation: "35 / 7 equals 5",
+          category: "division"
         }, {
           code: "num = 24 / 8",
           answer: "3",
-          explanation: "24 / 8 equals 3"
+          explanation: "24 / 8 equals 3",
+          category: "division"
         }, {
           code: "total = 48\ngroups = 6\ngroup_size = total / groups",
           answer: "8",
-          explanation: "total is 48, groups is 6, so group_size is 8"
+          explanation: "total is 48, groups is 6, so group_size is 8",
+          category: "division"
         }, {
           code: "distance = 120\ntime = 3\nspeed = distance / time",
           answer: "40",
-          explanation: "distance is 120, time is 3, so speed is 40"
+          explanation: "distance is 120, time is 3, so speed is 40",
+          category: "division"
         },
         
         // MODULO (MOD) OPERATORS
         {
           code: "num = 17 MOD 5",
           answer: "2",
-          explanation: "17 divided by 5 is 3 with a remainder of 2"
+          explanation: "17 divided by 5 is 3 with a remainder of 2",
+          category: "modulo"
         }, {
           code: "num = 13 MOD 4",
           answer: "1",
-          explanation: "13 divided by 4 is 3 with remainder 1"
+          explanation: "13 divided by 4 is 3 with remainder 1",
+          category: "modulo"
         }, {
           code: "num = 21 MOD 7",
           answer: "0",
-          explanation: "21 divided by 7 is 3 with remainder 0"
+          explanation: "21 divided by 7 is 3 with remainder 0",
+          category: "modulo"
         }, {
           code: "num = 18 MOD 5",
           answer: "3",
-          explanation: "18 divided by 5 is 3 with remainder 3"
+          explanation: "18 divided by 5 is 3 with remainder 3",
+          category: "modulo"
         }, {
           code: "num = 22 MOD 6",
           answer: "4",
-          explanation: "22 divided by 6 is 3 with remainder 4"
+          explanation: "22 divided by 6 is 3 with remainder 4",
+          category: "modulo"
         }, {
           code: "num = 29 MOD 8",
           answer: "5",
-          explanation: "29 divided by 8 is 3 with remainder 5"
+          explanation: "29 divided by 8 is 3 with remainder 5",
+          category: "modulo"
         }, {
           code: "num = 16 MOD 3",
           answer: "1",
-          explanation: "16 divided by 3 is 5 with remainder 1"
+          explanation: "16 divided by 3 is 5 with remainder 1",
+          category: "modulo"
         }, {
           code: "num = 31 MOD 9",
           answer: "4",
-          explanation: "31 divided by 9 is 3 with remainder 4"
+          explanation: "31 divided by 9 is 3 with remainder 4",
+          category: "modulo"
         }, {
           code: "num = 23 MOD 4",
           answer: "3",
-          explanation: "23 divided by 4 is 5 with remainder 3"
+          explanation: "23 divided by 4 is 5 with remainder 3",
+          category: "modulo"
         }, {
           code: "num = 27 MOD 5",
           answer: "2",
-          explanation: "27 divided by 5 is 5 with remainder 2"
+          explanation: "27 divided by 5 is 5 with remainder 2",
+          category: "modulo"
         }, {
           code: "number = 19\ncheck = number MOD 3",
           answer: "1",
-          explanation: "number is 19, 19 divided by 3 is 6 with remainder 1"
+          explanation: "number is 19, 19 divided by 3 is 6 with remainder 1",
+          category: "modulo"
         }, {
           code: "value = 26\nremainder = value MOD 4",
           answer: "2",
-          explanation: "value is 26, 26 divided by 4 is 6 with remainder 2"
+          explanation: "value is 26, 26 divided by 4 is 6 with remainder 2",
+          category: "modulo"
         },
         
         // INTEGER DIVISION (DIV) OPERATORS
         {
           code: "num = 17 DIV 5",
           answer: "3",
-          explanation: "5 goes into 17 three whole times"
+          explanation: "5 goes into 17 three whole times",
+          category: "integer-division"
         }, {
           code: "num = 13 DIV 4",
           answer: "3",
-          explanation: "4 goes into 13 three whole times"
+          explanation: "4 goes into 13 three whole times",
+          category: "integer-division"
         }, {
           code: "num = 25 DIV 7",
           answer: "3",
-          explanation: "7 goes into 25 three whole times"
+          explanation: "7 goes into 25 three whole times",
+          category: "integer-division"
         }, {
           code: "num = 18 DIV 5",
           answer: "3",
-          explanation: "5 goes into 18 three whole times"
+          explanation: "5 goes into 18 three whole times",
+          category: "integer-division"
         }, {
           code: "num = 22 DIV 6",
           answer: "3",
-          explanation: "6 goes into 22 three whole times"
+          explanation: "6 goes into 22 three whole times",
+          category: "integer-division"
         }, {
           code: "num = 29 DIV 8",
           answer: "3",
-          explanation: "8 goes into 29 three whole times"
+          explanation: "8 goes into 29 three whole times",
+          category: "integer-division"
         }, {
           code: "num = 16 DIV 3",
           answer: "5",
-          explanation: "3 goes into 16 five whole times"
+          explanation: "3 goes into 16 five whole times",
+          category: "integer-division"
         }, {
           code: "num = 31 DIV 9",
           answer: "3",
-          explanation: "9 goes into 31 three whole times"
+          explanation: "9 goes into 31 three whole times",
+          category: "integer-division"
         }, {
           code: "num = 23 DIV 4",
           answer: "5",
-          explanation: "4 goes into 23 five whole times"
+          explanation: "4 goes into 23 five whole times",
+          category: "integer-division"
         }, {
           code: "num = 27 DIV 5",
           answer: "5",
-          explanation: "5 goes into 27 five whole times"
+          explanation: "5 goes into 27 five whole times",
+          category: "integer-division"
         }, {
           code: "items = 38\nboxes = items DIV 6",
           answer: "6",
-          explanation: "items is 38, 6 goes into 38 six whole times"
+          explanation: "items is 38, 6 goes into 38 six whole times",
+          category: "integer-division"
         }, {
           code: "minutes = 125\nhours = minutes DIV 60",
           answer: "2",
-          explanation: "minutes is 125, 60 goes into 125 two whole times"
+          explanation: "minutes is 125, 60 goes into 125 two whole times",
+          category: "integer-division"
         },
         
         // EXPONENTIATION (^) OPERATORS
         {
           code: "num = 2 ^ 3",
           answer: "8",
-          explanation: "2 to the power of 3 (2 * 2 * 2) is 8"
+          explanation: "2 to the power of 3 (2 * 2 * 2) is 8",
+          category: "exponentiation"
         }, {
           code: "num = 3 ^ 4",
           answer: "81",
-          explanation: "3 to the power of 4 (3 * 3 * 3 * 3) is 81"
+          explanation: "3 to the power of 4 (3 * 3 * 3 * 3) is 81",
+          category: "exponentiation"
         }, {
           code: "num = 2 ^ 4",
           answer: "16",
-          explanation: "2 to the power of 4 (2 * 2 * 2 * 2) is 16"
+          explanation: "2 to the power of 4 (2 * 2 * 2 * 2) is 16",
+          category: "exponentiation"
         }, {
           code: "num = 4 ^ 3",
           answer: "64",
-          explanation: "4 to the power of 3 (4 * 4 * 4) is 64"
+          explanation: "4 to the power of 3 (4 * 4 * 4) is 64",
+          category: "exponentiation"
         }, {
           code: "num = 5 ^ 2",
           answer: "25",
-          explanation: "5 to the power of 2 (5 * 5) is 25"
+          explanation: "5 to the power of 2 (5 * 5) is 25",
+          category: "exponentiation"
         }, {
           code: "num = 6 ^ 2",
           answer: "36",
-          explanation: "6 to the power of 2 (6 * 6) is 36"
+          explanation: "6 to the power of 2 (6 * 6) is 36",
+          category: "exponentiation"
         }, {
           code: "num = 7 ^ 2",
           answer: "49",
-          explanation: "7 to the power of 2 (7 * 7) is 49"
+          explanation: "7 to the power of 2 (7 * 7) is 49",
+          category: "exponentiation"
         }, {
           code: "num = 8 ^ 2",
           answer: "64",
-          explanation: "8 to the power of 2 (8 * 8) is 64"
+          explanation: "8 to the power of 2 (8 * 8) is 64",
+          category: "exponentiation"
         }, {
           code: "num = 3 ^ 3",
           answer: "27",
-          explanation: "3 to the power of 3 is 27"
+          explanation: "3 to the power of 3 is 27",
+          category: "exponentiation"
         }, {
           code: "base = 4\nexponent = 2\nresult = base ^ exponent",
           answer: "16",
-          explanation: "base is 4, exponent is 2, so 4 to the power of 2 is 16"
+          explanation: "base is 4, exponent is 2, so 4 to the power of 2 is 16",
+          category: "exponentiation"
         }, {
           code: "side = 5\nsquare = side ^ 2",
           answer: "25",
-          explanation: "side is 5, so side squared is 25"
+          explanation: "side is 5, so side squared is 25",
+          category: "exponentiation"
         }, {
           code: "num = 2\ncube = num ^ 3",
           answer: "8",
-          explanation: "num is 2, so 2 cubed is 8"
+          explanation: "num is 2, so 2 cubed is 8",
+          category: "exponentiation"
         },
         
         // EQUALITY (==) OPERATORS
         {
           code: "a = 8 == 8",
           answer: "true",
-          explanation: "8 is equal to 8"
+          explanation: "8 is equal to 8",
+          category: "comparison"
         }, {
           code: "y = 5 == 7",
           answer: "false",
-          explanation: "5 is not equal to 7"
+          explanation: "5 is not equal to 7",
+          category: "comparison"
         }, {
           code: `h = "A" == "a"`,
           answer: "false",
-          explanation: "the comparison is case-sensitive"
+          explanation: "the comparison is case-sensitive",
+          category: "comparison"
         },
         
         // NOT EQUAL (!=) OPERATORS
         {
           code: "i = 3 != 5",
           answer: "true",
-          explanation: "3 is not equal to 5"
+          explanation: "3 is not equal to 5",
+          category: "comparison"
         }, {
           code: "a = 9 != 4",
           answer: "true",
-          explanation: "9 is not equal to 4"
+          explanation: "9 is not equal to 4",
+          category: "comparison"
         }, {
           code: "b = 6 != 6",
           answer: "false",
-          explanation: "6 is equal to 6"
+          explanation: "6 is equal to 6",
+          category: "comparison"
         },
         
         // LESS THAN (<) OPERATORS
         {
           code: "k = 4 < 2",
           answer: "false",
-          explanation: "4 is not less than 2"
+          explanation: "4 is not less than 2",
+          category: "comparison"
         }, {
           code: "c = 12 < 15",
           answer: "true",
-          explanation: "12 is less than 15"
+          explanation: "12 is less than 15",
+          category: "comparison"
         }, {
           code: "d = 8 < 3",
           answer: "false",
-          explanation: "8 is not less than 3"
+          explanation: "8 is not less than 3",
+          category: "comparison"
         },
         
         // LESS THAN OR EQUAL (<=) OPERATORS
         {
           code: "l = 6 >= 6",
           answer: "true",
-          explanation: "6 is greater than or equal to 6"
+          explanation: "6 is greater than or equal to 6",
+          category: "comparison"
         }, {
           code: "e = 10 <= 10",
           answer: "true",
-          explanation: "10 is less than or equal to 10"
+          explanation: "10 is less than or equal to 10",
+          category: "comparison"
         }, {
           code: "f = 7 <= 5",
           answer: "false",
-          explanation: "7 is not less than or equal to 5"
+          explanation: "7 is not less than or equal to 5",
+          category: "comparison"
         },
         
         // GREATER THAN (>) OPERATORS
         {
           code: "j = 7 > 5",
           answer: "true",
-          explanation: "7 is greater than 5"
+          explanation: "7 is greater than 5",
+          category: "comparison"
         }, {
           code: "g = 15 > 12",
           answer: "true",
-          explanation: "15 is greater than 12"
+          explanation: "15 is greater than 12",
+          category: "comparison"
         }, {
           code: "h = 4 > 9",
           answer: "false",
-          explanation: "4 is not greater than 9"
+          explanation: "4 is not greater than 9",
+          category: "comparison"
         },
         
         // GREATER THAN OR EQUAL (>=) OPERATORS
         {
           code: "m = 3 <= 2",
           answer: "false",
-          explanation: "3 is not less than or equal to 2"
+          explanation: "3 is not less than or equal to 2",
+          category: "comparison"
         }, {
           code: "i = 8 >= 8",
           answer: "true",
-          explanation: "8 is greater than or equal to 8"
+          explanation: "8 is greater than or equal to 8",
+          category: "comparison"
         }, {
           code: "j = 3 >= 7",
           answer: "false",
-          explanation: "3 is not greater than or equal to 7"
+          explanation: "3 is not greater than or equal to 7",
+          category: "comparison"
         },
         
         // MIXED OPERATORS AND COMPLEX EXPRESSIONS
         {
           code: "n = 8 + 2 * 3",
           answer: "14",
-          explanation: "multiplication is performed first (2 * 3 = 6), then addition (8 + 6 = 14)"
+          explanation: "multiplication is performed first (2 * 3 = 6), then addition (8 + 6 = 14)",
+          category: "mixed"
         }, {
           code: "o = (5 + 3) * 2",
           answer: "16",
-          explanation: "brackets are performed first (5 + 3 = 8), then multiplication (8 * 2 = 16)"
+          explanation: "brackets are performed first (5 + 3 = 8), then multiplication (8 * 2 = 16)",
+          category: "mixed"
         }, {
           code: "p = (10 - 2) * 3",
           answer: "24",
-          explanation: "brackets are performed first (10 - 2 = 8), then multiplication (8 * 3 = 24)"
+          explanation: "brackets are performed first (10 - 2 = 8), then multiplication (8 * 3 = 24)",
+          category: "mixed"
         }, {
           code: "q = 10 - 2 * 3",
           answer: "4",
-          explanation: "multiplication is performed first (2 * 3 = 6), then subtraction (10 - 6 = 4)"
+          explanation: "multiplication is performed first (2 * 3 = 6), then subtraction (10 - 6 = 4)",
+          category: "mixed"
         }, {
           code: "a = 3\na = a + 2",
           answer: "5",
-          explanation: "a starts as 3, then 2 is added, resulting in 5"
+          explanation: "a starts as 3, then 2 is added, resulting in 5",
+          category: "mixed"
         }, {
           code: "x = 10\nx = x / 2",
           answer: "5",
-          explanation: "x starts as 10, then is divided by 2, resulting in 5"
+          explanation: "x starts as 10, then is divided by 2, resulting in 5",
+          category: "mixed"
         }, {
           code: "count = 0\ncount = count + 1\ncount = count + 1",
           answer: "2",
-          explanation: "count starts at 0 and is incremented twice"
+          explanation: "count starts at 0 and is incremented twice",
+          category: "mixed"
         }, {
           code: "val = 20\nval = val - 8\nval = val / 2",
           answer: "6",
-          explanation: "20 minus 8 is 12, then 12 divided by 2 is 6"
+          explanation: "20 minus 8 is 12, then 12 divided by 2 is 6",
+          category: "mixed"
         }, {
           code: "a = 2\nb = 3\nc = (a + b) * 2",
           answer: "10",
-          explanation: "Brackets first (2+3=5), then multiplication (5*2=10)"
+          explanation: "Brackets first (2+3=5), then multiplication (5*2=10)",
+          category: "mixed"
         }
       ];
 
@@ -2333,6 +2635,10 @@ print("Final total: " + str(total))`,
         disableUI();
         const currentStats = modeStats[currentMode];
         currentStats.totalQuestions++;
+
+        // Track detailed stats based on question type
+        trackDetailedStats(questionType, isCorrect);
+
         const feedbackEl = document.getElementById('feedback');
         if (isCorrect) {
           currentStats.correctAnswers++;
@@ -2387,6 +2693,78 @@ print("Final total: " + str(total))`,
         document.getElementById('textInput').disabled = true;
         document.querySelectorAll('.answer-btn').forEach(btn => btn.disabled = true);
         document.querySelectorAll('#checkboxSection input').forEach(cb => cb.disabled = true);
+      }
+
+      function trackDetailedStats(questionType, isCorrect) {
+        console.log(questionType, isCorrect);
+        
+        if (currentMode === 'champion') {
+          // In champion mode, track stats in both champion mode AND the original mode
+          const championStats = modeStats['champion'];
+          const originalModeStats = modeStats[questionType];
+          
+          // Track in champion mode breakdown
+          if (championStats.detailed[questionType]) {
+            championStats.detailed[questionType].total++;
+            if (isCorrect) {
+              championStats.detailed[questionType].correct++;
+            }
+          }
+          
+          // Track in original mode's detailed stats
+          let categoryKey = '';
+          if (questionType === 'datatypes') {
+            categoryKey = currentQuestion.type;
+          } else if (questionType === 'constructs') {
+            const constructs = currentQuestion.constructs.sort();
+            if (constructs.length === 1) {
+              categoryKey = constructs[0];
+            } else if (constructs.length === 2) {
+              categoryKey = constructs.join('-');
+            } else if (constructs.length === 3) {
+              categoryKey = 'all-three';
+            }
+          } else if (questionType === 'operators') {
+            categoryKey = currentQuestion.category;
+          }
+          
+          if (categoryKey && originalModeStats.detailed[categoryKey]) {
+            originalModeStats.detailed[categoryKey].total++;
+            if (isCorrect) {
+              originalModeStats.detailed[categoryKey].correct++;
+            }
+          }
+        } else {
+          // Regular mode tracking
+          const currentStats = modeStats[currentMode];
+          let categoryKey = '';
+
+          if (questionType === 'datatypes') {
+            // Track by data type (character, string, integer, float, boolean)
+            categoryKey = currentQuestion.type;
+          } else if (questionType === 'constructs') {
+            // Track by construct combination
+            const constructs = currentQuestion.constructs.sort();
+            if (constructs.length === 1) {
+              categoryKey = constructs[0];
+            } else if (constructs.length === 2) {
+              categoryKey = constructs.join('-');
+            } else if (constructs.length === 3) {
+              categoryKey = 'all-three';
+            }
+          } else if (questionType === 'operators') {
+            // Track by operator category
+            categoryKey = currentQuestion.category;
+          }
+
+          console.log(categoryKey)
+          if (categoryKey && currentStats.detailed[categoryKey]) {
+            currentStats.detailed[categoryKey].total++;
+            if (isCorrect) {
+              currentStats.detailed[categoryKey].correct++;
+            }
+          }
+        }
       }
 
       function updateStats() {
@@ -2473,6 +2851,42 @@ print("Final total: " + str(total))`,
         document.getElementById(mode + 'Accuracy').textContent = accuracy + '%';
         document.getElementById(mode + 'Streak').textContent = stats.recordStreak;
         document.getElementById(mode + 'Questions').textContent = stats.correctAnswers + '/' + stats.totalQuestions;
+
+        // Update detailed stats
+        updateDetailedStatsDisplay(mode, stats);
+      }
+
+      function updateDetailedStatsDisplay(mode, stats) {
+        if (mode === 'datatypes') {
+          const detailed = stats.detailed;
+          document.getElementById('datatypesCharacter').textContent = detailed.character.correct + '/' + detailed.character.total;
+          document.getElementById('datatypesString').textContent = detailed.string.correct + '/' + detailed.string.total;
+          document.getElementById('datatypesInteger').textContent = detailed.integer.correct + '/' + detailed.integer.total;
+          document.getElementById('datatypesFloat').textContent = detailed.float.correct + '/' + detailed.float.total;
+          document.getElementById('datatypesBoolean').textContent = detailed.boolean.correct + '/' + detailed.boolean.total;
+        } else if (mode === 'constructs') {
+          const detailed = stats.detailed;
+          document.getElementById('constructsSequence').textContent = detailed.sequence.correct + '/' + detailed.sequence.total;
+          document.getElementById('constructsSequenceSelection').textContent = detailed['selection-sequence'].correct + '/' + detailed['selection-sequence'].total;
+          document.getElementById('constructsSequenceIteration').textContent = detailed['iteration-sequence'].correct + '/' + detailed['iteration-sequence'].total;
+          document.getElementById('constructsAllThree').textContent = detailed['all-three'].correct + '/' + detailed['all-three'].total;
+        } else if (mode === 'operators') {
+          const detailed = stats.detailed;
+          document.getElementById('operatorsAddition').textContent = detailed.addition.correct + '/' + detailed.addition.total;
+          document.getElementById('operatorsSubtraction').textContent = detailed.subtraction.correct + '/' + detailed.subtraction.total;
+          document.getElementById('operatorsMultiplication').textContent = detailed.multiplication.correct + '/' + detailed.multiplication.total;
+          document.getElementById('operatorsDivision').textContent = detailed.division.correct + '/' + detailed.division.total;
+          document.getElementById('operatorsModulo').textContent = detailed.modulo.correct + '/' + detailed.modulo.total;
+          document.getElementById('operatorsIntegerDivision').textContent = detailed['integer-division'].correct + '/' + detailed['integer-division'].total;
+          document.getElementById('operatorsExponentiation').textContent = detailed.exponentiation.correct + '/' + detailed.exponentiation.total;
+          document.getElementById('operatorsComparison').textContent = detailed.comparison.correct + '/' + detailed.comparison.total;
+          document.getElementById('operatorsMixed').textContent = detailed.mixed.correct + '/' + detailed.mixed.total;
+        } else if (mode === 'champion') {
+          const detailed = stats.detailed;
+          document.getElementById('championDatatypes').textContent = detailed.datatypes.correct + '/' + detailed.datatypes.total;
+          document.getElementById('championConstructs').textContent = detailed.constructs.correct + '/' + detailed.constructs.total;
+          document.getElementById('championOperators').textContent = detailed.operators.correct + '/' + detailed.operators.total;
+        }
       }
 
       // Close modal when clicking outside of it
