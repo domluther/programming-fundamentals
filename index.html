@@ -1646,7 +1646,7 @@ print("Final total: " + str(total))`,
         }
       ];
 
-      //FIXED: This function no longer relies on a click event, so it can be called directly.
+      // Switch between different quiz modes (datatypes, constructs, operators, champion)
       function switchMode(mode, btnElement) {
         currentMode = mode;
         // Update mode buttons
@@ -1726,7 +1726,7 @@ print("Final total: " + str(total))`,
         feedbackEl.className = 'feedback'; // Resets to hidden state
 
         if (currentMode === 'champion') {
-          // Randomly select a question type for champion mode
+          // Champion mode randomly selects from all three question types
           const questionTypes = ['datatypes', 'constructs', 'operators'];
           championQuestionType = questionTypes[Math.floor(Math.random() * questionTypes.length)];
           
@@ -1897,10 +1897,11 @@ print("Final total: " + str(total))`,
 
       function checkAnswer() {
         if (questionAnswered) return;
+        
         let userAnswer = '';
         let isCorrect = false;
         
-        // Determine which question type we're dealing with
+        // Determine which question type we're dealing with (handles both regular and champion modes)
         let questionType = currentMode;
         if (currentMode === 'champion') {
           questionType = championQuestionType;
