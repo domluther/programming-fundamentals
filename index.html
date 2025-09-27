@@ -1783,18 +1783,18 @@ print("Final total: " + str(total))`,
         const checkboxSection = document.getElementById('checkboxSection');
         checkboxSection.innerHTML = `
                 
-						<div class="checkbox-item">
+						<label class="checkbox-item">
 							<input type="checkbox" id="sequence" value="sequence">
-								<label for="sequence">Sequence</label>
-							</div>
-							<div class="checkbox-item">
-								<input type="checkbox" id="selection" value="selection">
-									<label for="selection">Selection</label>
-								</div>
-								<div class="checkbox-item">
-									<input type="checkbox" id="iteration" value="iteration">
-										<label for="iteration">Iteration</label>
-									</div>
+							<span>Sequence</span>
+						</label>
+						<label class="checkbox-item">
+							<input type="checkbox" id="selection" value="selection">
+							<span>Selection</span>
+						</label>
+						<label class="checkbox-item">
+							<input type="checkbox" id="iteration" value="iteration">
+							<span>Iteration</span>
+						</label>
             `;
         checkboxSection.classList.add('show');
       }
