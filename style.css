@@ -696,6 +696,29 @@ input:disabled {
   font-family: 'Consolas', 'Courier New', monospace;
 }
 
+/* Base class for breakdown stats */
+.breakdown-stat {
+  color: #333;
+  font-weight: 600;
+  font-family: 'Consolas', 'Courier New', monospace;
+}
+
+/* Performance color coding for breakdown stats */
+.breakdown-stat.strong {
+  color: #28a745 !important;
+  font-weight: 700;
+}
+
+.breakdown-stat.medium {
+  color: #fd7e14 !important;
+  font-weight: 700;
+}
+
+.breakdown-stat.weak {
+  color: #dc3545 !important;
+  font-weight: 700;
+}
+
 @media (max-width: 768px) {
   .header h1 {
     font-size: 2rem;

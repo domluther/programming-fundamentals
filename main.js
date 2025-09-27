@@ -129,6 +129,57 @@ let modeStats = {
 	}
 };
 
+// localStorage functions for persistent stats
+function saveStatsToLocalStorage() {
+	try {
+		localStorage.setItem('programmingFundamentalsStats', JSON.stringify(modeStats));
+	} catch (error) {
+		console.warn('Failed to save stats to localStorage:', error);
+	}
+}
+
+function loadStatsFromLocalStorage() {
+	try {
+		const savedStats = localStorage.getItem('programmingFundamentalsStats');
+		if (savedStats) {
+			const parsedStats = JSON.parse(savedStats);
+			// Merge saved stats with default structure to handle any new properties
+			modeStats = mergeStatsWithDefaults(parsedStats, modeStats);
+		}
+	} catch (error) {
+		console.warn('Failed to load stats from localStorage:', error);
+		// Keep default modeStats if loading fails
+	}
+}
+
+function mergeStatsWithDefaults(savedStats, defaultStats) {
+	const merged = JSON.parse(JSON.stringify(defaultStats)); // Deep clone defaults
+	
+	// Merge each mode
+	for (const mode in savedStats) {
+		if (merged[mode]) {
+			// Merge basic stats
+			merged[mode].score = savedStats[mode].score || 0;
+			merged[mode].streak = savedStats[mode].streak || 0;
+			merged[mode].totalQuestions = savedStats[mode].totalQuestions || 0;
+			merged[mode].correctAnswers = savedStats[mode].correctAnswers || 0;
+			merged[mode].recordStreak = savedStats[mode].recordStreak || 0;
+			
+			// Merge detailed stats if they exist
+			if (savedStats[mode].detailed && merged[mode].detailed) {
+				for (const category in savedStats[mode].detailed) {
+					if (merged[mode].detailed[category]) {
+						merged[mode].detailed[category].correct = savedStats[mode].detailed[category].correct || 0;
+						merged[mode].detailed[category].total = savedStats[mode].detailed[category].total || 0;
+					}
+				}
+			}
+		}
+	}
+	
+	return merged;
+}
+
 
 
 // Switch between different quiz modes (datatypes, constructs, operators, champion)
@@ -463,6 +514,9 @@ function checkAnswer() {
 	const nextBtnContainer = document.getElementById('nextQuestionContainer');
 	nextBtnContainer.innerHTML = `
                                 <button class="next-btn" onclick="generateQuestion()">Next Question</button>`;
+	
+	// Save updated stats to localStorage
+	saveStatsToLocalStorage();
 	updateStats();
 }
 
@@ -556,6 +610,9 @@ function trackDetailedStats(questionType, isCorrect) {
 			}
 		}
 	}
+	
+	// Save updated detailed stats to localStorage
+	saveStatsToLocalStorage();
 }
 
 function updateStats() {
@@ -650,33 +707,55 @@ function updateModeStatsDisplay(mode, title) {
 function updateDetailedStatsDisplay(mode, stats) {
 	if (mode === 'datatypes') {
 		const detailed = stats.detailed;
-		document.getElementById('datatypesCharacter').textContent = detailed.character.correct + '/' + detailed.character.total;
-		document.getElementById('datatypesString').textContent = detailed.string.correct + '/' + detailed.string.total;
-		document.getElementById('datatypesInteger').textContent = detailed.integer.correct + '/' + detailed.integer.total;
-		document.getElementById('datatypesFloat').textContent = detailed.float.correct + '/' + detailed.float.total;
-		document.getElementById('datatypesBoolean').textContent = detailed.boolean.correct + '/' + detailed.boolean.total;
+		updateBreakdownItem('datatypesCharacter', detailed.character.correct, detailed.character.total);
+		updateBreakdownItem('datatypesString', detailed.string.correct, detailed.string.total);
+		updateBreakdownItem('datatypesInteger', detailed.integer.correct, detailed.integer.total);
+		updateBreakdownItem('datatypesFloat', detailed.float.correct, detailed.float.total);
+		updateBreakdownItem('datatypesBoolean', detailed.boolean.correct, detailed.boolean.total);
 	} else if (mode === 'constructs') {
 		const detailed = stats.detailed;
-		document.getElementById('constructsSequence').textContent = detailed.sequence.correct + '/' + detailed.sequence.total;
-		document.getElementById('constructsSequenceSelection').textContent = detailed['selection-sequence'].correct + '/' + detailed['selection-sequence'].total;
-		document.getElementById('constructsSequenceIteration').textContent = detailed['iteration-sequence'].correct + '/' + detailed['iteration-sequence'].total;
-		document.getElementById('constructsAllThree').textContent = detailed['all-three'].correct + '/' + detailed['all-three'].total;
+		updateBreakdownItem('constructsSequence', detailed.sequence.correct, detailed.sequence.total);
+		updateBreakdownItem('constructsSequenceSelection', detailed['selection-sequence'].correct, detailed['selection-sequence'].total);
+		updateBreakdownItem('constructsSequenceIteration', detailed['iteration-sequence'].correct, detailed['iteration-sequence'].total);
+		updateBreakdownItem('constructsAllThree', detailed['all-three'].correct, detailed['all-three'].total);
 	} else if (mode === 'operators') {
 		const detailed = stats.detailed;
-		document.getElementById('operatorsAddition').textContent = detailed.addition.correct + '/' + detailed.addition.total;
-		document.getElementById('operatorsSubtraction').textContent = detailed.subtraction.correct + '/' + detailed.subtraction.total;
-		document.getElementById('operatorsMultiplication').textContent = detailed.multiplication.correct + '/' + detailed.multiplication.total;
-		document.getElementById('operatorsDivision').textContent = detailed.division.correct + '/' + detailed.division.total;
-		document.getElementById('operatorsModulo').textContent = detailed.modulo.correct + '/' + detailed.modulo.total;
-		document.getElementById('operatorsIntegerDivision').textContent = detailed['integer-division'].correct + '/' + detailed['integer-division'].total;
-		document.getElementById('operatorsExponentiation').textContent = detailed.exponentiation.correct + '/' + detailed.exponentiation.total;
-		document.getElementById('operatorsComparison').textContent = detailed.comparison.correct + '/' + detailed.comparison.total;
-		document.getElementById('operatorsMixed').textContent = detailed.mixed.correct + '/' + detailed.mixed.total;
+		updateBreakdownItem('operatorsAddition', detailed.addition.correct, detailed.addition.total);
+		updateBreakdownItem('operatorsSubtraction', detailed.subtraction.correct, detailed.subtraction.total);
+		updateBreakdownItem('operatorsMultiplication', detailed.multiplication.correct, detailed.multiplication.total);
+		updateBreakdownItem('operatorsDivision', detailed.division.correct, detailed.division.total);
+		updateBreakdownItem('operatorsModulo', detailed.modulo.correct, detailed.modulo.total);
+		updateBreakdownItem('operatorsIntegerDivision', detailed['integer-division'].correct, detailed['integer-division'].total);
+		updateBreakdownItem('operatorsExponentiation', detailed.exponentiation.correct, detailed.exponentiation.total);
+		updateBreakdownItem('operatorsComparison', detailed.comparison.correct, detailed.comparison.total);
+		updateBreakdownItem('operatorsMixed', detailed.mixed.correct, detailed.mixed.total);
 	} else if (mode === 'champion') {
 		const detailed = stats.detailed;
-		document.getElementById('championDatatypes').textContent = detailed.datatypes.correct + '/' + detailed.datatypes.total;
-		document.getElementById('championConstructs').textContent = detailed.constructs.correct + '/' + detailed.constructs.total;
-		document.getElementById('championOperators').textContent = detailed.operators.correct + '/' + detailed.operators.total;
+		updateBreakdownItem('championDatatypes', detailed.datatypes.correct, detailed.datatypes.total);
+		updateBreakdownItem('championConstructs', detailed.constructs.correct, detailed.constructs.total);
+		updateBreakdownItem('championOperators', detailed.operators.correct, detailed.operators.total);
+	}
+}
+
+function updateBreakdownItem(elementId, correct, total) {
+	const element = document.getElementById(elementId);
+	
+	if (total === 0) {
+		element.textContent = 'N/A';
+		element.className = '';
+		return;
+	}
+	
+	const percentage = (correct / total) * 100;
+	element.textContent = correct + '/' + total;
+	
+	// Apply color coding based on percentage
+	if (percentage >= 75) {
+		element.className = 'breakdown-stat strong';
+	} else if (percentage >= 50) {
+		element.className = 'breakdown-stat medium';
+	} else {
+		element.className = 'breakdown-stat weak';
 	}
 }
 
@@ -692,4 +771,11 @@ document.addEventListener('keydown', function(e) {
 	if (e.key === 'Escape' && document.getElementById('statsModal').classList.contains('show')) {
 		closeStatsModal();
 	}
+});
+
+// Initialize stats from localStorage when the page loads
+document.addEventListener('DOMContentLoaded', function() {
+	loadStatsFromLocalStorage();
+	// Update the stats display to show loaded values
+	updateStats();
 });
