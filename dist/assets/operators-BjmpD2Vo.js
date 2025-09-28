@@ -1,1 +1,0 @@
-import{j as o}from"./index-CcsvbrJX.js";import{S as t}from"./StatsModal-BS8P7VrV.js";import{Q as e}from"./QuizComponent-xIl4ym4h.js";function a(){return o.jsx(t,{mode:"Operators",children:r=>o.jsx(e,{mode:"Operators",onScoreUpdate:r})})}export{a as component};

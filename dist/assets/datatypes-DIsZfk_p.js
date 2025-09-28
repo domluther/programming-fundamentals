@@ -1,1 +1,0 @@
-import{j as o}from"./index-CcsvbrJX.js";import{S as e}from"./StatsModal-BS8P7VrV.js";import{Q as a}from"./QuizComponent-xIl4ym4h.js";function s(){return o.jsx(e,{mode:"Data Types",children:t=>o.jsx(a,{mode:"Data Types",onScoreUpdate:t})})}export{s as component};
