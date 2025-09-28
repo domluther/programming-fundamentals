@@ -20,7 +20,7 @@ export function Header({ scoreButton, title, subtitle }: HeaderProps) {
 			<SiteNavigation
 				menuItems={GCSE_NAVIGATION_MENU}
 				currentSiteId={currentSiteId}
-				title="Programming Tools"
+				title="GCSE CS Tools"
 				icon="🎓"
 			/>
 			{scoreButton && (

@@ -15,7 +15,7 @@ An interactive learning platform for mastering core programming concepts includi
 
 ## 🚀 Live Demo
 
-Visit the live application: [Programming Fundamentals](https://programming-fundamentals.netlify.app/)
+Visit the live application: [Programming Fundamentals](https://ocr-fundamentals.netlify.app/)
 
 ## 🛠️ Technology Stack
 

@@ -49,9 +49,9 @@ const blankScoreData: ScoreData = {
 		recordStreak: 0,
 		detailed: {
 			sequence: { correct: 0, attempts: 0 },
-			"selection-sequence": { correct: 0, attempts: 0 },
-			"iteration-sequence": { correct: 0, attempts: 0 },
-			"all-three": { correct: 0, attempts: 0 },
+			"Sequence & Selection": { correct: 0, attempts: 0 },
+			"Sequence & Iteration": { correct: 0, attempts: 0 },
+			"Sequence, Selection & Iteration": { correct: 0, attempts: 0 },
 		},
 	},
 	Operators: {
@@ -288,9 +288,16 @@ export class ScoreManager {
 				if (constructs.length === 1) {
 					return constructs[0];
 				} else if (constructs.length === 2) {
+					// One will always be "sequence", so we check for the other
+					if (constructs.includes("selection")) {
+						return "Sequence & Selection";
+					} else if (constructs.includes("iteration")) {
+						return "Sequence & Iteration";
+					}
+					// Fallback for any other two-construct combinations
 					return constructs.join("-");
 				} else if (constructs.length === 3) {
-					return "all-three";
+					return "Sequence, Selection & Iteration";
 				}
 			}
 			return "";
