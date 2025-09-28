@@ -4,14 +4,16 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
 import { dataTypeQuestions, constructQuestions, operatorQuestions } from '@/lib/questionData';
-import type { Mode } from '@/lib/scoreManager';
+import type { Mode, ScoreManager } from '@/lib/scoreManager';
+import { cn } from '@/lib/utils';
 
 interface QuizComponentProps {
   mode: Mode;
   onScoreUpdate: (isCorrect: boolean, questionType: string) => void;
+  scoreManager: ScoreManager;
 }
 
-export function QuizComponent({ mode, onScoreUpdate }: QuizComponentProps) {
+export function QuizComponent({ mode, onScoreUpdate, scoreManager }: QuizComponentProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [currentQuestion, setCurrentQuestion] = useState<any>(null);
   const [userAnswer, setUserAnswer] = useState('');
@@ -29,6 +31,12 @@ export function QuizComponent({ mode, onScoreUpdate }: QuizComponentProps) {
     selection: false,
     iteration: false
   });
+
+  // Get current mode stats
+  const modeStats = scoreManager.getAllModeStats()[mode];
+  const currentStreak = scoreManager.getStreak(mode);
+  const accuracy = modeStats && modeStats.attempts > 0 ? Math.round((modeStats.correct / modeStats.attempts) * 100) : 0;
+  const points = modeStats ? modeStats.correct : 0;
 
   // Generate a random question based on the current mode
   const generateQuestion = useCallback(() => {
@@ -253,6 +261,36 @@ export function QuizComponent({ mode, onScoreUpdate }: QuizComponentProps) {
 
   return (
     <div className="space-y-6">
+      {/* Mode Stats Display */}
+      <Card className="p-4 bg-gradient-to-r from-blue-50 to-indigo-50 border-l-4 border-blue-500">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="text-center">
+            <div className="text-2xl font-bold text-blue-600">{points}</div>
+            <div className="text-sm text-gray-600">Points</div>
+          </div>
+          <div className="text-center">
+            <div className="text-2xl font-bold text-green-600">{currentStreak}</div>
+            <div className="text-sm text-gray-600">Current Streak</div>
+          </div>
+          <div className="text-center">
+            <div className="text-2xl font-bold text-purple-600">{modeStats?.recordStreak || 0}</div>
+            <div className="text-sm text-gray-600">Best Streak</div>
+          </div>
+          <div className="text-center">
+            <div 
+              className={cn(
+                "text-2xl font-bold",
+                accuracy >= 80 ? "text-green-600" : 
+                accuracy >= 60 ? "text-yellow-600" : 
+                "text-red-600"
+              )}
+            >
+              {accuracy}%
+            </div>
+            <div className="text-sm text-gray-600">Accuracy</div>
+          </div>
+        </div>
+      </Card>
 
       {/* Question Section */}
       {currentQuestion && (

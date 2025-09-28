@@ -8,10 +8,11 @@ export const Route = createFileRoute("/constructs")({
 function ConstructsQuiz() {
 	return (
 		<SharedLayout mode="Constructs">
-			{(recordScoreAndUpdate) => (
+			{(recordScoreAndUpdate, scoreManager) => (
 				<QuizComponent 
 					mode="Constructs" 
 					onScoreUpdate={recordScoreAndUpdate} 
+					scoreManager={scoreManager}
 				/>
 			)}
 		</SharedLayout>

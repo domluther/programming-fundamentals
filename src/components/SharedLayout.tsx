@@ -8,6 +8,7 @@ interface SharedLayoutProps {
 	mode?: Mode;
 	children: (
 		recordScoreAndUpdate: (isCorrect: boolean, questionType: string) => void,
+		scoreManager: ScoreManager,
 	) => React.ReactNode;
 }
 
@@ -78,7 +79,7 @@ export function SharedLayout({ mode, children }: SharedLayoutProps) {
 
 			{/* Main Body */}
 			<div className="max-w-4xl px-0 mx-auto sm:px-0">
-				{children(recordScoreAndUpdate)}
+				{children(recordScoreAndUpdate, scoreManager)}
 			</div>
 			<StatsModal
 				isOpen={showStatsModal}

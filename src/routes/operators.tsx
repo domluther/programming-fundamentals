@@ -8,10 +8,11 @@ export const Route = createFileRoute("/operators")({
 function OperatorsQuiz() {
 	return (
 		<SharedLayout mode="Operators">
-			{(recordScoreAndUpdate) => (
+			{(recordScoreAndUpdate, scoreManager) => (
 				<QuizComponent 
 					mode="Operators" 
 					onScoreUpdate={recordScoreAndUpdate} 
+					scoreManager={scoreManager}
 				/>
 			)}
 		</SharedLayout>
