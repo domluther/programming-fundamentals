@@ -1,3 +1,5 @@
+import type { Mode } from "./scoreManager";
+
 // Question types and interfaces
 export interface DataTypeQuestion {
 	value: string;
@@ -21,7 +23,7 @@ export interface OperatorQuestion {
 }
 
 export interface QuizMode {
-	id: string;
+	id: Mode;
 	title: string;
 	description: string;
 	emoji: string;

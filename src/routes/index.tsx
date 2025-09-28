@@ -2,13 +2,14 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { SharedLayout } from "@/components";
 import { Card } from "@/components/ui/card";
 import { QUIZ_MODES } from "@/lib/questionData";
+import type { Mode } from "@/lib/scoreManager";
 
 export const Route = createFileRoute("/")({
 	component: IndexPage,
 });
 
 function IndexPage() {
-	const getRoutePath = (modeId: string): string => {
+	const getRoutePath = (modeId: Mode): string => {
 		switch (modeId) {
 			case "Data Types":
 				return "/datatypes";
