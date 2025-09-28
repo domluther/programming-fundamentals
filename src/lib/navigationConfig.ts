@@ -1,7 +1,7 @@
 /**
- * Global Navigation Configuration for GCSE CS Practice Sites
+ * Global Navigation Configuration for Programming Practice Sites
  *
- * This file contains the navigation menu that appears across all GCSE CS sites.
+ * This file contains the navigation menu that appears across programming practice sites.
  * It's separated from siteConfig.ts because navigation is global, not site-specific.
  */
 
@@ -14,7 +14,7 @@ export interface NavMenuItem {
 }
 
 /**
- * Global GCSE CS navigation menu
+ * Global programming navigation menu
  * This appears in the dropdown navigation across all sites
  */
 export const GCSE_NAVIGATION_MENU: NavMenuItem[] = [

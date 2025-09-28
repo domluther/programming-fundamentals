@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import type { ScoreManager, DetailedStats } from "@/lib/scoreManager";
-import { cn } from '@/lib/utils';
+import { cn } from "@/lib/utils";
 
 interface StatsModalProps {
 	isOpen: boolean;
@@ -58,8 +58,8 @@ export function StatsModal({
 		}
 	};
 
-	console.log(overallStats)
-	
+	console.log(overallStats);
+
 	return (
 		<div
 			className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30 backdrop-blur-xs"
@@ -209,46 +209,48 @@ export function StatsModal({
 								</CardHeader>
 								<CardContent className="px-2">
 									<div className="space-y-4">
-									{Object.entries(allModeStats).map(([mode, stats]) => {
-										if (!stats || stats.attempts === 0) return null;
+										{Object.entries(allModeStats).map(([mode, stats]) => {
+											if (!stats || stats.attempts === 0) return null;
 
-										const accuracy = Math.round((stats.correct / stats.attempts) * 100);
+											const accuracy = Math.round(
+												(stats.correct / stats.attempts) * 100,
+											);
 
-										return (
+											return (
 												<div
 													key={mode}
 													className="flex items-center justify-between p-4 bg-gray-100 rounded-lg"
-													>
-												<div>
-													<div className="text-lg font-semibold">
-														{mode === "none" ? "Invalid Items" : mode}
+												>
+													<div>
+														<div className="text-lg font-semibold">
+															{mode === "none" ? "Invalid Items" : mode}
+														</div>
+														<div className="text-sm text-gray-600">
+															{stats.correct} correct out of {stats.attempts}{" "}
+															attempts
+														</div>
 													</div>
-													<div className="text-sm text-gray-600">
-														{stats.correct} correct out of {stats.attempts}{" "}
-														attempts
-													</div>										
+													<div className="text-right">
+														<div
+															className={cn(
+																"text-2xl font-bold",
+																accuracy >= 80
+																	? "text-green-600"
+																	: accuracy >= 60
+																		? "text-yellow-600"
+																		: "text-red-600",
+															)}
+														>
+															{Math.round(accuracy)}%
+														</div>
+														<div className="text-xs text-gray-500">
+															accuracy
+														</div>
+													</div>
 												</div>
-												<div className="text-right">
-													<div
-														className={cn(
-															"text-2xl font-bold",
-															accuracy >= 80
-																? "text-green-600"
-																: accuracy >= 60
-																	? "text-yellow-600"
-																	: "text-red-600",
-														)}
-													>
-														{Math.round(accuracy)}%
-													</div>
-													<div className="text-xs text-gray-500">
-														accuracy
-													</div>
-												</div>
-											</div>
-										);
-									})}
-								</div>
+											);
+										})}
+									</div>
 								</CardContent>
 							</Card>
 
@@ -263,49 +265,67 @@ export function StatsModal({
 									<div className="space-y-6">
 										{Object.entries(allModeStats).map(([mode, stats]) => {
 											if (!stats || stats.attempts === 0) return null;
-											
+
 											return (
 												<div key={mode} className="space-y-3">
 													<h4 className="font-semibold text-lg capitalize border-b border-gray-200 pb-2">
 														{mode === "none" ? "Invalid Items" : mode}
 													</h4>
 													<div className="space-y-2">
-														{Object.entries(stats.detailed || {}).map(([subcat, subcatStats]) => {
-															const detailedStat = subcatStats as DetailedStats;
-															if (!detailedStat || detailedStat.attempts === 0) return null;
-															
-															const subcatAccuracy = Math.round((detailedStat.correct / detailedStat.attempts) * 100);
-															
-															return (
-																<div key={subcat} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-																	<div>
-																		<div className="font-medium capitalize">
-																			{subcat.replace(/([A-Z])/g, ' $1').replace('-', ' ').trim()}
+														{Object.entries(stats.detailed || {}).map(
+															([subcat, subcatStats]) => {
+																const detailedStat =
+																	subcatStats as DetailedStats;
+																if (
+																	!detailedStat ||
+																	detailedStat.attempts === 0
+																)
+																	return null;
+
+																const subcatAccuracy = Math.round(
+																	(detailedStat.correct /
+																		detailedStat.attempts) *
+																		100,
+																);
+
+																return (
+																	<div
+																		key={subcat}
+																		className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
+																	>
+																		<div>
+																			<div className="font-medium capitalize">
+																				{subcat
+																					.replace(/([A-Z])/g, " $1")
+																					.replace("-", " ")
+																					.trim()}
+																			</div>
+																			<div className="text-sm text-gray-600">
+																				{detailedStat.correct} correct out of{" "}
+																				{detailedStat.attempts} attempts
+																			</div>
 																		</div>
-																		<div className="text-sm text-gray-600">
-																			{detailedStat.correct} correct out of {detailedStat.attempts} attempts
+																		<div className="text-right">
+																			<div
+																				className={cn(
+																					"text-xl font-bold",
+																					subcatAccuracy >= 80
+																						? "text-green-600"
+																						: subcatAccuracy >= 60
+																							? "text-yellow-600"
+																							: "text-red-600",
+																				)}
+																			>
+																				{subcatAccuracy}%
+																			</div>
+																			<div className="text-xs text-gray-500">
+																				accuracy
+																			</div>
 																		</div>
 																	</div>
-																	<div className="text-right">
-																		<div
-																			className={cn(
-																				"text-xl font-bold",
-																				subcatAccuracy >= 80
-																					? "text-green-600"
-																					: subcatAccuracy >= 60
-																						? "text-yellow-600"
-																						: "text-red-600",
-																			)}
-																		>
-																			{subcatAccuracy}%
-																		</div>
-																		<div className="text-xs text-gray-500">
-																			accuracy
-																		</div>
-																	</div>
-																</div>
-															);
-														})}
+																);
+															},
+														)}
 													</div>
 												</div>
 											);

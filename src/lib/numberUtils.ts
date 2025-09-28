@@ -1,6 +1,6 @@
 /**
  * Shared utility functions for number formatting and manipulation
- * Used across GCSE Units components to maintain consistency and reduce duplication
+ * Used across Programming Fundamentals components to maintain consistency and reduce duplication
  */
 
 /**

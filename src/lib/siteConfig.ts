@@ -1,6 +1,6 @@
 import type { LevelInfo } from "@/lib/scoreManager";
 
-/** Configuration interface for GCSE CS practice sites */
+/** Configuration interface for Programming Fundamentals practice sites */
 export interface SiteConfig {
 	/** Unique site identifier for score tracking */
 	siteKey: string;

@@ -1,20 +1,21 @@
 
-# GCSE Units - Computer Science Practice
+# Programming Fundamentals
 
-A comprehensive practice application for GCSE Computer Science students to master unit conversions, file size calculations, and storage capacity problems. Built with modern React, TypeScript, and Tailwind CSS.
+An interactive learning platform for mastering core programming concepts including data types, programming constructs, and operators. Built with modern React, TypeScript, and Tailwind CSS to provide an engaging educational experience.
 
 ## 🎯 Features
 
-- **Unit Conversion Practice** - Convert between bytes, kilobytes, megabytes, gigabytes, and terabytes
-- **File Size Calculator** - Calculate image, sound, and text file sizes with detailed explanations  
-- **Capacity Calculator** - Determine storage requirements and file counts
-- **Progress Tracking** - Built-in scoring system with detailed analytics
-- **Responsive Design** - Works seamlessly on desktop, tablet, and mobile
-- **Educational Explanations** - Step-by-step breakdowns for every calculation
+- **Data Types Practice** - Identify and work with integers, floats, strings, and booleans
+- **Programming Constructs** - Master sequence, selection, and iteration patterns  
+- **Operators Quiz** - Practice arithmetic, comparison, and logical operators
+- **Champion Mode** - Advanced mixed challenges for experienced learners
+- **Progress Tracking** - Built-in scoring system with streaks and accuracy metrics
+- **Responsive Design** - Optimized for desktop, tablet, and mobile devices
+- **Educational Hints** - Contextual help and explanations for each concept
 
 ## 🚀 Live Demo
 
-Visit the live application: [GCSE Units Practice](https://gcseunits.netlify.app/)
+Visit the live application: [Programming Fundamentals](https://programming-fundamentals.netlify.app/)
 
 ## 🛠️ Technology Stack
 
@@ -27,111 +28,123 @@ Visit the live application: [GCSE Units Practice](https://gcseunits.netlify.app/
 
 ## 🎮 How to Use
 
-### Unit Converter
-Practice converting between different data units:
-- Enter a value and select source/target units
-- Get instant feedback with detailed conversion steps
-- Advanced mode includes decimal and complex conversions
+### Data Types Mode
+Practice identifying data types in code:
+- Analyze values and determine if they're integers, floats, strings, or booleans
+- Get instant feedback with explanations
+- Build understanding of fundamental data representations
 
-### File Size Calculator  
-Calculate storage requirements for digital files:
-- **Image Files:** Based on dimensions and color depth
-- **Sound Files:** Based on sample rate, bit depth, and duration
-- **Text Files:** Based on character count and encoding
+### Programming Constructs Mode  
+Master the three fundamental programming constructs:
+- **Sequence:** Understanding step-by-step execution
+- **Selection:** Working with if-else statements and conditions
+- **Iteration:** Recognizing loops and repetition patterns
 
-### Capacity Calculator
-Understand storage capacity relationships:
-- Calculate how many files fit on a storage device
-- Determine total storage needed for multiple files
-- Learn the relationship between file sizes and storage capacity
+### Operators Mode
+Practice different types of operators:
+- **Arithmetic:** Addition, subtraction, multiplication, division
+- **Comparison:** Equal to, greater than, less than operations  
+- **Logical:** AND, OR, NOT operations
+
+### Champion Mode
+Advanced mixed challenges combining all concepts:
+- Random questions from all categories
+- Higher difficulty level
+- Perfect for testing comprehensive understanding
 
 ## 🏁 Getting Started
 
 ### Prerequisites
-- Node.js 18+ and npm
+
+- Node.js 18+ and pnpm (recommended) or npm
 
 ### Installation
 
 ```bash
 # Clone the repository
-git clone https://github.com/domluther/GCSEUnits.git
-cd GCSEUnits
+git clone https://github.com/domluther/programming-fundamentals.git
+cd programming-fundamentals
 
 # Install dependencies
-npm install
+pnpm install
 
 # Start development server
-npm run dev
+pnpm run dev
 ```
-
-### Available Scripts
 
 ### Available Scripts
 
 ```bash
 # Development server
-npm run dev
+pnpm run dev
 
 # Production build
-npm run build
+pnpm run build
 
 # Preview production build
-npm run preview
+pnpm run preview
 
 # Run tests
-npm run test
-npm run test:run  # Run once
-npm run test:ui   # Test UI
+pnpm run test
+pnpm run test:run  # Run once
+pnpm run test:ui   # Test UI
 
 # Code quality
-npm run lint      # Check linting
-npm run format    # Format code
-npm run type-check # TypeScript checking
+pnpm run lint      # Check linting
+pnpm run format    # Format code
+pnpm run type-check # TypeScript checking
 ```
 
 ## 📚 Educational Value
 
-This application is designed specifically for GCSE Computer Science students and covers:
+This application helps students understand:
 
-- **Data Representation:** Understanding how different file types are stored
-- **Units and Calculations:** Converting between binary units (bytes, KB, MB, GB, TB) 
-- **Problem Solving:** Working through multi-step calculations with guidance
-- **Real-World Applications:** Understanding storage requirements for actual file types
+- **Data Types:** Distinguishing between different types of values in programming
+- **Program Structure:** How programs use sequence, selection, and iteration
+- **Operators:** Essential tools for mathematical and logical operations
+- **Problem Solving:** Building logical thinking skills through interactive practice
 
-## 🎓 GCSE Curriculum Alignment
-
-- **AQA Computer Science:** Unit 3.2 (Data Representation)
-- **OCR Computer Science:** J277 Component 1 (Data representation)
-- **Edexcel Computer Science:** Topic 4 (Data representation)
+Perfect for:
+- Computer Science students at any level
+- Self-learners exploring programming concepts
+- Educators looking for interactive teaching tools
+- Anyone wanting to solidify their programming fundamentals
 
 ## 🧪 Testing
 
 The application includes comprehensive test coverage for:
-- Question generation algorithms
-- Answer validation logic  
-- UI component interactions
+- Quiz question generation and validation
+- User interaction flows
 - Score tracking and persistence
+- Component rendering and state management
 
 Run tests with:
 ```bash
-npm run test        # Watch mode
-npm run test:run    # Single run
-npm run test:ui     # Interactive UI
+pnpm run test        # Watch mode
+pnpm run test:run    # Single run
+pnpm run test:ui     # Interactive UI
 ```
 
 ## 🏗️ Architecture
 
 ### Component Structure
-- **Route Components:** Individual calculator pages with shared layout
-- **Calculator Components:** Core logic for each practice mode
+- **Route Components:** Individual quiz pages with shared navigation
+- **Quiz Components:** Interactive question and answer logic
 - **Shared Components:** Reusable UI elements and layouts  
-- **Hooks & Utils:** Quiz logic, scoring, and mathematical utilities
+- **Hooks & Utils:** Quiz state management, scoring, and question data
 
 ### Key Files
-- `src/routes/` - Application pages (unit converter, file size, capacity)
+- `src/routes/` - Application pages (datatypes, constructs, operators, champion)
 - `src/components/` - Reusable React components  
-- `src/lib/` - Utility functions, configuration, and business logic
-- `src/contexts/` - React contexts (theme provider)
+- `src/lib/` - Business logic, configuration, and utility functions
+- `src/contexts/` - React contexts for theme management
+
+### Data Structure
+Questions are organized by category with:
+- Multiple question types (identification, code analysis, multiple choice)
+- Detailed explanations and hints
+- Difficulty progression within each mode
+- Comprehensive answer validation
 
 ## 🤝 Contributing
 
@@ -147,12 +160,12 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🙏 Acknowledgments
 
-- Built for GCSE Computer Science students and educators
-- Inspired by the need for interactive, educational calculation practice
-- Uses modern web technologies for optimal learning experience
+- Built for programming students and educators worldwide
+- Designed to make fundamental concepts accessible and engaging
+- Utilizes modern web technologies for optimal learning experience
 
 ---
 
-*For technical documentation and development guides, see the other markdown files in this repository.*
+*For questions or support, please open an issue on GitHub.*
 
 

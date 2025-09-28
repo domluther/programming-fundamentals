@@ -24,13 +24,13 @@ interface SiteNavigationProps {
 }
 
 /**
- * Reusable site navigation component for GCSE CS practice sites
+ * Reusable site navigation component for Programming Fundamentals practice sites
  * Uses shadcn/ui dropdown menu with responsive design
  */
 export function SiteNavigation({
 	menuItems,
 	currentSiteId,
-	title = "GCSE CS Tools",
+	title = "Programming Tools",
 	icon = "🎓",
 	compact = false,
 }: SiteNavigationProps) {

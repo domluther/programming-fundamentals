@@ -1,5 +1,5 @@
 /**
- * Shared quiz interaction hooks for GCSE Units components
+ * Shared quiz interaction hooks for Programming Fundamentals components
  * Consolidates common form handling, answer checking, and submission logic
  */
 

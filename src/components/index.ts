@@ -1,5 +1,5 @@
 /**
- * GCSE CS Reusable Component Library
+ * Programming Fundamentals Component Library
  * Export all reusable components for easy importing
  */
 
@@ -18,8 +18,6 @@ export { SharedLayout, useSharedLayout } from "./SharedLayout";
 export { SiteLayout } from "./SiteLayout";
 // Quiz Components
 export { QuizComponent } from "./QuizComponent";
-export { QuizLayout } from "./QuizLayout";
-export { QuizStats } from "./QuizStats";
 export { SiteNavigation } from "./SiteNavigation";
 // Modal Components
 export { StatsModal } from "./StatsModal";
@@ -29,14 +27,13 @@ export { StatsModal } from "./StatsModal";
  *
  * import {
  *   SiteLayout,
- *   SimpleQuizBody,
+ *   SharedLayout,
+ *   QuizComponent,
  *   StatsModal,
  *   QuizButton,
  *   ScoreButton,
- *   HintPanel,
  *   Header,
  *   Footer,
- *   CapacityCalculator,
- *   FileSizeCalculator
+ *   SiteNavigation
  * } from "@/components";
  */

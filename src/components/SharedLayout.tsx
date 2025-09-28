@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
-import { ScoreButton, SiteLayout, StatsModal } from "@/components";
+import { ScoreButton } from "./ScoreButton";
+import { SiteLayout } from "./SiteLayout";
+import { StatsModal } from "./StatsModal";
 import { ScoreManager, type Mode } from "@/lib/scoreManager";
 import { SITE_CONFIG } from "@/lib/siteConfig";
 import { ModeMenu } from "./ModeMenu";
