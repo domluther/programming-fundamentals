@@ -58,8 +58,6 @@ export function StatsModal({
 		}
 	};
 
-	console.log(overallStats);
-
 	return (
 		<div
 			className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30 backdrop-blur-xs"
@@ -75,24 +73,23 @@ export function StatsModal({
 			tabIndex={-1}
 		>
 			<div
-				className="bg-indigo-50 rounded-lg shadow-xl max-w-xl w-full max-h-[80vh] overflow-hidden"
+				className="bg-white rounded-lg shadow-xl max-w-xl w-full max-h-[80vh] overflow-hidden"
 				onClick={(e) => e.stopPropagation()}
 				onKeyDown={(e) => e.stopPropagation()}
 				role="document"
 			>
 				{/* Header */}
-				<div className="flex items-center justify-between p-4 text-indigo-50 bg-header/80">
-					<p
+				<div className="flex items-center justify-between px-6 py-4 text-white bg-gradient-to-r from-gray-700 to-gray-900">
+					<h2
 						id={titleId}
-						className="flex items-center text-2xl font-bold gap-3"
+						className="flex items-center text-2xl font-bold gap-2"
 					>
-						<span>{headerIcon}</span>
-						{title}
-					</p>
+						{headerIcon} {title}
+					</h2>
 					<button
 						type="button"
 						onClick={onClose}
-						className="flex items-center justify-center w-8 h-8 text-2xl transition-colors text-indigo-50 hover:text-gray-200"
+						className="flex items-center justify-center w-8 h-8 text-2xl text-white transition-colors hover:text-gray-200"
 					>
 						<X className="w-6 h-6" />
 					</button>

@@ -30,7 +30,7 @@ interface SiteNavigationProps {
 export function SiteNavigation({
 	menuItems,
 	currentSiteId,
-	title = "Programming Tools",
+	title = "GCSE CS Tools",
 	icon = "🎓",
 	compact = false,
 }: SiteNavigationProps) {
