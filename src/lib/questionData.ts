@@ -52,7 +52,7 @@ export const QUIZ_MODES: Record<string, QuizMode> = {
 	},
 };
 
-const INDENT = "  ";
+const INDENT = "   "; // 3 spaces for indentation - used for consistency
 
 // Data Type Questions
 export const dataTypeQuestions: Record<string, DataTypeQuestion[]> = {
@@ -538,13 +538,13 @@ endswitch`,
 	{
 		code: `temperature = int(input("Enter temperature: "))
 if temperature < 0 then
-  print("Freezing")
+${INDENT}print("Freezing")
 elseif temperature < 20 then
-  print("Cold")
+${INDENT}print("Cold")
 elseif temperature < 30 then
-  print("Warm")
+${INDENT}print("Warm")
 else
-  print("Hot")
+${INDENT}print("Hot")
 endif`,
 		constructs: ["sequence", "selection"],
 		explanation:
@@ -554,9 +554,9 @@ endif`,
 		code: `name = input("Enter your name: ")
 age = int(input("Enter your age: "))
 if age >= 18 then
-  print("Welcome, " + name)
+${INDENT}print("Welcome, " + name)
 else
-  print("Sorry, too young")
+${INDENT}print("Sorry, too young")
 endif`,
 		constructs: ["sequence", "selection"],
 		explanation:
@@ -566,11 +566,11 @@ endif`,
 		code: `num1 = int(input("Enter first number: "))
 num2 = int(input("Enter second number: "))
 if num1 > num2 then
-  print("First number is larger")
+${INDENT}print("First number is larger")
 elseif num1 < num2 then
-  print("Second number is larger")
+${INDENT}print("Second number is larger")
 else
-  print("Numbers are equal")
+${INDENT}print("Numbers are equal")
 endif`,
 		constructs: ["sequence", "selection"],
 		explanation:
@@ -579,10 +579,10 @@ endif`,
 	{
 		code: `password = input("Enter password: ")
 if password == "secret123" then
-  print("Access granted")
-  print("Welcome!")
+${INDENT}print("Access granted")
+${INDENT}print("Welcome!")
 else
-  print("Access denied")
+${INDENT}print("Access denied")
 endif`,
 		constructs: ["sequence", "selection"],
 		explanation:
@@ -591,12 +591,12 @@ endif`,
 	{
 		code: `grade = int(input("Enter your grade: "))
 if grade >= 70 then
-  print("Well done!")
-  if grade >= 90 then
-    print("Excellent work!")
-  endif
+${INDENT}print("Well done!")
+${INDENT}if grade >= 90 then
+${INDENT}${INDENT}print("Excellent work!")
+${INDENT}endif
 else
-  print("Keep trying")
+${INDENT}print("Keep trying")
 endif`,
 		constructs: ["sequence", "selection"],
 		explanation:
@@ -606,17 +606,17 @@ endif`,
 		code: `day = input("Enter day of week: ")
 switch day
 case "Monday":
-  print("Start of work week")
+${INDENT}print("Start of work week")
 case "Tuesday":
-  print("Getting into the swing")
+${INDENT}print("Getting into the swing")
 case "Wednesday":
-  print("Hump day!")
+${INDENT}print("Hump day!")
 case "Thursday":
-  print("Almost Friday")
+${INDENT}print("Almost Friday")
 case "Friday":
-  print("Weekend is near!")
+${INDENT}print("Weekend is near!")
 default:
-  print("Weekend time!")
+${INDENT}print("Weekend time!")
 endswitch`,
 		constructs: ["sequence", "selection"],
 		explanation:
@@ -627,17 +627,17 @@ endswitch`,
 choice = input("Deposit or Withdraw? ")
 amount = float(input("Enter amount: "))
 if choice == "Deposit" then
-  balance = balance + amount
-  print("Deposited £" + str(amount))
+${INDENT}balance = balance + amount
+${INDENT}print("Deposited £" + str(amount))
 elseif choice == "Withdraw" then
-  if amount <= balance then
-    balance = balance - amount
-    print("Withdrew £" + str(amount))
-  else
-    print("Insufficient funds")
-  endif
+${INDENT}if amount <= balance then
+${INDENT}${INDENT}balance = balance - amount
+${INDENT}${INDENT}print("Withdrew £" + str(amount))
+${INDENT}else
+${INDENT}${INDENT}print("Insufficient funds")
+${INDENT}endif
 else
-  print("Invalid choice")
+${INDENT}print("Invalid choice")
 endif
 print("New balance: £" + str(balance))`,
 		constructs: ["sequence", "selection"],
@@ -647,17 +647,17 @@ print("New balance: £" + str(balance))`,
 	{
 		code: `year = int(input("Enter a year: "))
 if year MOD 4 == 0 then
-  if year MOD 100 == 0 then
-    if year MOD 400 == 0 then
+${INDENT}if year MOD 100 == 0 then
+${INDENT}${INDENT}if year MOD 400 == 0 then
 ${INDENT}${INDENT}${INDENT}print("Leap year")
-    else
+${INDENT}${INDENT}else
 ${INDENT}${INDENT}${INDENT}print("Not a leap year")
-    endif
-  else
-    print("Leap year")
-  endif
+${INDENT}${INDENT}endif
+${INDENT}else
+${INDENT}${INDENT}print("Leap year")
+${INDENT}endif
 else
-  print("Not a leap year")
+${INDENT}print("Not a leap year")
 endif`,
 		constructs: ["sequence", "selection"],
 		explanation:
@@ -668,7 +668,7 @@ endif`,
 	{
 		code: `total = 0
 for i = 1 to 3
-  total = total + i
+${INDENT}total = total + i
 next i
 print("Final: " + str(total))`,
 		constructs: ["sequence", "iteration"],
@@ -678,8 +678,8 @@ print("Final: " + str(total))`,
 	{
 		code: `count = 0
 while count < 5
-  print(count)
-  count = count + 1
+${INDENT}print(count)
+${INDENT}count = count + 1
 endwhile`,
 		constructs: ["sequence", "iteration"],
 		explanation:
@@ -687,7 +687,7 @@ endwhile`,
 	},
 	{
 		code: `do
-  password = input("Enter password: ")
+${INDENT}password = input("Enter password: ")
 until password == "letmein"
 print("Access granted")`,
 		constructs: ["sequence", "iteration"],
@@ -697,8 +697,8 @@ print("Access granted")`,
 	{
 		code: `x = 10
 while x > 0
-  print(x)
-  x = x - 2
+${INDENT}print(x)
+${INDENT}x = x - 2
 endwhile`,
 		constructs: ["sequence", "iteration"],
 		explanation:
@@ -707,8 +707,8 @@ endwhile`,
 	{
 		code: `sum = 0
 do
-  num = int(input("Enter number: "))
-  sum = sum + num
+${INDENT}num = int(input("Enter number: "))
+${INDENT}sum = sum + num
 until num == 0
 print("Total: " + str(sum))`,
 		constructs: ["sequence", "iteration"],
@@ -717,9 +717,9 @@ print("Total: " + str(sum))`,
 	},
 	{
 		code: `for i = 1 to 3
-  for j = 1 to 2
-    print("i=" + str(i) + ", j=" + str(j))
-  next j
+${INDENT}for j = 1 to 2
+${INDENT}${INDENT}print("i=" + str(i) + ", j=" + str(j))
+${INDENT}next j
 next i`,
 		constructs: ["sequence", "iteration"],
 		explanation:
@@ -728,8 +728,8 @@ next i`,
 	{
 		code: `count = 1
 do
-  print("Square: " + str(count * count))
-  count = count + 1
+${INDENT}print("Square: " + str(count * count))
+${INDENT}count = count + 1
 until count > 5`,
 		constructs: ["sequence", "iteration"],
 		explanation:
@@ -738,7 +738,7 @@ until count > 5`,
 	{
 		code: `total = 1
 for i = 1 to 4
-  total = total * i
+${INDENT}total = total * i
 next i
 print("Factorial is " + str(total))`,
 		constructs: ["sequence", "iteration"],
@@ -749,7 +749,7 @@ print("Factorial is " + str(total))`,
 		code: `number = int(input("Enter a number: "))
 sum = 0
 for i = 1 to number
-  sum = sum + i
+${INDENT}sum = sum + i
 next i
 print("Sum is " + str(sum))`,
 		constructs: ["sequence", "iteration"],
@@ -760,8 +760,8 @@ print("Sum is " + str(sum))`,
 		code: `count = 1
 total = 0
 while count <= 5
-  total = total + count
-  count = count + 1
+${INDENT}total = total + count
+${INDENT}count = count + 1
 endwhile
 print("Total: " + str(total))`,
 		constructs: ["sequence", "iteration"],
@@ -770,9 +770,9 @@ print("Total: " + str(total))`,
 	},
 	{
 		code: `for outer = 1 to 3
-  for inner = 1 to 2
-    print("Outer: " + str(outer) + ", Inner: " + str(inner))
-  next inner
+${INDENT}for inner = 1 to 2
+${INDENT}${INDENT}print("Outer: " + str(outer) + ", Inner: " + str(inner))
+${INDENT}next inner
 next outer`,
 		constructs: ["sequence", "iteration"],
 		explanation:
@@ -782,8 +782,8 @@ next outer`,
 		code: `items = ["apple", "banana", "orange", "grape"]
 count = 0
 while count < 4
-  print(str(count + 1) + ". " + items[count])
-  count = count + 1
+${INDENT}print(str(count + 1) + ". " + items[count])
+${INDENT}count = count + 1
 endwhile`,
 		constructs: ["sequence", "iteration"],
 		explanation:
@@ -792,7 +792,7 @@ endwhile`,
 	{
 		code: `name = "Programming"
 for i = 0 to len(name) - 1
-  print("Character " + str(i + 1) + ": " + name[i])
+${INDENT}print("Character " + str(i + 1) + ": " + name[i])
 next i`,
 		constructs: ["sequence", "iteration"],
 		explanation:
@@ -802,11 +802,11 @@ next i`,
 	// ALL THREE CONSTRUCTS (SEQUENCE + SELECTION + ITERATION)
 	{
 		code: `for i = 1 to 5
-  if i MOD 2 == 0 then
-    print("Even")
-  else
-    print("Odd")
-  endif
+${INDENT}if i MOD 2 == 0 then
+${INDENT}${INDENT}print("Even")
+${INDENT}else
+${INDENT}${INDENT}print("Odd")
+${INDENT}endif
 next i`,
 		constructs: ["sequence", "selection", "iteration"],
 		explanation:
@@ -815,11 +815,11 @@ next i`,
 	{
 		code: `marks = [85, 40, 67]
 for i = 0 to 2
-  if marks[i] >= 50 then
-    print("Pass")
-  else
-    print("Fail")
-  endif
+${INDENT}if marks[i] >= 50 then
+${INDENT}${INDENT}print("Pass")
+${INDENT}else
+${INDENT}${INDENT}print("Fail")
+${INDENT}endif
 next i`,
 		constructs: ["sequence", "selection", "iteration"],
 		explanation:
@@ -829,12 +829,12 @@ next i`,
 		code: `target = 20
 guess = 0
 do
-  guess = int(input("Guess the number: "))
-  if guess < target then
-    print("Too low")
-  elseif guess > target then
-    print("Too high")
-  endif
+${INDENT}guess = int(input("Guess the number: "))
+${INDENT}if guess < target then
+${INDENT}${INDENT}print("Too low")
+${INDENT}elseif guess > target then
+${INDENT}${INDENT}print("Too high")
+${INDENT}endif
 until guess == target
 print("Correct!")`,
 		constructs: ["sequence", "selection", "iteration"],
@@ -844,11 +844,11 @@ print("Correct!")`,
 	{
 		code: `numbers = [5, 12, 8, 3, 15]
 for i = 0 to 4
-  if numbers[i] > 10 then
-    print(str(numbers[i]) + " is large")
-  else
-    print(str(numbers[i]) + " is small")
-  endif
+${INDENT}if numbers[i] > 10 then
+${INDENT}${INDENT}print(str(numbers[i]) + " is large")
+${INDENT}else
+${INDENT}${INDENT}print(str(numbers[i]) + " is small")
+${INDENT}endif
 next i`,
 		constructs: ["sequence", "selection", "iteration"],
 		explanation:
@@ -858,14 +858,14 @@ next i`,
 		code: `score = 0
 attempts = 0
 do
-  attempts = attempts + 1
-  answer = int(input("What is 7 x 8? "))
-  if answer == 56 then
-    score = score + 1
-    print("Correct!")
-  else
-    print("Wrong, try again")
-  endif
+${INDENT}attempts = attempts + 1
+${INDENT}answer = int(input("What is 7 x 8? "))
+${INDENT}if answer == 56 then
+${INDENT}${INDENT}score = score + 1
+${INDENT}${INDENT}print("Correct!")
+${INDENT}else
+${INDENT}${INDENT}print("Wrong, try again")
+${INDENT}endif
 until answer == 56 OR attempts >= 3
 print("Final score: " + str(score))`,
 		constructs: ["sequence", "selection", "iteration"],
@@ -876,11 +876,11 @@ print("Final score: " + str(score))`,
 		code: `total = 0
 number = 1
 while number != 0
-  number = int(input("Enter number (0 to stop): "))
-  if number != 0 then
-    total = total + number
-    print("Running total: " + str(total))
-  endif
+${INDENT}number = int(input("Enter number (0 to stop): "))
+${INDENT}if number != 0 then
+${INDENT}${INDENT}total = total + number
+${INDENT}${INDENT}print("Running total: " + str(total))
+${INDENT}endif
 endwhile
 print("Final total: " + str(total))`,
 		constructs: ["sequence", "selection", "iteration"],
