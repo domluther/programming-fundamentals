@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { Header } from "@/components/Header";
+import { Header } from "./Header";
 
 interface SiteLayoutProps {
 	/** The main content area of the quiz */

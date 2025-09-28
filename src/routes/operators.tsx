@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { QuizComponent } from "@/components";
-import { SharedLayout } from "@/components/SharedLayout";
+import { QuizComponent, SharedLayout } from "@/components";
 
 export const Route = createFileRoute("/operators")({
 	component: OperatorsQuiz,

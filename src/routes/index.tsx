@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { SharedLayout } from "@/components/SharedLayout";
+import { SharedLayout } from "@/components";
 import { Card } from "@/components/ui/card";
 import { QUIZ_MODES } from "@/lib/questionData";
 

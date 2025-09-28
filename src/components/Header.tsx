@@ -1,9 +1,9 @@
 import type { ReactNode } from "react";
-import { SiteNavigation } from "@/components/SiteNavigation";
 import {
 	detectCurrentSite,
 	GCSE_NAVIGATION_MENU,
 } from "@/lib/navigationConfig";
+import { SiteNavigation } from "./SiteNavigation";
 
 interface HeaderProps {
 	scoreButton?: ReactNode;
