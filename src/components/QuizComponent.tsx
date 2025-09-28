@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useId, useRef, useState } from "react";
+import type { ReactElement } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -31,7 +32,7 @@ export function QuizComponent({
 	const [userAnswer, setUserAnswer] = useState("");
 	const [showFeedback, setShowFeedback] = useState(false);
 	const [isCorrect, setIsCorrect] = useState(false);
-	const [feedback, setFeedback] = useState("");
+	const [feedback, setFeedback] = useState<string | ReactElement>("");
 	const [stats, setStats] = useState({
 		streak: 0,
 		currentQuestionType: "",
@@ -190,35 +191,13 @@ export function QuizComponent({
 
 		setIsCorrect(correct);
 		setShowFeedback(true);
-			const capitalisedExplanation = currentQuestion.explanation 
-				? currentQuestion.explanation.charAt(0).toUpperCase() + currentQuestion.explanation.slice(1) + '.'
-				: "";
-		// Update the streak locally
+		const generatedFeedback = generateFeedback(correct, actualMode, currentQuestion);
+		setFeedback(generatedFeedback);
+
+		// Update the streak
 		if (correct) {
-			setFeedback(`✅ Correct! ${capitalisedExplanation}`);
 			setStats((prev) => ({ ...prev, streak: prev.streak + 1 }));
 		} else {
-			// Generate proper feedback based on question type
-			let correctAnswerFeedback = "";
-
-			if (actualMode === "Data Types") {
-				const correctType = currentQuestion.type as
-					| "character"
-					| "string"
-					| "integer"
-					| "float"
-					| "boolean";
-				const article = correctType === "integer" ? "an" : "a";
-				correctAnswerFeedback = `No, this is ${article} ${correctType === 'boolean' ? "Boolean" : correctType} because ${currentQuestion.explanation}.`;
-			} else if (actualMode === "Constructs") {
-				const expectedConstructs = currentQuestion.constructs;
-				const constructList = expectedConstructs.join(", ");
-				correctAnswerFeedback = `No, this code uses: ${constructList}. ${capitalisedExplanation}`;
-			} else if (actualMode === "Operators") {
-				correctAnswerFeedback = `No, the answer is ${currentQuestion.answer}. ${capitalisedExplanation}`;
-			}
-
-			setFeedback(`❌ ${correctAnswerFeedback}`);
 			setStats((prev) => ({ ...prev, streak: 0 }));
 		}
 
@@ -232,6 +211,54 @@ export function QuizComponent({
 		onScoreUpdate,
 		stats.currentQuestionType,
 	]);
+
+	const generateFeedback = (correct: boolean, mode: Mode, question: any) => {
+		const capitalisedExplanation = question.explanation 
+				? question.explanation.charAt(0).toUpperCase() + question.explanation.slice(1) + '.'
+				: "";
+		
+		if (correct) {
+			return (
+				<span>
+					✅ Correct! {capitalisedExplanation}
+				</span>
+			);
+		}
+
+		// Generate proper feedback based on question type
+		if (mode === "Data Types") {
+			const correctType = question.type as
+				| "character"
+				| "string"
+				| "integer"
+				| "float"
+				| "boolean";
+			const article = correctType === "integer" ? "an" : "a";
+			return (
+				<span>
+					❌ No, this is {article} <strong>{correctType === 'boolean' ? "Boolean" : correctType}</strong> because {question.explanation}.
+				</span>
+			);
+		} else if (mode === "Constructs") {
+			const expectedConstructs = question.constructs;
+			const constructList = expectedConstructs.join(", ");
+			return (
+				<span>
+					❌ No, this code uses: <strong>{constructList}</strong>.<br />
+					{capitalisedExplanation}
+				</span>
+			);
+		} else if (mode === "Operators") {
+			return (
+				<span>
+					❌ No, the answer is <strong>{question.answer}</strong>.<br />
+					{capitalisedExplanation}
+				</span>
+			);
+		}
+		
+		return "❌ Unable to generate feedback.";
+	}
 
 	// Handle next question (either from feedback or Enter key)
 	const handleNext = useCallback(() => {
