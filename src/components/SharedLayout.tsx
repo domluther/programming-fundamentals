@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import { type Mode, ScoreManager } from "@/lib/scoreManager";
+import { SITE_CONFIG } from "@/lib/siteConfig";
+import { ModeMenu } from "./ModeMenu";
 import { ScoreButton } from "./ScoreButton";
 import { SiteLayout } from "./SiteLayout";
 import { StatsModal } from "./StatsModal";
-import { ScoreManager, type Mode } from "@/lib/scoreManager";
-import { SITE_CONFIG } from "@/lib/siteConfig";
-import { ModeMenu } from "./ModeMenu";
 
 interface SharedLayoutProps {
 	mode?: Mode;

@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { SharedLayout } from "@/components/SharedLayout";
 import { QuizComponent } from "@/components";
+import { SharedLayout } from "@/components/SharedLayout";
 
 export const Route = createFileRoute("/champion")({
 	component: ChampionQuiz,

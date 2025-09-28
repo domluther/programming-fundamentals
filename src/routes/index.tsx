@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Card } from "@/components/ui/card";
 import { SharedLayout } from "@/components/SharedLayout";
+import { Card } from "@/components/ui/card";
 import { QUIZ_MODES } from "@/lib/questionData";
 
 export const Route = createFileRoute("/")({
@@ -8,6 +8,21 @@ export const Route = createFileRoute("/")({
 });
 
 function IndexPage() {
+	const getRoutePath = (modeId: string): string => {
+		switch (modeId) {
+			case "Data Types":
+				return "/datatypes";
+			case "Constructs":
+				return "/constructs";
+			case "Operators":
+				return "/operators";
+			case "Champion":
+				return "/champion";
+			default:
+				return "/";
+		}
+	};
+
 	return (
 		<SharedLayout>
 			{() => (
@@ -27,7 +42,7 @@ function IndexPage() {
 								key={mode.id}
 								className="p-6 hover:shadow-lg transition-shadow cursor-pointer"
 							>
-								<Link to={`/${mode.id}` as any} className="block h-full">
+								<Link to={getRoutePath(mode.id)} className="block h-full">
 									<div className="text-center">
 										<div className="text-6xl mb-4">{mode.emoji}</div>
 										<h3 className="text-2xl font-bold mb-2 text-indigo-600">

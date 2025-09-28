@@ -1,11 +1,11 @@
-import { useState, useEffect, useCallback, useRef } from "react";
-import { Card } from "@/components/ui/card";
+import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
 import {
-	dataTypeQuestions,
 	constructQuestions,
+	dataTypeQuestions,
 	operatorQuestions,
 } from "@/lib/questionData";
 import type { Mode, ScoreManager } from "@/lib/scoreManager";
@@ -23,6 +23,10 @@ export function QuizComponent({
 	scoreManager,
 }: QuizComponentProps) {
 	const inputRef = useRef<HTMLInputElement>(null);
+	const sequenceId = useId();
+	const selectionId = useId();
+	const iterationId = useId();
+	// TODO: Create proper union type with type guards for Champion mode questions
 	const [currentQuestion, setCurrentQuestion] = useState<any>(null);
 	const [userAnswer, setUserAnswer] = useState("");
 	const [showFeedback, setShowFeedback] = useState(false);
@@ -51,11 +55,11 @@ export function QuizComponent({
 
 	// Generate a random question based on the current mode
 	const generateQuestion = useCallback(() => {
-		let question;
+		let question: any;
 		let questionType = "";
 
 		switch (mode) {
-			case "Data Types":
+			case "Data Types": {
 				const categories = Object.keys(dataTypeQuestions);
 				const randomCategory =
 					categories[Math.floor(Math.random() * categories.length)];
@@ -63,6 +67,7 @@ export function QuizComponent({
 				question = questions[Math.floor(Math.random() * questions.length)];
 				questionType = `Data Types-${randomCategory}`;
 				break;
+			}
 
 			case "Constructs":
 				question =
@@ -80,7 +85,7 @@ export function QuizComponent({
 				questionType = `Operators-${question.category}`;
 				break;
 
-			case "Champion":
+			case "Champion": {
 				// Mix of all question types
 				const dataTypeQuestionsWithCategory = [];
 				for (const [category, questions] of Object.entries(dataTypeQuestions)) {
@@ -111,6 +116,7 @@ export function QuizComponent({
 					allQuestions[Math.floor(Math.random() * allQuestions.length)];
 				questionType = `${question.sourceMode}-${question.category}`;
 				break;
+			}
 
 			default:
 				question = null;
@@ -291,7 +297,7 @@ export function QuizComponent({
 		const actualMode = currentQuestion?.sourceMode || mode;
 
 		if (mode === "Champion") {
-			return <></>;
+			return null;
 		}
 
 		if (actualMode === "Data Types") {
@@ -450,9 +456,12 @@ export function QuizComponent({
 						// Checkbox input for constructs
 						<div className="mb-4">
 							<div className="flex flex-wrap justify-center gap-3 sm:gap-4 mb-4">
-								<label className="flex items-center space-x-3 cursor-pointer p-3 border-2 border-gray-200 rounded-lg hover:border-blue-300 hover:bg-blue-50 transition-colors duration-200 min-w-[120px] justify-center">
+								<label
+									htmlFor={sequenceId}
+									className="flex items-center space-x-3 cursor-pointer p-3 border-2 border-gray-200 rounded-lg hover:border-blue-300 hover:bg-blue-50 transition-colors duration-200 min-w-[120px] justify-center"
+								>
 									<Checkbox
-										id="sequence"
+										id={sequenceId}
 										checked={constructsChecked.sequence}
 										onCheckedChange={(checked) =>
 											setConstructsChecked((prev) => ({
@@ -470,9 +479,12 @@ export function QuizComponent({
 									</span>
 								</label>
 
-								<label className="flex items-center space-x-3 cursor-pointer p-3 border-2 border-gray-200 rounded-lg hover:border-blue-300 hover:bg-blue-50 transition-colors duration-200 min-w-[120px] justify-center">
+								<label
+									htmlFor={selectionId}
+									className="flex items-center space-x-3 cursor-pointer p-3 border-2 border-gray-200 rounded-lg hover:border-blue-300 hover:bg-blue-50 transition-colors duration-200 min-w-[120px] justify-center"
+								>
 									<Checkbox
-										id="selection"
+										id={selectionId}
 										checked={constructsChecked.selection}
 										onCheckedChange={(checked) =>
 											setConstructsChecked((prev) => ({
@@ -490,9 +502,12 @@ export function QuizComponent({
 									</span>
 								</label>
 
-								<label className="flex items-center space-x-3 cursor-pointer p-3 border-2 border-gray-200 rounded-lg hover:border-blue-300 hover:bg-blue-50 transition-colors duration-200 min-w-[120px] justify-center">
+								<label
+									htmlFor={iterationId}
+									className="flex items-center space-x-3 cursor-pointer p-3 border-2 border-gray-200 rounded-lg hover:border-blue-300 hover:bg-blue-50 transition-colors duration-200 min-w-[120px] justify-center"
+								>
 									<Checkbox
-										id="iteration"
+										id={iterationId}
 										checked={constructsChecked.iteration}
 										onCheckedChange={(checked) =>
 											setConstructsChecked((prev) => ({

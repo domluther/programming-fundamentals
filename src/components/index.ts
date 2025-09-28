@@ -11,13 +11,13 @@ export type {
 	QuizButtonVariant,
 } from "./QuizButton";
 export { QuizButton } from "./QuizButton";
+// Quiz Components
+export { QuizComponent } from "./QuizComponent";
 // Utility Components
 export { ScoreButton } from "./ScoreButton";
 export { SharedLayout, useSharedLayout } from "./SharedLayout";
 // Layout Components
 export { SiteLayout } from "./SiteLayout";
-// Quiz Components
-export { QuizComponent } from "./QuizComponent";
 export { SiteNavigation } from "./SiteNavigation";
 // Modal Components
 export { StatsModal } from "./StatsModal";

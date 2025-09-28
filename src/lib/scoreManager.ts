@@ -237,7 +237,7 @@ export class ScoreManager {
 	): void {
 		if (mode === "Champion") {
 			// In champion mode, the questionType is already in the format "Data Types-character", "Constructs-sequence", etc.
-			const championStats = this.scores["Champion"];
+			const championStats = this.scores.Champion;
 			const actualMode = questionType.split("-")[0] as
 				| "Data Types"
 				| "Constructs"
@@ -253,7 +253,7 @@ export class ScoreManager {
 			}
 
 			// Track in original mode's detailed stats using the full questionType
-			let categoryKey = this.extractCategoryKey(questionType, actualMode);
+			const categoryKey = this.extractCategoryKey(questionType, actualMode);
 
 			if (categoryKey && originalModeStats.detailed[categoryKey]) {
 				originalModeStats.detailed[categoryKey].attempts++;
@@ -264,7 +264,7 @@ export class ScoreManager {
 		} else {
 			// Regular mode tracking
 			const currentStats = this.scores[mode];
-			let categoryKey = this.extractCategoryKey(questionType, mode);
+			const categoryKey = this.extractCategoryKey(questionType, mode);
 
 			if (categoryKey && currentStats.detailed[categoryKey]) {
 				currentStats.detailed[categoryKey].attempts++;
