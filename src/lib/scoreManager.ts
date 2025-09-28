@@ -18,6 +18,7 @@ export interface ScoreData {
 	}>;
 }
 
+// TODO - This will need updating to the new format
 const blankScoreData = {
 	attempts: 0,
 	correct: 0,
