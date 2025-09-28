@@ -1,3 +1,4 @@
 dist
 node_modules
 .tanstack
+dist/index.html

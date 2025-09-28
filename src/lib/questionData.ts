@@ -26,26 +26,26 @@ export interface QuizMode {
 }
 
 export const QUIZ_MODES: Record<string, QuizMode> = {
-  datatypes: {
-    id: 'datatypes',
+  'Data Types': {
+    id: 'Data Types',
     title: 'Data Types',
     description: 'Identify the data type of each value',
     emoji: '📝'
   },
-  constructs: {
-    id: 'constructs',
+  Constructs: {
+    id: 'Constructs',
     title: 'Constructs',
     description: 'Identify programming constructs in code',
     emoji: '🏗️'
   },
-  operators: {
-    id: 'operators',
+  Operators: {
+    id: 'Operators',
     title: 'Operators',
     description: 'Solve operator expressions and comparisons',
     emoji: '🔢'
   },
-  champion: {
-    id: 'champion',
+  Champion: {
+    id: 'Champion',
     title: 'Champion',
     description: 'Mixed questions from all categories',
     emoji: '🏆'

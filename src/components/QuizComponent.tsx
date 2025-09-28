@@ -41,28 +41,28 @@ export function QuizComponent({ mode, onScoreUpdate }: QuizComponentProps) {
         const randomCategory = categories[Math.floor(Math.random() * categories.length)];
         const questions = dataTypeQuestions[randomCategory];
         question = questions[Math.floor(Math.random() * questions.length)];
-        questionType = `datatypes-${randomCategory}`;
+        questionType = `Data Types-${randomCategory}`;
         break;
         
       case 'Constructs':
         question = constructQuestions[Math.floor(Math.random() * constructQuestions.length)];
-        questionType = `constructs-${question.constructs.join('-')}`;
+        questionType = `Constructs-${question.constructs.join('-')}`;
         break;
         
       case 'Operators':
         question = operatorQuestions[Math.floor(Math.random() * operatorQuestions.length)];
-        questionType = `operators-${question.category}`;
+        questionType = `Operators-${question.category}`;
         break;
         
       case 'Champion':
         // Mix of all question types
         const allQuestions = [
-          ...Object.values(dataTypeQuestions).flat().map(q => ({ ...q, sourceMode: 'datatypes' })),
-          ...constructQuestions.map(q => ({ ...q, sourceMode: 'constructs' })),
-          ...operatorQuestions.map(q => ({ ...q, sourceMode: 'operators' }))
+          ...Object.values(dataTypeQuestions).flat().map(q => ({ ...q, sourceMode: 'Data Types' })),
+          ...constructQuestions.map(q => ({ ...q, sourceMode: 'Constructs' })),
+          ...operatorQuestions.map(q => ({ ...q, sourceMode: 'Operators' }))
         ];
         question = allQuestions[Math.floor(Math.random() * allQuestions.length)];
-        questionType = `champion-${question.sourceMode}`;
+        questionType = `Champion-${question.sourceMode}`;
         break;
         
       default:
@@ -103,11 +103,11 @@ export function QuizComponent({ mode, onScoreUpdate }: QuizComponentProps) {
     let correct = false;
     
     // Determine the actual mode for checking (important for champion mode)
-    const actualMode = currentQuestion.sourceMode || mode;
+    const actualMode: Mode = currentQuestion.sourceMode || mode;
     
     if (actualMode === 'Data Types') {
       correct = userAnswer.toLowerCase() === currentQuestion.type.toLowerCase();
-    } else if (actualMode === 'constructs') {
+    } else if (actualMode === 'Constructs') {
       // For constructs, check if selected checkboxes match expected constructs
       const selectedConstructs = Object.entries(constructsChecked)
         .filter(([_, checked]) => checked)
@@ -116,7 +116,7 @@ export function QuizComponent({ mode, onScoreUpdate }: QuizComponentProps) {
       
       correct = selectedConstructs.length === expectedConstructs.length &&
                 selectedConstructs.every(construct => expectedConstructs.includes(construct));
-    } else if (actualMode === 'operators') {
+    } else if (actualMode === 'Operators') {
       correct = userAnswer.trim() === currentQuestion.answer;
     }
 
@@ -131,7 +131,7 @@ export function QuizComponent({ mode, onScoreUpdate }: QuizComponentProps) {
       // Generate proper feedback based on question type
       let correctAnswerFeedback = '';
       
-      if (actualMode === 'datatypes') {
+      if (actualMode === 'Data Types') {
         const correctType = currentQuestion.type as 'character' | 'string' | 'integer' | 'float' | 'boolean';
         const typeExplanations = {
           character: "it's a single character in quotes",
@@ -142,11 +142,11 @@ export function QuizComponent({ mode, onScoreUpdate }: QuizComponentProps) {
         };
         const article = correctType === 'integer' ? 'an' : 'a';
         correctAnswerFeedback = `No, this is ${article} ${correctType} because ${typeExplanations[correctType]}.`;
-      } else if (actualMode === 'constructs') {
+      } else if (actualMode === 'Constructs') {
         const expectedConstructs = currentQuestion.constructs;
         const constructList = expectedConstructs.join(', ');
         correctAnswerFeedback = `No, this code uses: ${constructList}. ${currentQuestion.explanation}`;
-      } else if (actualMode === 'operators') {
+      } else if (actualMode === 'Operators') {
         correctAnswerFeedback = `No, the answer is ${currentQuestion.answer}. ${currentQuestion.explanation}`;
       }
       
@@ -220,7 +220,7 @@ export function QuizComponent({ mode, onScoreUpdate }: QuizComponentProps) {
       );
     }
     
-    if (actualMode === 'constructs') {
+    if (actualMode === 'Constructs') {
       return (
         <div className="text-sm space-y-1">
           <p><strong>Sequence:</strong> Instructions executed in order</p>
@@ -231,7 +231,7 @@ export function QuizComponent({ mode, onScoreUpdate }: QuizComponentProps) {
       );
     }
     
-    if (actualMode === 'operators') {
+    if (actualMode === 'Operators') {
       return (
         <div className="text-sm space-y-1">
           <p>Remember order of operations: Brackets, Powers, Multiply/Divide, Add/Subtract</p>

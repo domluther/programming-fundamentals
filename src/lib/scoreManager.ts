@@ -78,9 +78,9 @@ const blankScoreData: ScoreData = {
 		streak: 0,
 		recordStreak: 0,
 		detailed: {
-			datatypes: { correct: 0, attempts: 0 },
-			constructs: { correct: 0, attempts: 0 },
-			operators: { correct: 0, attempts: 0 }
+			'Data Types': { correct: 0, attempts: 0 },
+			Constructs: { correct: 0, attempts: 0 },
+			Operators: { correct: 0, attempts: 0 }
 		}
 	}
 };
@@ -221,7 +221,7 @@ export class ScoreManager {
 		// In champion mode, also update the original mode's main stats
 		let originalModeStats = null;
 		if (modeToUse === 'Champion') {
-			// Extract the actual mode from questionType (e.g., "datatypes-character" -> "datatypes")
+			// Extract the actual mode from questionType (e.g., "Data Types-character" -> "Data Types")
 			const actualMode = questionType.split('-')[0] as 'Data Types' | 'Constructs' | 'Operators';
 			originalModeStats = this.scores[actualMode];
 			originalModeStats.attempts++;
@@ -299,10 +299,10 @@ export class ScoreManager {
 		const parts = questionType.split('-');
 		
 		if (mode === 'Data Types') {
-			// For datatypes, the category is the second part (e.g., "datatypes-character" -> "character")
+			// For Data Types, the category is the second part (e.g., "Data Types-character" -> "character")
 			return parts[1] || '';
 		} else if (mode === 'Constructs') {
-			// For constructs, build the category from construct combinations
+			// For Constructs, build the category from construct combinations
 			if (parts.length > 1) {
 				const constructs = parts.slice(1).sort();
 				if (constructs.length === 1) {
@@ -410,7 +410,7 @@ export class ScoreManager {
 
 		// For the new structure, we'll return mode-based stats
 		Object.entries(this.scores).forEach(([mode, stats]) => {
-			const modeTitle = this.getModeTitle(mode as 'datatypes' | 'constructs' | 'operators' | 'champion');
+			const modeTitle = this.getModeTitle(mode as Mode);
 			typeStats[modeTitle] = {
 				attempts: stats.totalQuestions,
 				correct: stats.correctAnswers,
@@ -421,12 +421,12 @@ export class ScoreManager {
 		return typeStats;
 	}
 
-	private getModeTitle(mode: 'datatypes' | 'constructs' | 'operators' | 'champion'): string {
+	private getModeTitle(mode: Mode): string {
 		const titles = {
-			datatypes: 'Data Types',
-			constructs: 'Constructs', 
-			operators: 'Operators',
-			champion: 'Champion'
+			'Data Types': 'Data Types',
+			Constructs: 'Constructs', 
+			Operators: 'Operators',
+			Champion: 'Champion'
 		};
 		return titles[mode];
 	}

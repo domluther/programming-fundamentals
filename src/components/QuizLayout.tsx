@@ -4,9 +4,10 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { QUIZ_MODES, dataTypeQuestions, constructQuestions, operatorQuestions } from '@/lib/questionData';
 import { QuizStats } from '@/components/QuizStats';
+import type { Mode } from '@/lib/scoreManager';
 
 interface QuizLayoutProps {
-  mode: 'datatypes' | 'constructs' | 'operators' | 'champion';
+  mode: Mode;
   title: string;
   description: string;
 }
@@ -31,22 +32,22 @@ export function QuizLayout({ mode, title, description }: QuizLayoutProps) {
     let question;
     
     switch (mode) {
-      case 'datatypes':
+      case 'Data Types':
         const categories = Object.keys(dataTypeQuestions);
         const randomCategory = categories[Math.floor(Math.random() * categories.length)];
         const questions = dataTypeQuestions[randomCategory];
         question = questions[Math.floor(Math.random() * questions.length)];
         break;
         
-      case 'constructs':
+      case 'Constructs':
         question = constructQuestions[Math.floor(Math.random() * constructQuestions.length)];
         break;
         
-      case 'operators':
+      case 'Operators':
         question = operatorQuestions[Math.floor(Math.random() * operatorQuestions.length)];
         break;
         
-      case 'champion':
+      case 'Champion':
         // Mix of all question types
         const allQuestions = [
           ...Object.values(dataTypeQuestions).flat(),
@@ -72,14 +73,14 @@ export function QuizLayout({ mode, title, description }: QuizLayoutProps) {
 
     let correct = false;
     
-    if (mode === 'datatypes') {
+    if (mode === 'Data Types') {
       correct = userAnswer.toLowerCase() === currentQuestion.type.toLowerCase();
-    } else if (mode === 'constructs') {
+    } else if (mode === 'Constructs') {
       // For constructs, check if answer matches any of the constructs
       const userAnswers = userAnswer.toLowerCase().split(',').map((s: string) => s.trim());
       const expectedConstructs = currentQuestion.constructs.map((c: string) => c.toLowerCase());
       correct = userAnswers.sort().join(',') === expectedConstructs.sort().join(',');
-    } else if (mode === 'operators') {
+    } else if (mode === 'Operators') {
       correct = userAnswer.trim() === currentQuestion.answer;
     }
 
@@ -162,7 +163,7 @@ export function QuizLayout({ mode, title, description }: QuizLayoutProps) {
         {showHints && (
           <Card className="mb-6 p-4 bg-yellow-50 border-yellow-200">
             <h3 className="font-semibold mb-2">💡 Hints for {title}:</h3>
-            {mode === 'datatypes' && (
+            {mode === 'Data Types' && (
               <div>
                 <p><strong>Character:</strong> Single character in quotes like 'a' or '5'</p>
                 <p><strong>String:</strong> Text in quotes like "hello" or 'world'</p>
@@ -171,7 +172,7 @@ export function QuizLayout({ mode, title, description }: QuizLayoutProps) {
                 <p><strong>Boolean:</strong> True or False (without quotes)</p>
               </div>
             )}
-            {mode === 'constructs' && (
+            {mode === 'Constructs' && (
               <div>
                 <p><strong>Sequence:</strong> Instructions executed in order</p>
                 <p><strong>Selection:</strong> if-else statements or switch cases</p>
@@ -179,7 +180,7 @@ export function QuizLayout({ mode, title, description }: QuizLayoutProps) {
                 <p>Answer with comma-separated values like: sequence, selection</p>
               </div>
             )}
-            {mode === 'operators' && (
+            {mode === 'Operators' && (
               <div>
                 <p>Remember order of operations: Brackets, Powers, Multiply/Divide, Add/Subtract</p>
                 <p><strong>DIV:</strong> Integer division (ignores remainder)</p>
@@ -194,7 +195,7 @@ export function QuizLayout({ mode, title, description }: QuizLayoutProps) {
         {currentQuestion && (
           <Card className="mb-6 p-6 bg-white shadow-lg">
             <div className="text-center mb-4">
-              {mode === 'datatypes' && (
+              {mode === 'Data Types' && (
                 <div>
                   <p className="text-lg mb-2">What data type is this value?</p>
                   <div className="text-3xl font-mono bg-gray-100 p-4 rounded-lg mb-4">
@@ -203,7 +204,7 @@ export function QuizLayout({ mode, title, description }: QuizLayoutProps) {
                 </div>
               )}
               
-              {mode === 'constructs' && (
+              {mode === 'Constructs' && (
                 <div>
                   <p className="text-lg mb-2">Which programming constructs are used in this code?</p>
                   <pre className="text-left bg-gray-100 p-4 rounded-lg mb-4 overflow-x-auto">
@@ -212,7 +213,7 @@ export function QuizLayout({ mode, title, description }: QuizLayoutProps) {
                 </div>
               )}
               
-              {mode === 'operators' && (
+              {mode === 'Operators' && (
                 <div>
                   <p className="text-lg mb-2">What is the result of this expression?</p>
                   <pre className="text-left bg-gray-100 p-4 rounded-lg mb-4 overflow-x-auto">
