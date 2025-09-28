@@ -190,10 +190,12 @@ export function QuizComponent({
 
 		setIsCorrect(correct);
 		setShowFeedback(true);
-
+			const capitalisedExplanation = currentQuestion.explanation 
+				? currentQuestion.explanation.charAt(0).toUpperCase() + currentQuestion.explanation.slice(1) + '.'
+				: "";
 		// Update the streak locally
 		if (correct) {
-			setFeedback(`✅ Correct! ${currentQuestion.explanation || ""}`);
+			setFeedback(`✅ Correct! ${capitalisedExplanation}`);
 			setStats((prev) => ({ ...prev, streak: prev.streak + 1 }));
 		} else {
 			// Generate proper feedback based on question type
@@ -206,21 +208,14 @@ export function QuizComponent({
 					| "integer"
 					| "float"
 					| "boolean";
-				const typeExplanations = {
-					character: "it's a single character in quotes",
-					string: "it's text (multiple characters) in quotes",
-					integer: "it's a whole number without quotes",
-					float: "it's a decimal number",
-					boolean: "it's either True or False (without quotes)",
-				};
 				const article = correctType === "integer" ? "an" : "a";
-				correctAnswerFeedback = `No, this is ${article} ${correctType} because ${typeExplanations[correctType]}.`;
+				correctAnswerFeedback = `No, this is ${article} ${correctType === 'boolean' ? "Boolean" : correctType} because ${currentQuestion.explanation}.`;
 			} else if (actualMode === "Constructs") {
 				const expectedConstructs = currentQuestion.constructs;
 				const constructList = expectedConstructs.join(", ");
-				correctAnswerFeedback = `No, this code uses: ${constructList}. ${currentQuestion.explanation}`;
+				correctAnswerFeedback = `No, this code uses: ${constructList}. ${capitalisedExplanation}`;
 			} else if (actualMode === "Operators") {
-				correctAnswerFeedback = `No, the answer is ${currentQuestion.answer}. ${currentQuestion.explanation}`;
+				correctAnswerFeedback = `No, the answer is ${currentQuestion.answer}. ${capitalisedExplanation}`;
 			}
 
 			setFeedback(`❌ ${correctAnswerFeedback}`);
@@ -302,63 +297,103 @@ export function QuizComponent({
 
 		if (actualMode === "Data Types") {
 			return (
-				<div className="text-sm space-y-1">
-					<p>
-						<strong>Character:</strong> Single character in quotes like 'a' or
-						'5'
-					</p>
-					<p>
-						<strong>String:</strong> Text in quotes like "hello" or 'world'
-					</p>
-					<p>
-						<strong>Integer:</strong> Whole numbers like 42 or -15
-					</p>
-					<p>
-						<strong>Float:</strong> Decimal numbers like 3.14 or -2.5
-					</p>
-					<p>
-						<strong>Boolean:</strong> True or False (without quotes)
-					</p>
+				<div className="space-y-3">
+					<div className="bg-white p-3 rounded-lg border-l-4 border-blue-500 shadow-sm">
+						<div className="font-bold text-blue-600 mb-1">Character</div>
+						<div className="text-gray-600 mb-2">A single letter, number or symbol</div>
+						<div className="font-mono text-sm bg-gray-50 px-2 py-1 rounded text-gray-700">
+							'a', '!', '2', ' '
+						</div>
+					</div>
+					<div className="bg-white p-3 rounded-lg border-l-4 border-blue-500 shadow-sm">
+						<div className="font-bold text-blue-600 mb-1">String</div>
+						<div className="text-gray-600 mb-2">A collection of characters</div>
+						<div className="font-mono text-sm bg-gray-50 px-2 py-1 rounded text-gray-700">
+							'hello', "panda1", ":D"
+						</div>
+					</div>
+					<div className="bg-white p-3 rounded-lg border-l-4 border-blue-500 shadow-sm">
+						<div className="font-bold text-blue-600 mb-1">Integer</div>
+						<div className="text-gray-600 mb-2">A whole number</div>
+						<div className="font-mono text-sm bg-gray-50 px-2 py-1 rounded text-gray-700">
+							2, 5, -1
+						</div>
+					</div>
+					<div className="bg-white p-3 rounded-lg border-l-4 border-blue-500 shadow-sm">
+						<div className="font-bold text-blue-600 mb-1">Float / Real</div>
+						<div className="text-gray-600 mb-2">A number with a decimal</div>
+						<div className="font-mono text-sm bg-gray-50 px-2 py-1 rounded text-gray-700">
+							-2.2, 3.14
+						</div>
+					</div>
+					<div className="bg-white p-3 rounded-lg border-l-4 border-blue-500 shadow-sm">
+						<div className="font-bold text-blue-600 mb-1">Boolean</div>
+						<div className="text-gray-600 mb-2">Has only two options</div>
+						<div className="font-mono text-sm bg-gray-50 px-2 py-1 rounded text-gray-700">
+							True or False
+						</div>
+					</div>
 				</div>
 			);
 		}
 
 		if (actualMode === "Constructs") {
 			return (
-				<div className="text-sm space-y-1">
-					<p>
-						<strong>Sequence:</strong> Instructions executed in order
-					</p>
-					<p>
-						<strong>Selection:</strong> if-else statements or switch cases
-					</p>
-					<p>
-						<strong>Iteration:</strong> Loops (while, for, repeat-until)
-					</p>
-					<p className="italic text-blue-600">
-						Use checkboxes below or press keys 1, 2, 3 to toggle sequence,
-						selection, iteration
-					</p>
+				<div className="space-y-3">
+					<div className="bg-white p-3 rounded-lg border-l-4 border-blue-500 shadow-sm">
+						<div className="font-bold text-blue-600 mb-1">Sequence</div>
+						<div className="text-gray-600 mb-2">Instructions executed one after another in order.</div>
+						<div className="font-mono text-sm bg-gray-50 px-2 py-1 rounded text-gray-700">
+							Always present in any code.
+						</div>
+					</div>
+					<div className="bg-white p-3 rounded-lg border-l-4 border-blue-500 shadow-sm">
+						<div className="font-bold text-blue-600 mb-1">Selection</div>
+						<div className="text-gray-600 mb-2">Making decisions in code.</div>
+						<div className="font-mono text-sm bg-gray-50 px-2 py-1 rounded text-gray-700">
+							Look for: if, elif, else, switch
+						</div>
+					</div>
+					<div className="bg-white p-3 rounded-lg border-l-4 border-blue-500 shadow-sm">
+						<div className="font-bold text-blue-600 mb-1">Iteration</div>
+						<div className="text-gray-600 mb-2">Repeating code (loops).</div>
+						<div className="font-mono text-sm bg-gray-50 px-2 py-1 rounded text-gray-700">
+							Look for: for, while, do until
+						</div>
+					</div>
+					<div className="bg-blue-100 p-3 rounded-lg border border-blue-300">
+						<div className="text-blue-700 font-medium text-center">
+							💡 Use checkboxes or press keys <kbd className="px-1 py-0.5 bg-white rounded border text-xs">1</kbd>, <kbd className="px-1 py-0.5 bg-white rounded border text-xs">2</kbd>, <kbd className="px-1 py-0.5 bg-white rounded border text-xs">3</kbd> to toggle
+						</div>
+					</div>
 				</div>
 			);
 		}
 
 		if (actualMode === "Operators") {
 			return (
-				<div className="text-sm space-y-1">
-					<p>
-						Remember order of operations: Brackets, Powers, Multiply/Divide,
-						Add/Subtract
-					</p>
-					<p>
-						<strong>DIV:</strong> Integer division (ignores remainder)
-					</p>
-					<p>
-						<strong>MOD:</strong> Modulo (returns remainder)
-					</p>
-					<p>
-						<strong>/:</strong> Regular division (returns decimal)
-					</p>
+				<div className="space-y-3">
+					<div className="bg-white p-3 rounded-lg border-l-4 border-blue-500 shadow-sm">
+						<div className="font-bold text-blue-600 mb-1">Arithmetic Operators</div>
+						<div className="text-gray-600 mb-2">Mathematical operations.</div>
+						<div className="font-mono text-sm bg-gray-50 px-2 py-1 rounded text-gray-700">
+							+ (add), - (subtract), * (multiply), / (divide)
+						</div>
+					</div>
+					<div className="bg-white p-3 rounded-lg border-l-4 border-blue-500 shadow-sm">
+						<div className="font-bold text-blue-600 mb-1">Special Operators</div>
+						<div className="text-gray-600 mb-2">OCR specific operations.</div>
+						<div className="font-mono text-sm bg-gray-50 px-2 py-1 rounded text-gray-700">
+							MOD (remainder), DIV (integer division), ^ (power)
+						</div>
+					</div>
+					<div className="bg-white p-3 rounded-lg border-l-4 border-blue-500 shadow-sm">
+						<div className="font-bold text-blue-600 mb-1">Comparison Operators</div>
+						<div className="text-gray-600 mb-2">Compare values (result is true or false).</div>
+						<div className="font-mono text-sm bg-gray-50 px-2 py-1 rounded text-gray-700">
+							== (equal), != (not equal), &lt; (less than), &gt; (greater than), &lt;= (less than or equal to), &gt;= (greater than or equal to)
+						</div>
+					</div>
 				</div>
 			);
 		}
@@ -564,47 +599,7 @@ export function QuizComponent({
 						<div
 							className={`p-4 rounded-lg mb-4 ${isCorrect ? "bg-green-50 text-green-800" : "bg-red-50 text-red-800"}`}
 						>
-							{isCorrect ? (
-								feedback
-							) : (
-								<div>
-									{/* Special formatting for datatypes feedback to bold the data type */}
-									{(mode === "Data Types" ||
-										(mode === "Champion" &&
-											currentQuestion.sourceMode === "Data Types")) &&
-									!isCorrect ? (
-										<span>
-											❌ No, this is{" "}
-											{currentQuestion.type === "integer" ? "an" : "a"}{" "}
-											<strong>
-												{currentQuestion.type === "boolean"
-													? "Boolean"
-													: currentQuestion.type}
-											</strong>{" "}
-											because{" "}
-											{
-												{
-													character: "it's a single character in quotes",
-													string: "it's text (multiple characters) in quotes",
-													integer: "it's a whole number without quotes",
-													float: "it's a decimal number",
-													boolean: "it's either True or False (without quotes)",
-												}[
-													currentQuestion.type as
-														| "character"
-														| "string"
-														| "integer"
-														| "float"
-														| "boolean"
-												]
-											}
-											.
-										</span>
-									) : (
-										feedback
-									)}
-								</div>
-							)}
+							{feedback}
 							<div className="text-center mt-3 space-y-3">
 								<button
 									type="button"
@@ -631,8 +626,8 @@ export function QuizComponent({
 									</span>
 								</span>
 							</summary>
-							<div className="p-4 mt-3 border-l-4 border-blue-400 rounded-r-lg shadow-inner bg-gradient-to-r from-blue-50 to-indigo-50">
-								<div className="text-sm font-light text-blue-800">
+							<div className="p-5 mt-3 border border-blue-200 rounded-lg shadow-sm bg-gradient-to-br from-slate-50 to-blue-50">
+								<div className="text-base">
 									{getHintContent()}
 								</div>
 							</div>

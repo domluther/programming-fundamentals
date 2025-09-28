@@ -52,6 +52,8 @@ export const QUIZ_MODES: Record<string, QuizMode> = {
 	},
 };
 
+const INDENT = "  ";
+
 // Data Type Questions
 export const dataTypeQuestions: Record<string, DataTypeQuestion[]> = {
 	character: [
@@ -386,14 +388,23 @@ export const dataTypeQuestions: Record<string, DataTypeQuestion[]> = {
 		{
 			value: "True",
 			type: "boolean",
-			explanation: "it's a boolean value representing true",
+			explanation: "Booleans are true or false",
 		},
 		{
 			value: "False",
 			type: "boolean",
-			explanation: "it's a boolean value representing false",
+			explanation: "Booleans are true or false",
 		},
-	],
+		{
+			value: "true",
+			type: "boolean",
+			explanation: "Booleans are true or false",
+		},
+		{
+			value: "false",
+			type: "boolean",
+			explanation: "Booleans are true or false",
+		},	],
 };
 
 // Construct Questions
@@ -405,7 +416,7 @@ b = 10
 print(a + b)`,
 		constructs: ["sequence"],
 		explanation:
-			"the code only uses sequence as instructions are executed in order without any decisions or loops.",
+			"the code only uses sequence as instructions are executed in order without any decisions or loops",
 	},
 	{
 		code: `a = 3
@@ -414,7 +425,7 @@ c = a * b
 print("Area: " + str(c))`,
 		constructs: ["sequence"],
 		explanation:
-			"the code only uses sequence as instructions are carried out one after another without decisions or loops.",
+			"the code only uses sequence as instructions are carried out one after another without decisions or loops",
 	},
 	{
 		code: `name = input("Enter your name: ")
@@ -422,7 +433,7 @@ greeting = "Hello, " + name
 print(greeting)`,
 		constructs: ["sequence"],
 		explanation:
-			"the code only uses sequence as it just takes input, creates a message, and prints it in order.",
+			"the code only uses sequence as it just takes input, creates a message, and prints it in order",
 	},
 	{
 		code: `width = 5
@@ -431,7 +442,7 @@ area = width * length
 print("Area is " + str(area))`,
 		constructs: ["sequence"],
 		explanation:
-			"the code only uses sequence as it performs calculations and prints the result in order.",
+			"the code only uses sequence as it performs calculations and prints the result in order",
 	},
 	{
 		code: `price = 25.50
@@ -440,7 +451,7 @@ total = price + tax
 print("Total: £" + str(total))`,
 		constructs: ["sequence"],
 		explanation:
-			"the code only uses sequence as it calculates tax and total step by step.",
+			"the code only uses sequence as it calculates tax and total step by step",
 	},
 	{
 		code: `firstName = input("First name: ")
@@ -449,7 +460,7 @@ fullName = firstName + " " + lastName
 print("Hello " + fullName)`,
 		constructs: ["sequence"],
 		explanation:
-			"the code only uses sequence as it gets inputs and combines them in order.",
+			"the code only uses sequence as it gets inputs and combines them in order",
 	},
 	{
 		code: `radius = float(input("Enter radius: "))
@@ -460,7 +471,7 @@ print("Area: " + str(area))
 print("Circumference: " + str(circumference))`,
 		constructs: ["sequence"],
 		explanation:
-			"the code only uses sequence as it performs calculations and displays results in order.",
+			"the code only uses sequence as it performs calculations and displays results in order",
 	},
 	{
 		code: `temperature = int(input("Temperature in Celsius: "))
@@ -468,61 +479,61 @@ fahrenheit = (temperature * 9 / 5) + 32
 print(str(temperature) + "°C = " + str(fahrenheit) + "°F")`,
 		constructs: ["sequence"],
 		explanation:
-			"the code only uses sequence as it converts temperature and prints the result.",
+			"the code only uses sequence as it converts temperature and prints the result",
 	},
 
 	// SEQUENCE + SELECTION QUESTIONS
 	{
 		code: `age = int(input("How old are you?"))
 if age < 18 then
-  print("You are a student!")
+${INDENT}print("You are a student!")
 else
-  print("You finished school")
+${INDENT}print("You finished school")
 endif`,
 		constructs: ["sequence", "selection"],
 		explanation:
-			"the code uses sequence to get input and selection (if-else) to make a decision.",
+			"the code uses sequence to get input and selection (if-else) to make a decision",
 	},
 	{
 		code: `score = 75
 if score >= 90 then
-  print("Grade A")
+${INDENT}print("Grade A")
 elseif score >= 70 then
-  print("Grade B")
+${INDENT}print("Grade B")
 else
-  print("Grade C")
+${INDENT}print("Grade C")
 endif`,
 		constructs: ["sequence", "selection"],
 		explanation:
-			"the code uses sequence to set the score and selection (if-elseif-else) to determine the grade.",
+			"the code uses sequence to set the score and selection (if-elseif-else) to determine the grade",
 	},
 	{
 		code: `number = int(input("Enter a number: "))
 switch number
 case 1:
-  print("One")
+${INDENT}print("One")
 case 2:
-  print("Two")
+${INDENT}print("Two")
 default:
-  print("Other")
+${INDENT}print("Other")
 endswitch`,
 		constructs: ["sequence", "selection"],
 		explanation:
-			"the code uses sequence for input and selection (switch case) to choose between different outputs.",
+			"the code uses sequence for input and selection (switch case) to choose between different outputs",
 	},
 	{
 		code: `day = input("Enter day: ")
 switch day
 case "Monday":
-  print("Start of week")
+${INDENT}print("Start of week")
 case "Friday":
-  print("Almost weekend")
+${INDENT}print("Almost weekend")
 default:
-  print("Normal day")
+${INDENT}print("Normal day")
 endswitch`,
 		constructs: ["sequence", "selection"],
 		explanation:
-			"the code uses sequence for input and selection (switch case) to decide based on the day.",
+			"the code uses sequence for input and selection (switch case) to decide based on the day",
 	},
 	{
 		code: `temperature = int(input("Enter temperature: "))
@@ -537,7 +548,7 @@ else
 endif`,
 		constructs: ["sequence", "selection"],
 		explanation:
-			"the code uses sequence for input and selection (if-elseif-else) to classify the temperature.",
+			"the code uses sequence for input and selection (if-elseif-else) to classify the temperature",
 	},
 	{
 		code: `name = input("Enter your name: ")
@@ -549,7 +560,7 @@ else
 endif`,
 		constructs: ["sequence", "selection"],
 		explanation:
-			"the code uses sequence for input and selection (if-else) to make a decision based on age.",
+			"the code uses sequence for input and selection (if-else) to make a decision based on age",
 	},
 	{
 		code: `num1 = int(input("Enter first number: "))
@@ -563,7 +574,7 @@ else
 endif`,
 		constructs: ["sequence", "selection"],
 		explanation:
-			"the code uses sequence for input and selection (if-elseif-else) to compare the numbers.",
+			"the code uses sequence for input and selection (if-elseif-else) to compare the numbers",
 	},
 	{
 		code: `password = input("Enter password: ")
@@ -575,7 +586,7 @@ else
 endif`,
 		constructs: ["sequence", "selection"],
 		explanation:
-			"the code uses sequence for input and selection (if-else) to check the password.",
+			"the code uses sequence for input and selection (if-else) to check the password",
 	},
 	{
 		code: `grade = int(input("Enter your grade: "))
@@ -589,7 +600,7 @@ else
 endif`,
 		constructs: ["sequence", "selection"],
 		explanation:
-			"the code uses sequence for input and selection with nested if statements to evaluate the grade.",
+			"the code uses sequence for input and selection with nested if statements to evaluate the grade",
 	},
 	{
 		code: `day = input("Enter day of week: ")
@@ -609,7 +620,7 @@ default:
 endswitch`,
 		constructs: ["sequence", "selection"],
 		explanation:
-			"the code uses sequence for input and selection (switch statement) to respond based on the day.",
+			"the code uses sequence for input and selection (switch statement) to respond based on the day",
 	},
 	{
 		code: `balance = 100.0
@@ -631,16 +642,16 @@ endif
 print("New balance: £" + str(balance))`,
 		constructs: ["sequence", "selection"],
 		explanation:
-			"the code uses sequence for input and calculations, and selection with nested if statements to handle different banking operations.",
+			"the code uses sequence for input and calculations, and selection with nested if statements to handle different banking operations",
 	},
 	{
 		code: `year = int(input("Enter a year: "))
 if year MOD 4 == 0 then
   if year MOD 100 == 0 then
     if year MOD 400 == 0 then
-      print("Leap year")
+${INDENT}${INDENT}${INDENT}print("Leap year")
     else
-      print("Not a leap year")
+${INDENT}${INDENT}${INDENT}print("Not a leap year")
     endif
   else
     print("Leap year")
@@ -650,7 +661,7 @@ else
 endif`,
 		constructs: ["sequence", "selection"],
 		explanation:
-			"the code uses sequence for input and selection with nested if statements to determine if a year is a leap year.",
+			"the code uses sequence for input and selection with nested if statements to determine if a year is a leap year",
 	},
 
 	// SEQUENCE + ITERATION QUESTIONS
@@ -662,7 +673,7 @@ next i
 print("Final: " + str(total))`,
 		constructs: ["sequence", "iteration"],
 		explanation:
-			"the code uses sequence for assignments and iteration (a for loop) to repeat the addition.",
+			"the code uses sequence for assignments and iteration (a for loop) to repeat the addition",
 	},
 	{
 		code: `count = 0
@@ -672,7 +683,7 @@ while count < 5
 endwhile`,
 		constructs: ["sequence", "iteration"],
 		explanation:
-			"the code uses sequence for the initial assignment and iteration (a while loop) to repeat the print statement.",
+			"the code uses sequence for the initial assignment and iteration (a while loop) to repeat the print statement",
 	},
 	{
 		code: `do
@@ -681,7 +692,7 @@ until password == "letmein"
 print("Access granted")`,
 		constructs: ["sequence", "iteration"],
 		explanation:
-			"the code uses sequence for input and iteration (a do until loop) to repeat until the correct password is entered.",
+			"the code uses sequence for input and iteration (a do until loop) to repeat until the correct password is entered",
 	},
 	{
 		code: `x = 10
@@ -691,7 +702,7 @@ while x > 0
 endwhile`,
 		constructs: ["sequence", "iteration"],
 		explanation:
-			"the code uses sequence for assignment and iteration (while loop) to keep subtracting until the condition is false.",
+			"the code uses sequence for assignment and iteration (while loop) to keep subtracting until the condition is false",
 	},
 	{
 		code: `sum = 0
@@ -702,7 +713,7 @@ until num == 0
 print("Total: " + str(sum))`,
 		constructs: ["sequence", "iteration"],
 		explanation:
-			"the code uses sequence for assignment and addition, and iteration (do until loop) to keep adding numbers until 0 is entered.",
+			"the code uses sequence for assignment and addition, and iteration (do until loop) to keep adding numbers until 0 is entered",
 	},
 	{
 		code: `for i = 1 to 3
@@ -712,7 +723,7 @@ print("Total: " + str(sum))`,
 next i`,
 		constructs: ["sequence", "iteration"],
 		explanation:
-			"the code uses sequence for printing and iteration with nested for loops to generate pairs of values.",
+			"the code uses sequence for printing and iteration with nested for loops to generate pairs of values",
 	},
 	{
 		code: `count = 1
@@ -722,7 +733,7 @@ do
 until count > 5`,
 		constructs: ["sequence", "iteration"],
 		explanation:
-			"the code uses sequence for calculation and iteration (do until loop) to repeat 5 times.",
+			"the code uses sequence for calculation and iteration (do until loop) to repeat 5 times",
 	},
 	{
 		code: `total = 1
@@ -732,7 +743,7 @@ next i
 print("Factorial is " + str(total))`,
 		constructs: ["sequence", "iteration"],
 		explanation:
-			"the code uses sequence for the multiplication and iteration (for loop) to calculate the factorial.",
+			"the code uses sequence for the multiplication and iteration (for loop) to calculate the factorial",
 	},
 	{
 		code: `number = int(input("Enter a number: "))
@@ -743,7 +754,7 @@ next i
 print("Sum is " + str(sum))`,
 		constructs: ["sequence", "iteration"],
 		explanation:
-			"the code uses sequence for setup and iteration (for loop) to calculate the sum of numbers.",
+			"the code uses sequence for setup and iteration (for loop) to calculate the sum of numbers",
 	},
 	{
 		code: `count = 1
@@ -755,7 +766,7 @@ endwhile
 print("Total: " + str(total))`,
 		constructs: ["sequence", "iteration"],
 		explanation:
-			"the code uses sequence for initialization and iteration (while loop) to accumulate a total.",
+			"the code uses sequence for initialization and iteration (while loop) to accumulate a total",
 	},
 	{
 		code: `for outer = 1 to 3
@@ -765,7 +776,7 @@ print("Total: " + str(total))`,
 next outer`,
 		constructs: ["sequence", "iteration"],
 		explanation:
-			"the code uses sequence for printing and iteration with nested for loops to create combinations.",
+			"the code uses sequence for printing and iteration with nested for loops to create combinations",
 	},
 	{
 		code: `items = ["apple", "banana", "orange", "grape"]
@@ -776,7 +787,7 @@ while count < 4
 endwhile`,
 		constructs: ["sequence", "iteration"],
 		explanation:
-			"the code uses sequence for array setup and iteration (while loop) to display numbered list items.",
+			"the code uses sequence for array setup and iteration (while loop) to display numbered list items",
 	},
 	{
 		code: `name = "Programming"
@@ -785,7 +796,7 @@ for i = 0 to len(name) - 1
 next i`,
 		constructs: ["sequence", "iteration"],
 		explanation:
-			"the code uses sequence for string setup and iteration (for loop) to display each character with its position.",
+			"the code uses sequence for string setup and iteration (for loop) to display each character with its position",
 	},
 
 	// ALL THREE CONSTRUCTS (SEQUENCE + SELECTION + ITERATION)
@@ -799,7 +810,7 @@ next i`,
 next i`,
 		constructs: ["sequence", "selection", "iteration"],
 		explanation:
-			"the code uses all three constructs: sequence (instructions in order), selection (if-else), and iteration (for loop).",
+			"the code uses all three constructs: sequence (instructions in order), selection (if-else), and iteration (for loop)",
 	},
 	{
 		code: `marks = [85, 40, 67]
@@ -812,7 +823,7 @@ for i = 0 to 2
 next i`,
 		constructs: ["sequence", "selection", "iteration"],
 		explanation:
-			"the code uses sequence for data setup, iteration (for loop) to go through marks, and selection (if-else) to check pass or fail.",
+			"the code uses sequence for data setup, iteration (for loop) to go through marks, and selection (if-else) to check pass or fail",
 	},
 	{
 		code: `target = 20
@@ -828,7 +839,7 @@ until guess == target
 print("Correct!")`,
 		constructs: ["sequence", "selection", "iteration"],
 		explanation:
-			"the code uses sequence for setup, iteration (do-until loop) to repeat guessing, and selection (if-elseif) to give feedback.",
+			"the code uses sequence for setup, iteration (do-until loop) to repeat guessing, and selection (if-elseif) to give feedback",
 	},
 	{
 		code: `numbers = [5, 12, 8, 3, 15]
@@ -841,7 +852,7 @@ for i = 0 to 4
 next i`,
 		constructs: ["sequence", "selection", "iteration"],
 		explanation:
-			"the code uses sequence for array setup, iteration (for loop) to go through elements, and selection (if-else) to categorize each number.",
+			"the code uses sequence for array setup, iteration (for loop) to go through elements, and selection (if-else) to categorize each number",
 	},
 	{
 		code: `score = 0
@@ -859,7 +870,7 @@ until answer == 56 OR attempts >= 3
 print("Final score: " + str(score))`,
 		constructs: ["sequence", "selection", "iteration"],
 		explanation:
-			"the code uses all three constructs: sequence for initialization, iteration (do-until loop) to repeat questions, and selection (if-else) to check answers.",
+			"the code uses all three constructs: sequence for initialization, iteration (do-until loop) to repeat questions, and selection (if-else) to check answers",
 	},
 	{
 		code: `total = 0
@@ -874,7 +885,7 @@ endwhile
 print("Final total: " + str(total))`,
 		constructs: ["sequence", "selection", "iteration"],
 		explanation:
-			"the code uses sequence for initialization, iteration (while loop) to keep adding numbers, and selection (if statement) to check if number should be added.",
+			"the code uses sequence for initialization, iteration (while loop) to keep adding numbers, and selection (if statement) to check if number should be added",
 	},
 ];
 
