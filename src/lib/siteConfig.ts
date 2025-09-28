@@ -29,52 +29,52 @@ export interface Level {
 
 /** Network Address Practice site configuration */
 export const SITE_CONFIG: SiteConfig = {
-	siteKey: "data-units",
-	title: "Data Units",
-	subtitle: "Master the conversion of data units & file sizes",
+	siteKey: "programming-fundamentals",
+	title: "Programming Fundamentals",
+	subtitle: "Master the basics of programming concepts",
 	icon: "🦆",
 	scoring: {
 		customLevels: [
 			{
 				emoji: "🥚",
-				title: "Byte Beginner",
-				description: "Just cracked into the world of storage!",
+				title: "Code Chick",
+				description: "Just cracked into the world of programming!",
 				minPoints: 0,
 				minAccuracy: 0,
 			},
 			{
 				emoji: "🐣",
-				title: "Kilobyte Chick",
-				description: "Taking your first waddle through file sizes!",
+				title: "Variable Duckling",
+				description: "Taking your first waddle through data types!",
 				minPoints: 5,
 				minAccuracy: 0,
 			},
 			{
 				emoji: "🐤",
-				title: "Megabyte Mallard",
-				description: "Your storage calculations are really taking flight!",
+				title: "Loop Mallard",
+				description: "Your control structures are really taking flight!",
 				minPoints: 12,
 				minAccuracy: 60,
 			},
 			{
 				emoji: "🦆",
-				title: "Gigabyte Goose",
-				description: "Swimming smoothly through unit conversions!",
+				title: "Function Goose",
+				description: "Swimming smoothly through programming constructs!",
 				minPoints: 25,
 				minAccuracy: 70,
 			},
 			{
 				emoji: "🦆✨",
-				title: "Terabyte Teal",
-				description: "Soaring through storage with byte-sized brilliance!",
+				title: "Operator Teal",
+				description: "Soaring through code with algorithmic brilliance!",
 				minPoints: 50,
 				minAccuracy: 80,
 			},
 			{
 				emoji: "🪿👑",
-				title: "Petabyte Phoenix",
+				title: "Syntax Phoenix",
 				description:
-					"The legendary storage sage - no file size can ruffle your feathers!",
+					"The legendary code sage - no programming concept can ruffle your feathers!",
 				minPoints: 75,
 				minAccuracy: 90,
 			},
