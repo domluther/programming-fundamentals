@@ -253,34 +253,65 @@ export function StatsModal({
 							</Card>
 
 							{/* Detailed Statistics */}
-							<Card>
-								<h3 className="text-lg font-semibold mb-4 p-4 pb-0">Detailed Breakdown</h3>
-								<div className="space-y-4 p-4">
-									{Object.entries(allModeStats).map(([mode, stats]) => {
-										if (!stats || stats.attempts === 0) return null;
-										
-										return (
-											<div key={mode} className="border-l-4 border-blue-500 pl-4">
-												<h4 className="font-semibold capitalize mb-2">{mode}</h4>
-												{Object.entries(stats.detailed || {}).map(([subcat, subcatStats]) => {
-													const detailedStat = subcatStats as DetailedStats;
-													if (!detailedStat || detailedStat.attempts === 0) return null;
-													
-													const subcatAccuracy = Math.round((detailedStat.correct / detailedStat.attempts) * 100);
-													
-													return (
-														<div key={subcat} className="flex justify-between items-center text-sm mb-2">
-															<span className="capitalize">{subcat.replace(/([A-Z])/g, ' $1').replace('-', ' ').trim()}</span>
-															<span className="font-medium">
-																{detailedStat.correct}/{detailedStat.attempts} ({subcatAccuracy}%)
-															</span>
-														</div>
-													);
-												})}
-											</div>
-										);
-									})}
-								</div>
+							<Card className="gap-4 p-4">
+								<CardHeader className="px-2 mb-0">
+									<CardTitle className="flex items-center">
+										🔍 Detailed Breakdown
+									</CardTitle>
+								</CardHeader>
+								<CardContent className="px-2">
+									<div className="space-y-6">
+										{Object.entries(allModeStats).map(([mode, stats]) => {
+											if (!stats || stats.attempts === 0) return null;
+											
+											return (
+												<div key={mode} className="space-y-3">
+													<h4 className="font-semibold text-lg capitalize border-b border-gray-200 pb-2">
+														{mode === "none" ? "Invalid Items" : mode}
+													</h4>
+													<div className="space-y-2">
+														{Object.entries(stats.detailed || {}).map(([subcat, subcatStats]) => {
+															const detailedStat = subcatStats as DetailedStats;
+															if (!detailedStat || detailedStat.attempts === 0) return null;
+															
+															const subcatAccuracy = Math.round((detailedStat.correct / detailedStat.attempts) * 100);
+															
+															return (
+																<div key={subcat} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+																	<div>
+																		<div className="font-medium capitalize">
+																			{subcat.replace(/([A-Z])/g, ' $1').replace('-', ' ').trim()}
+																		</div>
+																		<div className="text-sm text-gray-600">
+																			{detailedStat.correct} correct out of {detailedStat.attempts} attempts
+																		</div>
+																	</div>
+																	<div className="text-right">
+																		<div
+																			className={cn(
+																				"text-xl font-bold",
+																				subcatAccuracy >= 80
+																					? "text-green-600"
+																					: subcatAccuracy >= 60
+																						? "text-yellow-600"
+																						: "text-red-600",
+																			)}
+																		>
+																			{subcatAccuracy}%
+																		</div>
+																		<div className="text-xs text-gray-500">
+																			accuracy
+																		</div>
+																	</div>
+																</div>
+															);
+														})}
+													</div>
+												</div>
+											);
+										})}
+									</div>
+								</CardContent>
 							</Card>
 						</div>
 					) : (

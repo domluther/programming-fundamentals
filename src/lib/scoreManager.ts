@@ -230,12 +230,12 @@ export class ScoreManager {
 
 	private trackDetailedStats(questionType: string, isCorrect: boolean, mode: Mode): void {
 		if (mode === 'Champion') {
-			// In champion mode, track stats in both champion mode AND the original mode
+			// In champion mode, the questionType is already in the format "Data Types-character", "Constructs-sequence", etc.
 			const championStats = this.scores['Champion'];
 			const actualMode = questionType.split('-')[0] as 'Data Types' | 'Constructs' | 'Operators';
 			const originalModeStats = this.scores[actualMode];
 
-			// Track in champion mode breakdown
+			// Track in champion mode breakdown by actual mode
 			if (championStats.detailed[actualMode]) {
 				championStats.detailed[actualMode].attempts++;
 				if (isCorrect) {
@@ -243,7 +243,7 @@ export class ScoreManager {
 				}
 			}
 
-			// Track in original mode's detailed stats
+			// Track in original mode's detailed stats using the full questionType
 			let categoryKey = this.extractCategoryKey(questionType, actualMode);
 
 			if (categoryKey && originalModeStats.detailed[categoryKey]) {

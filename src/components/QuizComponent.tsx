@@ -56,13 +56,19 @@ export function QuizComponent({ mode, onScoreUpdate }: QuizComponentProps) {
         
       case 'Champion':
         // Mix of all question types
+        const dataTypeQuestionsWithCategory = [];
+        for (const [category, questions] of Object.entries(dataTypeQuestions)) {
+          dataTypeQuestionsWithCategory.push(...questions.map(q => ({ ...q, sourceMode: 'Data Types', category })));
+        }
+        
         const allQuestions = [
-          ...Object.values(dataTypeQuestions).flat().map(q => ({ ...q, sourceMode: 'Data Types' })),
-          ...constructQuestions.map(q => ({ ...q, sourceMode: 'Constructs' })),
-          ...operatorQuestions.map(q => ({ ...q, sourceMode: 'Operators' }))
+          ...dataTypeQuestionsWithCategory,
+          ...constructQuestions.map(q => ({ ...q, sourceMode: 'Constructs', category: q.constructs.join('-') })),
+          ...operatorQuestions.map(q => ({ ...q, sourceMode: 'Operators', category: q.category }))
         ];
+        
         question = allQuestions[Math.floor(Math.random() * allQuestions.length)];
-        questionType = `Champion-${question.sourceMode}`;
+        questionType = `${question.sourceMode}-${question.category}`;
         break;
         
       default:
