@@ -23,8 +23,8 @@ export function QuizLayout({ mode, title, description }: QuizLayoutProps) {
     score: 0,
     streak: 0,
     recordStreak: 0,
-    totalQuestions: 0,
-    correctAnswers: 0
+    attempts: 0,
+    correct: 0
   });
 
   // Generate a random question based on the current mode
@@ -94,15 +94,15 @@ export function QuizLayout({ mode, title, description }: QuizLayoutProps) {
         score: prev.score + 1,
         streak: prev.streak + 1,
         recordStreak: Math.max(prev.recordStreak, prev.streak + 1),
-        totalQuestions: prev.totalQuestions + 1,
-        correctAnswers: prev.correctAnswers + 1
+        attempts: prev.attempts + 1,
+        correct: prev.correct + 1
       }));
     } else {
       setFeedback(`❌ Incorrect. ${currentQuestion.explanation || ''}`);
       setStats(prev => ({
         ...prev,
         streak: 0,
-        totalQuestions: prev.totalQuestions + 1
+        attempts: prev.attempts + 1
       }));
     }
   };
@@ -112,7 +112,7 @@ export function QuizLayout({ mode, title, description }: QuizLayoutProps) {
     generateQuestion();
   }, [mode]);
 
-  const accuracy = stats.totalQuestions > 0 ? Math.round((stats.correctAnswers / stats.totalQuestions) * 100) : 0;
+  const accuracy = stats.attempts > 0 ? Math.round((stats.correct / stats.attempts) * 100) : 0;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-400 to-purple-600 p-4">

@@ -257,7 +257,7 @@ export function StatsModal({
 								<h3 className="text-lg font-semibold mb-4 p-4 pb-0">Detailed Breakdown</h3>
 								<div className="space-y-4 p-4">
 									{Object.entries(allModeStats).map(([mode, stats]) => {
-										if (!stats || stats.totalQuestions === 0) return null;
+										if (!stats || stats.attempts === 0) return null;
 										
 										return (
 											<div key={mode} className="border-l-4 border-blue-500 pl-4">
