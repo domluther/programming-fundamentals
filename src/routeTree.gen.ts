@@ -9,34 +9,15 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as UnitconverterRouteImport } from './routes/unitconverter'
 import { Route as OperatorsRouteImport } from './routes/operators'
-import { Route as MultiplechoiceRouteImport } from './routes/multiplechoice'
-import { Route as FilesizeRouteImport } from './routes/filesize'
 import { Route as DatatypesRouteImport } from './routes/datatypes'
 import { Route as ConstructsRouteImport } from './routes/constructs'
 import { Route as ChampionRouteImport } from './routes/champion'
-import { Route as CapacitycalculatorRouteImport } from './routes/capacitycalculator'
 import { Route as IndexRouteImport } from './routes/index'
 
-const UnitconverterRoute = UnitconverterRouteImport.update({
-  id: '/unitconverter',
-  path: '/unitconverter',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const OperatorsRoute = OperatorsRouteImport.update({
   id: '/operators',
   path: '/operators',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MultiplechoiceRoute = MultiplechoiceRouteImport.update({
-  id: '/multiplechoice',
-  path: '/multiplechoice',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const FilesizeRoute = FilesizeRouteImport.update({
-  id: '/filesize',
-  path: '/filesize',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DatatypesRoute = DatatypesRouteImport.update({
@@ -54,11 +35,6 @@ const ChampionRoute = ChampionRouteImport.update({
   path: '/champion',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CapacitycalculatorRoute = CapacitycalculatorRouteImport.update({
-  id: '/capacitycalculator',
-  path: '/capacitycalculator',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -67,114 +43,55 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/capacitycalculator': typeof CapacitycalculatorRoute
   '/champion': typeof ChampionRoute
   '/constructs': typeof ConstructsRoute
   '/datatypes': typeof DatatypesRoute
-  '/filesize': typeof FilesizeRoute
-  '/multiplechoice': typeof MultiplechoiceRoute
   '/operators': typeof OperatorsRoute
-  '/unitconverter': typeof UnitconverterRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/capacitycalculator': typeof CapacitycalculatorRoute
   '/champion': typeof ChampionRoute
   '/constructs': typeof ConstructsRoute
   '/datatypes': typeof DatatypesRoute
-  '/filesize': typeof FilesizeRoute
-  '/multiplechoice': typeof MultiplechoiceRoute
   '/operators': typeof OperatorsRoute
-  '/unitconverter': typeof UnitconverterRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/capacitycalculator': typeof CapacitycalculatorRoute
   '/champion': typeof ChampionRoute
   '/constructs': typeof ConstructsRoute
   '/datatypes': typeof DatatypesRoute
-  '/filesize': typeof FilesizeRoute
-  '/multiplechoice': typeof MultiplechoiceRoute
   '/operators': typeof OperatorsRoute
-  '/unitconverter': typeof UnitconverterRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/capacitycalculator'
-    | '/champion'
-    | '/constructs'
-    | '/datatypes'
-    | '/filesize'
-    | '/multiplechoice'
-    | '/operators'
-    | '/unitconverter'
+  fullPaths: '/' | '/champion' | '/constructs' | '/datatypes' | '/operators'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/capacitycalculator'
-    | '/champion'
-    | '/constructs'
-    | '/datatypes'
-    | '/filesize'
-    | '/multiplechoice'
-    | '/operators'
-    | '/unitconverter'
+  to: '/' | '/champion' | '/constructs' | '/datatypes' | '/operators'
   id:
     | '__root__'
     | '/'
-    | '/capacitycalculator'
     | '/champion'
     | '/constructs'
     | '/datatypes'
-    | '/filesize'
-    | '/multiplechoice'
     | '/operators'
-    | '/unitconverter'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  CapacitycalculatorRoute: typeof CapacitycalculatorRoute
   ChampionRoute: typeof ChampionRoute
   ConstructsRoute: typeof ConstructsRoute
   DatatypesRoute: typeof DatatypesRoute
-  FilesizeRoute: typeof FilesizeRoute
-  MultiplechoiceRoute: typeof MultiplechoiceRoute
   OperatorsRoute: typeof OperatorsRoute
-  UnitconverterRoute: typeof UnitconverterRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/unitconverter': {
-      id: '/unitconverter'
-      path: '/unitconverter'
-      fullPath: '/unitconverter'
-      preLoaderRoute: typeof UnitconverterRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/operators': {
       id: '/operators'
       path: '/operators'
       fullPath: '/operators'
       preLoaderRoute: typeof OperatorsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/multiplechoice': {
-      id: '/multiplechoice'
-      path: '/multiplechoice'
-      fullPath: '/multiplechoice'
-      preLoaderRoute: typeof MultiplechoiceRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/filesize': {
-      id: '/filesize'
-      path: '/filesize'
-      fullPath: '/filesize'
-      preLoaderRoute: typeof FilesizeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/datatypes': {
@@ -198,13 +115,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ChampionRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/capacitycalculator': {
-      id: '/capacitycalculator'
-      path: '/capacitycalculator'
-      fullPath: '/capacitycalculator'
-      preLoaderRoute: typeof CapacitycalculatorRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/': {
       id: '/'
       path: '/'
@@ -217,14 +127,10 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  CapacitycalculatorRoute: CapacitycalculatorRoute,
   ChampionRoute: ChampionRoute,
   ConstructsRoute: ConstructsRoute,
   DatatypesRoute: DatatypesRoute,
-  FilesizeRoute: FilesizeRoute,
-  MultiplechoiceRoute: MultiplechoiceRoute,
   OperatorsRoute: OperatorsRoute,
-  UnitconverterRoute: UnitconverterRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -1,0 +1,1 @@
+import{j as o}from"./index-CcsvbrJX.js";import{S as n}from"./StatsModal-BS8P7VrV.js";import{Q as r}from"./QuizComponent-xIl4ym4h.js";function p(){return o.jsx(n,{mode:"Champion",children:m=>o.jsx(r,{mode:"Champion",onScoreUpdate:m})})}export{p as component};

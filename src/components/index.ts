@@ -3,8 +3,6 @@
  * Export all reusable components for easy importing
  */
 
-export { CapacityCalculator } from "./CapacityCalculator";
-export { FileSizeCalculator } from "./FileSizeCalculator";
 export { Footer } from "./Footer";
 export { Header } from "./Header";
 export type {
@@ -25,7 +23,6 @@ export { QuizStats } from "./QuizStats";
 export { SiteNavigation } from "./SiteNavigation";
 // Modal Components
 export { StatsModal } from "./StatsModal";
-export { UnitConverter } from "./UnitConverter";
 
 /**
  * Usage Example:
