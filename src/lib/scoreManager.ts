@@ -147,42 +147,13 @@ export class ScoreManager {
 		try {
 			const stored = localStorage.getItem(this.storageKey);
 			if (stored) {
-				const parsedStats = JSON.parse(stored);
-				return this.mergeStatsWithDefaults(parsedStats, blankScoreData);
+				return JSON.parse(stored);
 			}
 			return { ...blankScoreData };
 		} catch (error) {
 			console.warn("Error loading scores:", error);
 			return { ...blankScoreData };
 		}
-	}
-
-	private mergeStatsWithDefaults(savedStats: any, defaultStats: ScoreData): ScoreData {
-		const merged = JSON.parse(JSON.stringify(defaultStats)); // Deep clone defaults
-		
-		// Merge each mode
-		for (const mode in savedStats) {
-			if (merged[mode as keyof ScoreData]) {
-				// Merge basic stats
-				merged[mode as keyof ScoreData].score = savedStats[mode].score || 0;
-				merged[mode as keyof ScoreData].streak = savedStats[mode].streak || 0;
-				merged[mode as keyof ScoreData].totalQuestions = savedStats[mode].totalQuestions || 0;
-				merged[mode as keyof ScoreData].correctAnswers = savedStats[mode].correctAnswers || 0;
-				merged[mode as keyof ScoreData].recordStreak = savedStats[mode].recordStreak || 0;
-				
-				// Merge detailed stats if they exist
-				if (savedStats[mode].detailed && merged[mode as keyof ScoreData].detailed) {
-					for (const category in savedStats[mode].detailed) {
-						if (merged[mode as keyof ScoreData].detailed[category]) {
-							merged[mode as keyof ScoreData].detailed[category].correct = savedStats[mode].detailed[category].correct || 0;
-							merged[mode as keyof ScoreData].detailed[category].total = savedStats[mode].detailed[category].total || 0;
-						}
-					}
-				}
-			}
-		}
-		
-		return merged;
 	}
 
 	private saveScores(): void {
@@ -338,8 +309,8 @@ export class ScoreManager {
 		let currentModeStreak = 0;
 
 		Object.values(this.scores).forEach(stats => {
-			totalAttempts += stats.totalQuestions;
-			totalCorrect += stats.correctAnswers;
+			totalAttempts += stats.attempts;
+			totalCorrect += stats.correct;
 		});
 
 		// Use current mode's streak
@@ -412,9 +383,9 @@ export class ScoreManager {
 		Object.entries(this.scores).forEach(([mode, stats]) => {
 			const modeTitle = this.getModeTitle(mode as Mode);
 			typeStats[modeTitle] = {
-				attempts: stats.totalQuestions,
-				correct: stats.correctAnswers,
-				accuracy: stats.totalQuestions > 0 ? (stats.correctAnswers / stats.totalQuestions) * 100 : 0
+				attempts: stats.attempts,
+				correct: stats.correct,
+				accuracy: stats.attempts > 0 ? (stats.correct / stats.attempts) * 100 : 0
 			};
 		});
 

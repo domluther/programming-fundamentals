@@ -210,10 +210,10 @@ export function StatsModal({
 								<CardContent className="px-2">
 									<div className="space-y-4">
 									{Object.entries(allModeStats).map(([mode, stats]) => {
-										if (!stats || stats.totalQuestions === 0) return null;
-										
-										const accuracy = Math.round((stats.correctAnswers / stats.totalQuestions) * 100);
-										
+										if (!stats || stats.attempts === 0) return null;
+
+										const accuracy = Math.round((stats.correct / stats.attempts) * 100);
+
 										return (
 												<div
 													key={mode}
@@ -224,7 +224,7 @@ export function StatsModal({
 														{mode === "none" ? "Invalid Items" : mode}
 													</div>
 													<div className="text-sm text-gray-600">
-														{stats.correctAnswers} correct out of {stats.totalQuestions}{" "}
+														{stats.correct} correct out of {stats.attempts}{" "}
 														attempts
 													</div>										
 												</div>
