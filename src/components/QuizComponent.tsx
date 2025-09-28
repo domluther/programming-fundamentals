@@ -233,8 +233,22 @@ export function QuizComponent({
 		const actualMode: Mode = (currentQuestion.sourceMode as Mode) || mode;
 
 		if (actualMode === "Data Types") {
-			correct =
-				userAnswer.toLowerCase() === currentQuestion.dataType?.toLowerCase();
+			// Shorthand lookup for common data type synonyms
+			const dataTypeLookup: { [key: string]: string } = {
+				int: "integer",
+				integer: "integer",
+				real: "float",
+				float: "float",
+				str: "string",
+				string: "string",
+				char: "character",
+				character: "character",
+				bool: "boolean",
+				boolean: "boolean",
+			};
+			const lookedUpAnswer =
+				dataTypeLookup[userAnswer.toLowerCase()] || "failed";
+			correct = lookedUpAnswer === currentQuestion.dataType?.toLowerCase();
 		} else if (actualMode === "Constructs") {
 			// For constructs, check if selected checkboxes match expected constructs
 			const selectedConstructs = Object.entries(constructsChecked)

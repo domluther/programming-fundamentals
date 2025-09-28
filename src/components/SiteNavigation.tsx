@@ -24,7 +24,7 @@ interface SiteNavigationProps {
 }
 
 /**
- * Reusable site navigation component for Programming Fundamentals practice sites
+ * Reusable site navigation component for GCSE CS practice sites
  * Uses shadcn/ui dropdown menu with responsive design
  */
 export function SiteNavigation({
