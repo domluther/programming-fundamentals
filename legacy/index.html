@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  	<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <title>Programming Fundamentals</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>Programming Fundamentals</h1>
+        <p id="headerDescription">Identify the data type of each value</p>
+        <button class="stats-button" onclick="openStatsModal()">
+          📊 Stats
+        </button>
+      </div>
+      <div class="mode-selector">
+        <button id="mode-datatypes" class="mode-btn" onclick="switchMode('datatypes', this)">Data Types</button>
+        <button id="mode-constructs" class="mode-btn" onclick="switchMode('constructs', this)">Constructs</button>
+        <button id="mode-operators" class="mode-btn" onclick="switchMode('operators', this)">Operators</button>
+        <button id="mode-champion" class="mode-btn champion-btn" onclick="switchMode('champion', this)">🏆 Champion</button>
+      </div>
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-value" id="score">0</div>
+          <div class="stat-label">Points</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value" id="streak">0</div>
+          <div class="stat-label">Current Streak</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value" id="recordStreak">0</div>
+          <div class="stat-label">Record Streak</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value" id="accuracy">0%</div>
+          <div class="stat-label">Accuracy</div>
+        </div>
+      </div>
+      <div class="controls">
+        <button class="toggle-btn" id="hintToggle">Show Hints</button>
+      </div>
+      <div class="hint-section" id="hintSection"></div>
+      <div class="question-section">
+        <div class="question" id="questionValue">Loading...</div>
+        <div class="code-block" id="codeBlock" style="display: none;">Loading...</div>
+        <div class="input-section">
+          <input type="text" class="text-input" id="textInput" placeholder="Enter your answer...">
+          <div class="button-section" id="buttonSection"></div>
+          <div class="checkbox-section" id="checkboxSection"></div>
+          <button class="submit-btn" onclick="checkAnswer()">Submit Answer</button>
+        </div>
+        <div class="feedback" id="feedback"></div>
+        <div id="nextQuestionContainer"></div>
+      </div>
+    </div>
+
+    <!-- Stats Modal -->
+    <div id="statsModal" class="modal">
+      <div class="modal-overlay" onclick="closeStatsModal()"></div>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>📊 Your Progress</h2>
+          <button class="modal-close" onclick="closeStatsModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+          <!-- Overall Stats -->
+          <div class="overall-stats">
+            <h3>Overall Performance</h3>
+            <div class="overall-stats-grid">
+              <div class="overall-stat">
+                <div class="overall-stat-value" id="overallPoints">0</div>
+                <div class="overall-stat-label">Total Points</div>
+              </div>
+              <div class="overall-stat">
+                <div class="overall-stat-value" id="overallAccuracy">0%</div>
+                <div class="overall-stat-label">Overall Accuracy</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mode Stats -->
+          <div class="mode-stats">
+            <h3>Performance by Mode</h3>
+            <div class="mode-stats-container">
+              <div class="mode-stat-card">
+                <h4>📝 Data Types</h4>
+                <div class="mode-stat-details" id="datatypesStats">
+                  <div class="mode-stat-row">
+                    <span>Points:</span>
+                    <span id="datatypesPoints">0</span>
+                  </div>
+                  <div class="mode-stat-row">
+                    <span>Accuracy:</span>
+                    <span id="datatypesAccuracy">0%</span>
+                  </div>
+                  <div class="mode-stat-row">
+                    <span>Best Streak:</span>
+                    <span id="datatypesStreak">0</span>
+                  </div>
+                  <div class="mode-stat-row">
+                    <span>Questions:</span>
+                    <span id="datatypesQuestions">0/0</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mode-stat-card">
+                <h4>🏗️ Constructs</h4>
+                <div class="mode-stat-details" id="constructsStats">
+                  <div class="mode-stat-row">
+                    <span>Points:</span>
+                    <span id="constructsPoints">0</span>
+                  </div>
+                  <div class="mode-stat-row">
+                    <span>Accuracy:</span>
+                    <span id="constructsAccuracy">0%</span>
+                  </div>
+                  <div class="mode-stat-row">
+                    <span>Best Streak:</span>
+                    <span id="constructsStreak">0</span>
+                  </div>
+                  <div class="mode-stat-row">
+                    <span>Questions:</span>
+                    <span id="constructsQuestions">0/0</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mode-stat-card">
+                <h4>🔢 Operators</h4>
+                <div class="mode-stat-details" id="operatorsStats">
+                  <div class="mode-stat-row">
+                    <span>Points:</span>
+                    <span id="operatorsPoints">0</span>
+                  </div>
+                  <div class="mode-stat-row">
+                    <span>Accuracy:</span>
+                    <span id="operatorsAccuracy">0%</span>
+                  </div>
+                  <div class="mode-stat-row">
+                    <span>Best Streak:</span>
+                    <span id="operatorsStreak">0</span>
+                  </div>
+                  <div class="mode-stat-row">
+                    <span>Questions:</span>
+                    <span id="operatorsQuestions">0/0</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mode-stat-card">
+                <h4>🏆 Champion</h4>
+                <div class="mode-stat-details" id="championStats">
+                  <div class="mode-stat-row">
+                    <span>Points:</span>
+                    <span id="championPoints">0</span>
+                  </div>
+                  <div class="mode-stat-row">
+                    <span>Accuracy:</span>
+                    <span id="championAccuracy">0%</span>
+                  </div>
+                  <div class="mode-stat-row">
+                    <span>Best Streak:</span>
+                    <span id="championStreak">0</span>
+                  </div>
+                  <div class="mode-stat-row">
+                    <span>Questions:</span>
+                    <span id="championQuestions">0/0</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Question Breakdown Section -->
+          <div class="question-breakdown">
+            <h3>Question Breakdown</h3>
+            <div class="breakdown-container">
+              <!-- Data Types Breakdown -->
+              <div class="breakdown-card">
+                <h4>📝 Data Types</h4>
+                <div class="breakdown-details">
+                  <div class="breakdown-item">
+                    <span>Character:</span>
+                    <span id="datatypesCharacter">0/0</span>
+                  </div>
+                  <div class="breakdown-item">
+                    <span>String:</span>
+                    <span id="datatypesString">0/0</span>
+                  </div>
+                  <div class="breakdown-item">
+                    <span>Integer:</span>
+                    <span id="datatypesInteger">0/0</span>
+                  </div>
+                  <div class="breakdown-item">
+                    <span>Float:</span>
+                    <span id="datatypesFloat">0/0</span>
+                  </div>
+                  <div class="breakdown-item">
+                    <span>Boolean:</span>
+                    <span id="datatypesBoolean">0/0</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Constructs Breakdown -->
+              <div class="breakdown-card">
+                <h4>🏗️ Constructs</h4>
+                <div class="breakdown-details">
+                  <div class="breakdown-item">
+                    <span>Sequence Only:</span>
+                    <span id="constructsSequence">0/0</span>
+                  </div>
+                  <div class="breakdown-item">
+                    <span>Sequence + Selection:</span>
+                    <span id="constructsSequenceSelection">0/0</span>
+                  </div>
+                  <div class="breakdown-item">
+                    <span>Sequence + Iteration:</span>
+                    <span id="constructsSequenceIteration">0/0</span>
+                  </div>
+                  <div class="breakdown-item">
+                    <span>All Three Constructs:</span>
+                    <span id="constructsAllThree">0/0</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Operators Breakdown -->
+              <div class="breakdown-card">
+                <h4>🔢 Operators</h4>
+                <div class="breakdown-details">
+                  <div class="breakdown-item">
+                    <span>Addition (+):</span>
+                    <span id="operatorsAddition">0/0</span>
+                  </div>
+                  <div class="breakdown-item">
+                    <span>Subtraction (-):</span>
+                    <span id="operatorsSubtraction">0/0</span>
+                  </div>
+                  <div class="breakdown-item">
+                    <span>Multiplication (*):</span>
+                    <span id="operatorsMultiplication">0/0</span>
+                  </div>
+                  <div class="breakdown-item">
+                    <span>Division (/):</span>
+                    <span id="operatorsDivision">0/0</span>
+                  </div>
+                  <div class="breakdown-item">
+                    <span>Modulo (MOD):</span>
+                    <span id="operatorsModulo">0/0</span>
+                  </div>
+                  <div class="breakdown-item">
+                    <span>Integer Division (DIV):</span>
+                    <span id="operatorsIntegerDivision">0/0</span>
+                  </div>
+                  <div class="breakdown-item">
+                    <span>Exponentiation (^):</span>
+                    <span id="operatorsExponentiation">0/0</span>
+                  </div>
+                  <div class="breakdown-item">
+                    <span>Comparison (==, !=, <, >):</span>
+                    <span id="operatorsComparison">0/0</span>
+                  </div>
+                  <div class="breakdown-item">
+                    <span>Mixed Operations:</span>
+                    <span id="operatorsMixed">0/0</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Champion Breakdown -->
+              <div class="breakdown-card">
+                <h4>🏆 Champion</h4>
+                <div class="breakdown-details">
+                  <div class="breakdown-item">
+                    <span>Data Types:</span>
+                    <span id="championDatatypes">0/0</span>
+                  </div>
+                  <div class="breakdown-item">
+                    <span>Constructs:</span>
+                    <span id="championConstructs">0/0</span>
+                  </div>
+                  <div class="breakdown-item">
+                    <span>Operators:</span>
+                    <span id="championOperators">0/0</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </body>
+  <script src="questions.js"></script>
+  <script src="main.js"></script>
+</html>
