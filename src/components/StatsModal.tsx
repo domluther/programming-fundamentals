@@ -41,7 +41,7 @@ export function StatsModal({
 		return () => document.removeEventListener("keydown", handleKeyDown);
 	}, [isOpen, onClose]);
 
-	// Prevent render if modal is closed
+	// Don't render anything if not open
 	if (!isOpen) return null;
 
 	const overallStats = scoreManager.getOverallStats();
@@ -84,7 +84,7 @@ export function StatsModal({
 				<div className="flex items-center justify-between p-4 text-indigo-50 bg-header/80">
 					<p
 						id={titleId}
-						className="flex items-center gap-3 text-2xl font-bold"
+						className="flex items-center text-2xl font-bold gap-3"
 					>
 						<span>{headerIcon}</span>
 						{title}
@@ -168,7 +168,7 @@ export function StatsModal({
 								)}
 							</Card>
 							{/* Overall Statistics */}
-							<Card className="gap-4 p-4">
+							<Card className="p-4 gap-4">
 								<CardHeader className="px-2 mb-0">
 									<CardTitle className="flex items-center">
 										📈 Overall Statistics
@@ -189,7 +189,7 @@ export function StatsModal({
 											<div className="text-sm text-gray-600">
 												Total Attempts
 											</div>
-										</div>{" "}
+										</div>
 										<div className="p-4 text-center border-l-4 border-purple-500 rounded-lg bg-purple-50">
 											<div className="text-2xl font-bold text-purple-600">
 												{Math.floor(overallStats.accuracy)}%
@@ -201,7 +201,7 @@ export function StatsModal({
 							</Card>
 
 							{/* Category Breakdown */}
-							<Card className="gap-4 p-4">
+							<Card className="p-4 gap-4">
 								<CardHeader className="px-2 mb-0">
 									<CardTitle className="flex items-center">
 										📋 Breakdown by Category
@@ -255,7 +255,7 @@ export function StatsModal({
 							</Card>
 
 							{/* Detailed Statistics */}
-							<Card className="gap-4 p-4">
+							<Card className="p-4 gap-4">
 								<CardHeader className="px-2 mb-0">
 									<CardTitle className="flex items-center">
 										🔍 Detailed Breakdown
@@ -268,7 +268,7 @@ export function StatsModal({
 
 											return (
 												<div key={mode} className="space-y-3">
-													<h4 className="font-semibold text-lg capitalize border-b border-gray-200 pb-2">
+													<h4 className="pb-2 text-lg font-semibold capitalize border-b border-gray-200">
 														{mode === "none" ? "Invalid Items" : mode}
 													</h4>
 													<div className="space-y-2">
@@ -291,7 +291,7 @@ export function StatsModal({
 																return (
 																	<div
 																		key={subcat}
-																		className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
+																		className="flex items-center justify-between p-3 rounded-lg bg-gray-50"
 																	>
 																		<div>
 																			<div className="font-medium capitalize">

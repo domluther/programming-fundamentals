@@ -344,40 +344,40 @@ export function QuizComponent({
 		if (actualMode === "Data Types") {
 			return (
 				<div className="space-y-3">
-					<div className="bg-white p-3 rounded-lg border-l-4 border-blue-500 shadow-sm">
-						<div className="font-bold text-blue-600 mb-1">Character</div>
-						<div className="text-gray-600 mb-2">
+					<div className="p-3 bg-white border-l-4 border-blue-500 rounded-lg shadow-sm">
+						<div className="mb-1 font-bold text-blue-600">Character</div>
+						<div className="mb-2 text-gray-600">
 							A single letter, number or symbol
 						</div>
-						<div className="font-mono text-sm bg-gray-50 px-2 py-1 rounded text-gray-700">
+						<div className="px-2 py-1 font-mono text-sm text-gray-700 rounded bg-gray-50">
 							'a', '!', '2', ' '
 						</div>
 					</div>
-					<div className="bg-white p-3 rounded-lg border-l-4 border-blue-500 shadow-sm">
-						<div className="font-bold text-blue-600 mb-1">String</div>
-						<div className="text-gray-600 mb-2">A collection of characters</div>
-						<div className="font-mono text-sm bg-gray-50 px-2 py-1 rounded text-gray-700">
+					<div className="p-3 bg-white border-l-4 border-blue-500 rounded-lg shadow-sm">
+						<div className="mb-1 font-bold text-blue-600">String</div>
+						<div className="mb-2 text-gray-600">A collection of characters</div>
+						<div className="px-2 py-1 font-mono text-sm text-gray-700 rounded bg-gray-50">
 							'hello', "panda1", ":D"
 						</div>
 					</div>
-					<div className="bg-white p-3 rounded-lg border-l-4 border-blue-500 shadow-sm">
-						<div className="font-bold text-blue-600 mb-1">Integer</div>
-						<div className="text-gray-600 mb-2">A whole number</div>
-						<div className="font-mono text-sm bg-gray-50 px-2 py-1 rounded text-gray-700">
+					<div className="p-3 bg-white border-l-4 border-blue-500 rounded-lg shadow-sm">
+						<div className="mb-1 font-bold text-blue-600">Integer</div>
+						<div className="mb-2 text-gray-600">A whole number</div>
+						<div className="px-2 py-1 font-mono text-sm text-gray-700 rounded bg-gray-50">
 							2, 5, -1
 						</div>
 					</div>
-					<div className="bg-white p-3 rounded-lg border-l-4 border-blue-500 shadow-sm">
-						<div className="font-bold text-blue-600 mb-1">Float / Real</div>
-						<div className="text-gray-600 mb-2">A number with a decimal</div>
-						<div className="font-mono text-sm bg-gray-50 px-2 py-1 rounded text-gray-700">
+					<div className="p-3 bg-white border-l-4 border-blue-500 rounded-lg shadow-sm">
+						<div className="mb-1 font-bold text-blue-600">Float / Real</div>
+						<div className="mb-2 text-gray-600">A number with a decimal</div>
+						<div className="px-2 py-1 font-mono text-sm text-gray-700 rounded bg-gray-50">
 							-2.2, 3.14
 						</div>
 					</div>
-					<div className="bg-white p-3 rounded-lg border-l-4 border-blue-500 shadow-sm">
-						<div className="font-bold text-blue-600 mb-1">Boolean</div>
-						<div className="text-gray-600 mb-2">Has only two options</div>
-						<div className="font-mono text-sm bg-gray-50 px-2 py-1 rounded text-gray-700">
+					<div className="p-3 bg-white border-l-4 border-blue-500 rounded-lg shadow-sm">
+						<div className="mb-1 font-bold text-blue-600">Boolean</div>
+						<div className="mb-2 text-gray-600">Has only two options</div>
+						<div className="px-2 py-1 font-mono text-sm text-gray-700 rounded bg-gray-50">
 							True or False
 						</div>
 					</div>
@@ -388,31 +388,31 @@ export function QuizComponent({
 		if (actualMode === "Constructs") {
 			return (
 				<div className="space-y-3">
-					<div className="bg-white p-3 rounded-lg border-l-4 border-blue-500 shadow-sm">
-						<div className="font-bold text-blue-600 mb-1">Sequence</div>
-						<div className="text-gray-600 mb-2">
+					<div className="p-3 bg-white border-l-4 border-blue-500 rounded-lg shadow-sm">
+						<div className="mb-1 font-bold text-blue-600">Sequence</div>
+						<div className="mb-2 text-gray-600">
 							Instructions executed one after another in order.
 						</div>
-						<div className="font-mono text-sm bg-gray-50 px-2 py-1 rounded text-gray-700">
+						<div className="px-2 py-1 font-mono text-sm text-gray-700 rounded bg-gray-50">
 							Always present in any code.
 						</div>
 					</div>
-					<div className="bg-white p-3 rounded-lg border-l-4 border-blue-500 shadow-sm">
-						<div className="font-bold text-blue-600 mb-1">Selection</div>
-						<div className="text-gray-600 mb-2">Making decisions in code.</div>
-						<div className="font-mono text-sm bg-gray-50 px-2 py-1 rounded text-gray-700">
+					<div className="p-3 bg-white border-l-4 border-blue-500 rounded-lg shadow-sm">
+						<div className="mb-1 font-bold text-blue-600">Selection</div>
+						<div className="mb-2 text-gray-600">Making decisions in code.</div>
+						<div className="px-2 py-1 font-mono text-sm text-gray-700 rounded bg-gray-50">
 							Look for: if, elif, else, switch
 						</div>
 					</div>
-					<div className="bg-white p-3 rounded-lg border-l-4 border-blue-500 shadow-sm">
-						<div className="font-bold text-blue-600 mb-1">Iteration</div>
-						<div className="text-gray-600 mb-2">Repeating code (loops).</div>
-						<div className="font-mono text-sm bg-gray-50 px-2 py-1 rounded text-gray-700">
+					<div className="p-3 bg-white border-l-4 border-blue-500 rounded-lg shadow-sm">
+						<div className="mb-1 font-bold text-blue-600">Iteration</div>
+						<div className="mb-2 text-gray-600">Repeating code (loops).</div>
+						<div className="px-2 py-1 font-mono text-sm text-gray-700 rounded bg-gray-50">
 							Look for: for, while, do until
 						</div>
 					</div>
-					<div className="bg-blue-100 p-3 rounded-lg border border-blue-300">
-						<div className="text-blue-700 font-medium text-center">
+					<div className="p-3 bg-blue-100 border border-blue-300 rounded-lg">
+						<div className="font-medium text-center text-blue-700">
 							💡 Use checkboxes or press keys{" "}
 							<kbd className="px-1 py-0.5 bg-white rounded border text-xs">
 								1
@@ -435,32 +435,32 @@ export function QuizComponent({
 		if (actualMode === "Operators") {
 			return (
 				<div className="space-y-3">
-					<div className="bg-white p-3 rounded-lg border-l-4 border-blue-500 shadow-sm">
-						<div className="font-bold text-blue-600 mb-1">
+					<div className="p-3 bg-white border-l-4 border-blue-500 rounded-lg shadow-sm">
+						<div className="mb-1 font-bold text-blue-600">
 							Arithmetic Operators
 						</div>
-						<div className="text-gray-600 mb-2">Mathematical operations.</div>
-						<div className="font-mono text-sm bg-gray-50 px-2 py-1 rounded text-gray-700">
+						<div className="mb-2 text-gray-600">Mathematical operations.</div>
+						<div className="px-2 py-1 font-mono text-sm text-gray-700 rounded bg-gray-50">
 							+ (add), - (subtract), * (multiply), / (divide)
 						</div>
 					</div>
-					<div className="bg-white p-3 rounded-lg border-l-4 border-blue-500 shadow-sm">
-						<div className="font-bold text-blue-600 mb-1">
+					<div className="p-3 bg-white border-l-4 border-blue-500 rounded-lg shadow-sm">
+						<div className="mb-1 font-bold text-blue-600">
 							Special Operators
 						</div>
-						<div className="text-gray-600 mb-2">OCR specific operations.</div>
-						<div className="font-mono text-sm bg-gray-50 px-2 py-1 rounded text-gray-700">
+						<div className="mb-2 text-gray-600">OCR specific operations.</div>
+						<div className="px-2 py-1 font-mono text-sm text-gray-700 rounded bg-gray-50">
 							MOD (remainder), DIV (integer division), ^ (power)
 						</div>
 					</div>
-					<div className="bg-white p-3 rounded-lg border-l-4 border-blue-500 shadow-sm">
-						<div className="font-bold text-blue-600 mb-1">
+					<div className="p-3 bg-white border-l-4 border-blue-500 rounded-lg shadow-sm">
+						<div className="mb-1 font-bold text-blue-600">
 							Comparison Operators
 						</div>
-						<div className="text-gray-600 mb-2">
+						<div className="mb-2 text-gray-600">
 							Compare values (result is true or false).
 						</div>
-						<div className="font-mono text-sm bg-gray-50 px-2 py-1 rounded text-gray-700">
+						<div className="px-2 py-1 font-mono text-sm text-gray-700 rounded bg-gray-50">
 							== (equal), != (not equal), &lt; (less than), &gt; (greater than),
 							&lt;= (less than or equal to), &gt;= (greater than or equal to)
 						</div>
@@ -475,7 +475,7 @@ export function QuizComponent({
 	return (
 		<div className="space-y-6">
 			{/* Mode Stats Display */}
-			<Card className="p-4 bg-gradient-to-r from-blue-50 to-indigo-50 border-l-4 border-blue-500">
+			<Card className="p-4 border-l-4 border-blue-500 bg-gradient-to-r from-blue-50 to-indigo-50">
 				<div className="grid grid-cols-2 md:grid-cols-4 gap-4">
 					<div className="text-center">
 						<div className="text-2xl font-bold text-blue-600">{points}</div>
@@ -514,15 +514,15 @@ export function QuizComponent({
 			{/* Question Section */}
 			{currentQuestion && (
 				<Card className="p-6 bg-white shadow-lg">
-					<div className="text-center mb-4">
+					<div className="mb-4 text-center">
 						{(mode === "Data Types" ||
 							(mode === "Champion" &&
 								currentQuestion.sourceMode === "Data Types")) && (
 							<div>
-								<p className="text-left text-lg mb-2 p-4 font-semibold text-white bg-indigo-600 rounded-lg shadow">
+								<p className="p-4 mb-2 text-lg font-semibold text-left text-white bg-indigo-600 rounded-lg shadow">
 									Identify the data type
 								</p>
-								<div className="text-left text-xl font-mono font-light bg-gray-100 p-4 rounded-lg mb-4">
+								<div className="p-4 mb-4 font-mono text-xl font-light text-left bg-gray-100 rounded-lg">
 									{currentQuestion.value}
 								</div>
 							</div>
@@ -532,10 +532,10 @@ export function QuizComponent({
 							(mode === "Champion" &&
 								currentQuestion.sourceMode === "Constructs")) && (
 							<div>
-								<p className="text-left text-lg mb-2 p-4 font-semibold text-white bg-indigo-600 rounded-lg shadow">
+								<p className="p-4 mb-2 text-lg font-semibold text-left text-white bg-indigo-600 rounded-lg shadow">
 									Identify the programming constructs used
 								</p>
-								<pre className="text-left bg-gray-100 p-4 rounded-lg mb-4 overflow-x-auto text-xl">
+								<pre className="p-4 mb-4 overflow-x-auto text-xl text-left bg-gray-100 rounded-lg">
 									<code className="font-light">{currentQuestion.code}</code>
 								</pre>
 							</div>
@@ -545,10 +545,10 @@ export function QuizComponent({
 							(mode === "Champion" &&
 								currentQuestion.sourceMode === "Operators")) && (
 							<div>
-								<p className="text-left text-lg mb-2 p-4 font-semibold text-white bg-indigo-600 rounded-lg shadow">
+								<p className="p-4 mb-2 text-lg font-semibold text-left text-white bg-indigo-600 rounded-lg shadow">
 									State the result of the following expression
 								</p>
-								<pre className="text-left bg-gray-100 p-4 rounded-lg mb-4 overflow-x-auto text-xl">
+								<pre className="p-4 mb-4 overflow-x-auto text-xl text-left bg-gray-100 rounded-lg">
 									<code className="font-light">{currentQuestion.code}</code>
 								</pre>
 							</div>
@@ -561,7 +561,7 @@ export function QuizComponent({
 						currentQuestion.sourceMode === "Constructs") ? (
 						// Checkbox input for constructs
 						<div className="mb-4">
-							<div className="flex flex-wrap justify-center gap-3 sm:gap-4 mb-4">
+							<div className="flex flex-wrap justify-center mb-4 gap-3 sm:gap-4">
 								<label
 									htmlFor={sequenceId}
 									className="flex items-center space-x-3 cursor-pointer p-3 border-2 border-gray-200 rounded-lg hover:border-blue-300 hover:bg-blue-50 transition-colors duration-200 min-w-[120px] justify-center"
@@ -578,7 +578,7 @@ export function QuizComponent({
 										className="w-5 h-5"
 									/>
 									<span className="text-sm font-medium leading-none select-none">
-										<kbd className="mr-2 px-2 py-1 text-xs bg-gray-100 border rounded font-mono">
+										<kbd className="px-2 py-1 mr-2 font-mono text-xs bg-gray-100 border rounded">
 											1
 										</kbd>
 										Sequence
@@ -601,7 +601,7 @@ export function QuizComponent({
 										className="w-5 h-5"
 									/>
 									<span className="text-sm font-medium leading-none select-none">
-										<kbd className="mr-2 px-2 py-1 text-xs bg-gray-100 border rounded font-mono">
+										<kbd className="px-2 py-1 mr-2 font-mono text-xs bg-gray-100 border rounded">
 											2
 										</kbd>
 										Selection
@@ -624,7 +624,7 @@ export function QuizComponent({
 										className="w-5 h-5"
 									/>
 									<span className="text-sm font-medium leading-none select-none">
-										<kbd className="mr-2 px-2 py-1 text-xs bg-gray-100 border rounded font-mono">
+										<kbd className="px-2 py-1 mr-2 font-mono text-xs bg-gray-100 border rounded">
 											3
 										</kbd>
 										Iteration
@@ -640,7 +640,7 @@ export function QuizComponent({
 										!constructsChecked.selection &&
 										!constructsChecked.iteration
 									}
-									className="px-8 py-3 font-semibold text-white transition-all duration-200 transform rounded-lg shadow-lg bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 hover:shadow-xl hover:-translate-y-1 disabled:from-gray-400 disabled:to-gray-500 disabled:hover:shadow-lg disabled:transform-none"
+									className="px-8 py-3 font-semibold text-white rounded-lg shadow-lg transition-all duration-200 transform bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 hover:shadow-xl hover:-translate-y-1 disabled:from-gray-400 disabled:to-gray-500 disabled:hover:shadow-lg disabled:transform-none"
 								>
 									Submit Answer
 								</Button>
@@ -656,10 +656,10 @@ export function QuizComponent({
 								onChange={(e) => setUserAnswer(e.target.value)}
 								placeholder="Enter your answer and press Enter..."
 								onKeyPress={(e) => e.key === "Enter" && handleNext()}
-								className="p-6 text-lg font-bold text-center transition-all duration-200 border-2 border-indigo-200 shadow-lg sm:text-2xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-200 rounded-xl bg-gradient-to-r from-white to-indigo-50 focus-visible:ring-indigo-200/50"
+								className="p-6 text-lg font-bold text-center border-2 border-indigo-200 shadow-lg transition-all duration-200 sm:text-2xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-200 rounded-xl bg-gradient-to-r from-white to-indigo-50 focus-visible:ring-indigo-200/50"
 								disabled={showFeedback}
 							/>
-							<p className="text-xs text-gray-500 mt-1 text-center">
+							<p className="mt-1 text-xs text-center text-gray-500">
 								Press Enter to submit
 							</p>
 						</div>
@@ -671,12 +671,12 @@ export function QuizComponent({
 							className={`p-4 rounded-lg mb-4 ${isCorrect ? "bg-green-50 text-green-800" : "bg-red-50 text-red-800"}`}
 						>
 							{feedback}
-							<div className="text-center mt-3 space-y-3">
+							<div className="mt-3 text-center space-y-3">
 								<button
 									type="button"
 									onClick={() => generateQuestion()}
 									aria-label="Generate next question"
-									className="px-8 py-3 font-semibold text-white transition-all duration-200 transform rounded-lg shadow-lg bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 hover:shadow-xl hover:-translate-y-1"
+									className="px-8 py-3 font-semibold text-white rounded-lg shadow-lg transition-all duration-200 transform bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 hover:shadow-xl hover:-translate-y-1"
 								>
 									<span className="mr-2">🎯</span>
 									Next Question
