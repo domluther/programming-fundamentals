@@ -47,7 +47,6 @@ export function StatsModal({
 	const overallStats = scoreManager.getOverallStats();
 	const allModeStats = scoreManager.getAllModeStats();
 
-	console.log(overallStats.currentLevel)
 	const handleResetScores = () => {
 		if (
 			confirm(
@@ -58,6 +57,8 @@ export function StatsModal({
 			window.location.reload(); // Refresh to update all displays
 		}
 	};
+
+	console.log(overallStats)
 	
 	return (
 		<div
@@ -263,15 +264,15 @@ export function StatsModal({
 												<h4 className="font-semibold capitalize mb-2">{mode}</h4>
 												{Object.entries(stats.detailed || {}).map(([subcat, subcatStats]) => {
 													const detailedStat = subcatStats as DetailedStats;
-													if (!detailedStat || detailedStat.total === 0) return null;
+													if (!detailedStat || detailedStat.attempts === 0) return null;
 													
-													const subcatAccuracy = Math.round((detailedStat.correct / detailedStat.total) * 100);
+													const subcatAccuracy = Math.round((detailedStat.correct / detailedStat.attempts) * 100);
 													
 													return (
 														<div key={subcat} className="flex justify-between items-center text-sm mb-2">
 															<span className="capitalize">{subcat.replace(/([A-Z])/g, ' $1').replace('-', ' ').trim()}</span>
 															<span className="font-medium">
-																{detailedStat.correct}/{detailedStat.total} ({subcatAccuracy}%)
+																{detailedStat.correct}/{detailedStat.attempts} ({subcatAccuracy}%)
 															</span>
 														</div>
 													);

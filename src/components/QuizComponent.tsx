@@ -4,9 +4,10 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
 import { dataTypeQuestions, constructQuestions, operatorQuestions } from '@/lib/questionData';
+import type { Mode } from '@/lib/scoreManager';
 
 interface QuizComponentProps {
-  mode: 'datatypes' | 'constructs' | 'operators' | 'champion';
+  mode: Mode;
   onScoreUpdate: (isCorrect: boolean, questionType: string) => void;
 }
 
@@ -35,7 +36,7 @@ export function QuizComponent({ mode, onScoreUpdate }: QuizComponentProps) {
     let questionType = '';
     
     switch (mode) {
-      case 'datatypes':
+      case 'Data Types':
         const categories = Object.keys(dataTypeQuestions);
         const randomCategory = categories[Math.floor(Math.random() * categories.length)];
         const questions = dataTypeQuestions[randomCategory];
@@ -43,17 +44,17 @@ export function QuizComponent({ mode, onScoreUpdate }: QuizComponentProps) {
         questionType = `datatypes-${randomCategory}`;
         break;
         
-      case 'constructs':
+      case 'Constructs':
         question = constructQuestions[Math.floor(Math.random() * constructQuestions.length)];
         questionType = `constructs-${question.constructs.join('-')}`;
         break;
         
-      case 'operators':
+      case 'Operators':
         question = operatorQuestions[Math.floor(Math.random() * operatorQuestions.length)];
         questionType = `operators-${question.category}`;
         break;
         
-      case 'champion':
+      case 'Champion':
         // Mix of all question types
         const allQuestions = [
           ...Object.values(dataTypeQuestions).flat().map(q => ({ ...q, sourceMode: 'datatypes' })),
@@ -77,7 +78,7 @@ export function QuizComponent({ mode, onScoreUpdate }: QuizComponentProps) {
     
     // Focus the input after state updates for better UX
     setTimeout(() => {
-      if (inputRef.current && mode !== 'constructs') {
+      if (inputRef.current && mode !== 'Constructs') {
         inputRef.current.focus();
       }
     }, 100);
@@ -88,13 +89,13 @@ export function QuizComponent({ mode, onScoreUpdate }: QuizComponentProps) {
     if (!currentQuestion) return;
 
     // For constructs mode, check if at least one checkbox is selected
-    if ((mode === 'constructs' || (mode === 'champion' && currentQuestion.sourceMode === 'constructs')) && 
+    if ((mode === 'Constructs' || (mode === 'Champion' && currentQuestion.sourceMode === 'Constructs')) && 
         !constructsChecked.sequence && !constructsChecked.selection && !constructsChecked.iteration) {
       return;
     }
 
     // For other modes, check if text input has content
-    if ((mode !== 'constructs' && !(mode === 'champion' && currentQuestion.sourceMode === 'constructs')) && 
+    if ((mode !== 'Constructs' && !(mode === 'Champion' && currentQuestion.sourceMode === 'Constructs')) && 
         userAnswer.trim() === '') {
       return;
     }
@@ -104,7 +105,7 @@ export function QuizComponent({ mode, onScoreUpdate }: QuizComponentProps) {
     // Determine the actual mode for checking (important for champion mode)
     const actualMode = currentQuestion.sourceMode || mode;
     
-    if (actualMode === 'datatypes') {
+    if (actualMode === 'Data Types') {
       correct = userAnswer.toLowerCase() === currentQuestion.type.toLowerCase();
     } else if (actualMode === 'constructs') {
       // For constructs, check if selected checkboxes match expected constructs
@@ -180,7 +181,7 @@ export function QuizComponent({ mode, onScoreUpdate }: QuizComponentProps) {
       }
       
       // Keyboard shortcuts for constructs mode (1, 2, 3 keys)
-      if ((mode === 'constructs' || (mode === 'champion' && currentQuestion?.sourceMode === 'constructs')) && !showFeedback) {
+      if ((mode === 'Constructs' || (mode === 'Champion' && currentQuestion?.sourceMode === 'Constructs')) && !showFeedback) {
         if (e.key === '1') {
           e.preventDefault();
           setConstructsChecked(prev => ({ ...prev, sequence: !prev.sequence }));
@@ -201,13 +202,13 @@ export function QuizComponent({ mode, onScoreUpdate }: QuizComponentProps) {
   const getHintContent = () => {
     const actualMode = currentQuestion?.sourceMode || mode;
     
-    if (mode === 'champion') {
+    if (mode === 'Champion') {
       return (
         <></>
       );
     }
     
-    if (actualMode === 'datatypes') {
+    if (actualMode === 'Data Types') {
       return (
         <div className="text-sm space-y-1">
           <p><strong>Character:</strong> Single character in quotes like 'a' or '5'</p>
@@ -251,7 +252,7 @@ export function QuizComponent({ mode, onScoreUpdate }: QuizComponentProps) {
       {currentQuestion && (
         <Card className="p-6 bg-white shadow-lg">
           <div className="text-center mb-4">
-            {(mode === 'datatypes' || (mode === 'champion' && currentQuestion.sourceMode === 'datatypes')) && (
+            {(mode === 'Data Types' || (mode === 'Champion' && currentQuestion.sourceMode === 'Data Types')) && (
               <div>
                 <p className="text-left text-lg mb-2 p-4 font-semibold text-white bg-indigo-600 rounded-lg shadow">Identify the data type</p>
                 <div className="text-left text-xl font-mono font-light bg-gray-100 p-4 rounded-lg mb-4">
@@ -259,8 +260,8 @@ export function QuizComponent({ mode, onScoreUpdate }: QuizComponentProps) {
                 </div>
               </div>
             )}
-            
-            {(mode === 'constructs' || (mode === 'champion' && currentQuestion.sourceMode === 'constructs')) && (
+
+            {(mode === 'Constructs' || (mode === 'Champion' && currentQuestion.sourceMode === 'Constructs')) && (
               <div>
                 <p className="text-left text-lg mb-2 p-4 font-semibold text-white bg-indigo-600 rounded-lg shadow">Identify the programming constructs used</p>
                 <pre className="text-left bg-gray-100 p-4 rounded-lg mb-4 overflow-x-auto text-xl">
@@ -268,8 +269,8 @@ export function QuizComponent({ mode, onScoreUpdate }: QuizComponentProps) {
                 </pre>
               </div>
             )}
-            
-            {(mode === 'operators' || (mode === 'champion' && currentQuestion.sourceMode === 'operators')) && (
+
+            {(mode === 'Operators' || (mode === 'Champion' && currentQuestion.sourceMode === 'Operators')) && (
               <div>
                 <p className="text-left text-lg mb-2 p-4 font-semibold text-white bg-indigo-600 rounded-lg shadow">State the result of the following expression</p>
                 <pre className="text-left bg-gray-100 p-4 rounded-lg mb-4 overflow-x-auto text-xl">
@@ -280,7 +281,7 @@ export function QuizComponent({ mode, onScoreUpdate }: QuizComponentProps) {
           </div>
 
           {/* Input Section */}
-          {(mode === 'constructs' || (mode === 'champion' && currentQuestion.sourceMode === 'constructs')) ? (
+          {(mode === 'Constructs' || (mode === 'Champion' && currentQuestion.sourceMode === 'Constructs')) ? (
             // Checkbox input for constructs
             <div className="mb-4">
               <div className="flex flex-wrap justify-center gap-3 sm:gap-4 mb-4">
@@ -365,7 +366,7 @@ export function QuizComponent({ mode, onScoreUpdate }: QuizComponentProps) {
               ) : (
                 <div>
                   {/* Special formatting for datatypes feedback to bold the data type */}
-                  {(mode === 'datatypes' || (mode === 'champion' && currentQuestion.sourceMode === 'datatypes')) && !isCorrect ? (
+                  {(mode === 'Data Types' || (mode === 'Champion' && currentQuestion.sourceMode === 'Data Types')) && !isCorrect ? (
                     <span>
                       ❌ No, this is {currentQuestion.type === 'integer' ? 'an' : 'a'} <strong>{currentQuestion.type === 'boolean' ? 'Boolean' : currentQuestion.type}</strong> because{' '}
                       {{
@@ -396,7 +397,7 @@ export function QuizComponent({ mode, onScoreUpdate }: QuizComponentProps) {
           )}
 
           {/* Hints Section - Details/Summary Pattern. Not in champion mode */}
-          {mode !== 'champion' && (
+          {mode !== 'Champion' && (
           <details className="mt-6 group">
             <summary className="cursor-pointer focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-4 py-3 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 hover:from-blue-100 hover:to-indigo-100 transition-all duration-200 shadow-sm hover:shadow-md list-none [&::-webkit-details-marker]:hidden">
               <span className="flex items-center font-semibold text-blue-800">

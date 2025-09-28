@@ -7,10 +7,10 @@ export const Route = createFileRoute("/operators")({
 
 function OperatorsQuiz() {
 	return (
-		<SharedLayout mode="operators">
+		<SharedLayout mode="Operators">
 			{(recordScoreAndUpdate) => (
 				<QuizComponent 
-					mode="operators" 
+					mode="Operators" 
 					onScoreUpdate={recordScoreAndUpdate} 
 				/>
 			)}

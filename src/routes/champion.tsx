@@ -7,10 +7,10 @@ export const Route = createFileRoute("/champion")({
 
 function ChampionQuiz() {
 	return (
-		<SharedLayout mode="champion">
+		<SharedLayout mode="Champion">
 			{(recordScoreAndUpdate) => (
 				<QuizComponent 
-					mode="champion" 
+					mode="Champion" 
 					onScoreUpdate={recordScoreAndUpdate} 
 				/>
 			)}

@@ -7,10 +7,10 @@ export const Route = createFileRoute("/datatypes")({
 
 function DataTypesQuiz() {
 	return (
-		<SharedLayout mode="datatypes">
+		<SharedLayout mode="Data Types">
 			{(recordScoreAndUpdate) => (
 				<QuizComponent 
-					mode="datatypes" 
+					mode="Data Types" 
 					onScoreUpdate={recordScoreAndUpdate} 
 				/>
 			)}

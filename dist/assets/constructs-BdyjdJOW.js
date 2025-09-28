@@ -1,1 +1,0 @@
-import{j as o}from"./index-L5-D-8KJ.js";import{S as r}from"./StatsModal-Dy3zHhB-.js";import{Q as m}from"./QuizComponent-Clgivhey.js";import"./input-CWKaMMyc.js";import"./index-e9zOBrYz.js";import"./questionData-2WdpK7eH.js";function u(){return o.jsx(r,{mode:"constructs",children:t=>o.jsx(m,{mode:"constructs",onScoreUpdate:t})})}export{u as component};

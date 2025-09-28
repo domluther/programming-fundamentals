@@ -1,17 +1,17 @@
 import { useState, useEffect } from "react";
 import { ScoreButton, SiteLayout, StatsModal } from "@/components";
-import { ScoreManager } from "@/lib/scoreManager";
+import { ScoreManager, type Mode } from "@/lib/scoreManager";
 import { SITE_CONFIG } from "@/lib/siteConfig";
 import { ModeMenu } from "./ModeMenu";
 
 interface SharedLayoutProps {
-	mode?: 'datatypes' | 'constructs' | 'operators' | 'champion';
+	mode?: Mode;
 	children: (
 		recordScoreAndUpdate: (isCorrect: boolean, questionType: string) => void,
 	) => React.ReactNode;
 }
 
-export function useSharedLayout(mode?: 'datatypes' | 'constructs' | 'operators' | 'champion') {
+export function useSharedLayout(mode?: Mode) {
 	const [showStatsModal, setShowStatsModal] = useState(false);
 	// Score update trigger to force re-renders when score changes
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars

@@ -7,82 +7,80 @@ export interface LevelInfo {
 }
 
 export interface DetailedStats {
+	attempts: number;
 	correct: number;
-	total: number;
 }
 
 export interface ModeStats {
-	score: number;
+	attempts: number;
+	correct: number;
 	streak: number;
-	totalQuestions: number;
-	correctAnswers: number;
 	recordStreak: number;
 	detailed: Record<string, DetailedStats>;
 }
 
+export type Mode = 'Data Types' | 'Constructs' | 'Operators' | 'Champion';
+
+
 export interface ScoreData {
-	datatypes: ModeStats;
-	constructs: ModeStats;
-	operators: ModeStats;
-	champion: ModeStats;
+	'Data Types': ModeStats;
+	Constructs: ModeStats;
+	Operators: ModeStats;
+	Champion: ModeStats;
 }
 
 const blankScoreData: ScoreData = {
-	datatypes: {
-		score: 0,
+	'Data Types': {
+		attempts: 0,
+		correct: 0,
 		streak: 0,
-		totalQuestions: 0,
-		correctAnswers: 0,
 		recordStreak: 0,
 		detailed: {
-			character: { correct: 0, total: 0 },
-			string: { correct: 0, total: 0 },
-			integer: { correct: 0, total: 0 },
-			float: { correct: 0, total: 0 },
-			boolean: { correct: 0, total: 0 }
+			character: { correct: 0, attempts: 0 },
+			string: { correct: 0, attempts: 0 },
+			integer: { correct: 0, attempts: 0 },
+			float: { correct: 0, attempts: 0 },
+			boolean: { correct: 0, attempts: 0 }
 		}
 	},
-	constructs: {
-		score: 0,
+	Constructs: {
+		attempts: 0,
+		correct: 0,
 		streak: 0,
-		totalQuestions: 0,
-		correctAnswers: 0,
 		recordStreak: 0,
 		detailed: {
-			sequence: { correct: 0, total: 0 },
-			'selection-sequence': { correct: 0, total: 0 },
-			'iteration-sequence': { correct: 0, total: 0 },
-			'all-three': { correct: 0, total: 0 }
+			sequence: { correct: 0, attempts: 0 },
+			'selection-sequence': { correct: 0, attempts: 0 },
+			'iteration-sequence': { correct: 0, attempts: 0 },
+			'all-three': { correct: 0, attempts: 0 }
 		}
 	},
-	operators: {
-		score: 0,
+	Operators: {
+		attempts: 0,
+		correct: 0,
 		streak: 0,
-		totalQuestions: 0,
-		correctAnswers: 0,
 		recordStreak: 0,
 		detailed: {
-			addition: { correct: 0, total: 0 },
-			subtraction: { correct: 0, total: 0 },
-			multiplication: { correct: 0, total: 0 },
-			division: { correct: 0, total: 0 },
-			modulo: { correct: 0, total: 0 },
-			'integer-division': { correct: 0, total: 0 },
-			exponentiation: { correct: 0, total: 0 },
-			comparison: { correct: 0, total: 0 },
-			mixed: { correct: 0, total: 0 }
+			addition: { correct: 0, attempts: 0 },
+			subtraction: { correct: 0, attempts: 0 },
+			multiplication: { correct: 0, attempts: 0 },
+			division: { correct: 0, attempts: 0 },
+			modulo: { correct: 0, attempts: 0 },
+			'integer-division': { correct: 0, attempts: 0 },
+			exponentiation: { correct: 0, attempts: 0 },
+			comparison: { correct: 0, attempts: 0 },
+			mixed: { correct: 0, attempts: 0 }
 		}
 	},
-	champion: {
-		score: 0,
+	Champion: {
+		attempts: 0,
+		correct: 0,
 		streak: 0,
-		totalQuestions: 0,
-		correctAnswers: 0,
 		recordStreak: 0,
 		detailed: {
-			datatypes: { correct: 0, total: 0 },
-			constructs: { correct: 0, total: 0 },
-			operators: { correct: 0, total: 0 }
+			datatypes: { correct: 0, attempts: 0 },
+			constructs: { correct: 0, attempts: 0 },
+			operators: { correct: 0, attempts: 0 }
 		}
 	}
 };
@@ -91,7 +89,7 @@ export class ScoreManager {
 	private storageKey: string;
 	private scores: ScoreData = blankScoreData;
 	private levels: LevelInfo[];
-	private currentMode: 'datatypes' | 'constructs' | 'operators' | 'champion' = 'datatypes';
+	private currentMode: Mode = 'Data Types';
 
 	// Default generic levels that can be used as fallback
 	private static readonly DEFAULT_LEVELS: LevelInfo[] = [
@@ -195,22 +193,22 @@ export class ScoreManager {
 		}
 	}
 
-	setCurrentMode(mode: 'datatypes' | 'constructs' | 'operators' | 'champion'): void {
+	setCurrentMode(mode: Mode): void {
 		this.currentMode = mode;
 	}
 
-	getStreak(mode?: 'datatypes' | 'constructs' | 'operators' | 'champion'): number {
+	getStreak(mode?: Mode): number {
 		const modeToUse = mode || this.currentMode;
 		return this.scores[modeToUse].streak;
 	}
 
-	resetStreak(mode?: 'datatypes' | 'constructs' | 'operators' | 'champion'): void {
+	resetStreak(mode?: Mode): void {
 		const modeToUse = mode || this.currentMode;
 		this.scores[modeToUse].streak = 0;
 		this.saveScores();
 	}
 
-	recordScore(isCorrect: boolean, questionType: string, mode?: 'datatypes' | 'constructs' | 'operators' | 'champion'): void {
+	recordScore(isCorrect: boolean, questionType: string, mode?: Mode): void {
 		if (!this.scores) {
 			this.scores = { ...blankScoreData };
 		}
@@ -218,23 +216,22 @@ export class ScoreManager {
 		const modeToUse = mode || this.currentMode;
 		const currentStats = this.scores[modeToUse];
 		
-		currentStats.totalQuestions++;
+		currentStats.attempts++;
 
 		// In champion mode, also update the original mode's main stats
 		let originalModeStats = null;
-		if (modeToUse === 'champion') {
+		if (modeToUse === 'Champion') {
 			// Extract the actual mode from questionType (e.g., "datatypes-character" -> "datatypes")
-			const actualMode = questionType.split('-')[0] as 'datatypes' | 'constructs' | 'operators';
+			const actualMode = questionType.split('-')[0] as 'Data Types' | 'Constructs' | 'Operators';
 			originalModeStats = this.scores[actualMode];
-			originalModeStats.totalQuestions++;
+			originalModeStats.attempts++;
 		}
 
 		// Track detailed stats based on question type
 		this.trackDetailedStats(questionType, isCorrect, modeToUse);
 
 		if (isCorrect) {
-			currentStats.correctAnswers++;
-			currentStats.score++;
+			currentStats.correct++;
 			currentStats.streak++;
 			if (currentStats.streak > currentStats.recordStreak) {
 				currentStats.recordStreak = currentStats.streak;
@@ -242,8 +239,7 @@ export class ScoreManager {
 			
 			// In champion mode, also update the original mode's main stats
 			if (originalModeStats) {
-				originalModeStats.correctAnswers++;
-				originalModeStats.score++;
+				originalModeStats.correct++;
 				originalModeStats.streak++;
 				if (originalModeStats.streak > originalModeStats.recordStreak) {
 					originalModeStats.recordStreak = originalModeStats.streak;
@@ -261,16 +257,16 @@ export class ScoreManager {
 		this.saveScores();
 	}
 
-	private trackDetailedStats(questionType: string, isCorrect: boolean, mode: 'datatypes' | 'constructs' | 'operators' | 'champion'): void {
-		if (mode === 'champion') {
+	private trackDetailedStats(questionType: string, isCorrect: boolean, mode: Mode): void {
+		if (mode === 'Champion') {
 			// In champion mode, track stats in both champion mode AND the original mode
-			const championStats = this.scores['champion'];
-			const actualMode = questionType.split('-')[0] as 'datatypes' | 'constructs' | 'operators';
+			const championStats = this.scores['Champion'];
+			const actualMode = questionType.split('-')[0] as 'Data Types' | 'Constructs' | 'Operators';
 			const originalModeStats = this.scores[actualMode];
 
 			// Track in champion mode breakdown
 			if (championStats.detailed[actualMode]) {
-				championStats.detailed[actualMode].total++;
+				championStats.detailed[actualMode].attempts++;
 				if (isCorrect) {
 					championStats.detailed[actualMode].correct++;
 				}
@@ -280,7 +276,7 @@ export class ScoreManager {
 			let categoryKey = this.extractCategoryKey(questionType, actualMode);
 
 			if (categoryKey && originalModeStats.detailed[categoryKey]) {
-				originalModeStats.detailed[categoryKey].total++;
+				originalModeStats.detailed[categoryKey].attempts++;
 				if (isCorrect) {
 					originalModeStats.detailed[categoryKey].correct++;
 				}
@@ -291,7 +287,7 @@ export class ScoreManager {
 			let categoryKey = this.extractCategoryKey(questionType, mode);
 
 			if (categoryKey && currentStats.detailed[categoryKey]) {
-				currentStats.detailed[categoryKey].total++;
+				currentStats.detailed[categoryKey].attempts++;
 				if (isCorrect) {
 					currentStats.detailed[categoryKey].correct++;
 				}
@@ -299,13 +295,13 @@ export class ScoreManager {
 		}
 	}
 
-	private extractCategoryKey(questionType: string, mode: 'datatypes' | 'constructs' | 'operators'): string {
+	private extractCategoryKey(questionType: string, mode: Mode): string {
 		const parts = questionType.split('-');
 		
-		if (mode === 'datatypes') {
+		if (mode === 'Data Types') {
 			// For datatypes, the category is the second part (e.g., "datatypes-character" -> "character")
 			return parts[1] || '';
-		} else if (mode === 'constructs') {
+		} else if (mode === 'Constructs') {
 			// For constructs, build the category from construct combinations
 			if (parts.length > 1) {
 				const constructs = parts.slice(1).sort();
@@ -318,7 +314,7 @@ export class ScoreManager {
 				}
 			}
 			return '';
-		} else if (mode === 'operators') {
+		} else if (mode === 'Operators') {
 			// For operators, the category is the second part (e.g., "operators-addition" -> "addition")
 			return parts[1] || '';
 		}
@@ -395,7 +391,7 @@ export class ScoreManager {
 		};
 	}
 
-	getModeStats(mode: 'datatypes' | 'constructs' | 'operators' | 'champion'): ModeStats {
+	getModeStats(mode: Mode): ModeStats {
 		return this.scores[mode];
 	}
 
