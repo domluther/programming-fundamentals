@@ -1,16 +1,29 @@
-import { useCallback, useEffect, useId, useRef, useState } from "react";
 import type { ReactElement } from "react";
+import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import {
 	constructQuestions,
+	type DataType,
 	dataTypeQuestions,
 	operatorQuestions,
 } from "@/lib/questionData";
 import type { Mode, ScoreManager } from "@/lib/scoreManager";
 import { cn } from "@/lib/utils";
+
+// Question interface to avoid 'any' type
+interface QuestionData {
+	explanation: string; // Required - all question types have this
+	dataType?: DataType; // Only for Data Types mode
+	value?: string; // Only for Data Types mode
+	code?: string; // Only for Constructs and Operators modes
+	usedConstructs?: string[]; // Only for Constructs mode
+	answer?: string; // Only for Operators mode
+	operatorCategory?: string; // Only for Operators mode
+	sourceMode?: string; // To track original mode in Champion mode
+}
 
 interface QuizComponentProps {
 	mode: Mode;
@@ -27,8 +40,9 @@ export function QuizComponent({
 	const sequenceId = useId();
 	const selectionId = useId();
 	const iterationId = useId();
-	// TODO: Create proper union type with type guards for Champion mode questions
-	const [currentQuestion, setCurrentQuestion] = useState<any>(null);
+	const [currentQuestion, setCurrentQuestion] = useState<QuestionData | null>(
+		null,
+	);
 	const [userAnswer, setUserAnswer] = useState("");
 	const [showFeedback, setShowFeedback] = useState(false);
 	const [isCorrect, setIsCorrect] = useState(false);
@@ -56,9 +70,8 @@ export function QuizComponent({
 
 	// Generate a random question based on the current mode
 	const generateQuestion = useCallback(() => {
-		let question: any;
+		let question: QuestionData | null;
 		let questionType = "";
-
 		switch (mode) {
 			case "Data Types": {
 				const categories = Object.keys(dataTypeQuestions);
@@ -75,7 +88,7 @@ export function QuizComponent({
 					constructQuestions[
 						Math.floor(Math.random() * constructQuestions.length)
 					];
-				questionType = `Constructs-${question.constructs.join("-")}`;
+				questionType = `Constructs-${question.usedConstructs?.join("-") || ""}`;
 				break;
 
 			case "Operators":
@@ -83,7 +96,7 @@ export function QuizComponent({
 					operatorQuestions[
 						Math.floor(Math.random() * operatorQuestions.length)
 					];
-				questionType = `Operators-${question.category}`;
+				questionType = `Operators-${question.operatorCategory}`;
 				break;
 
 			case "Champion": {
@@ -104,18 +117,18 @@ export function QuizComponent({
 					...constructQuestions.map((q) => ({
 						...q,
 						sourceMode: "Constructs",
-						category: q.constructs.join("-"),
+						category: q.usedConstructs.join("-"),
 					})),
 					...operatorQuestions.map((q) => ({
 						...q,
 						sourceMode: "Operators",
-						category: q.category,
+						category: q.operatorCategory,
 					})),
 				];
 
 				question =
 					allQuestions[Math.floor(Math.random() * allQuestions.length)];
-				questionType = `${question.sourceMode}-${question.category}`;
+				questionType = `${question.sourceMode}-${question.operatorCategory}`;
 				break;
 			}
 
@@ -141,6 +154,54 @@ export function QuizComponent({
 			}
 		}, 100);
 	}, [mode]);
+
+	const generateFeedback = useCallback(
+		(correct: boolean, mode: Mode, question: QuestionData) => {
+			const capitalisedExplanation = question.explanation
+				? question.explanation.charAt(0).toUpperCase() +
+					question.explanation.slice(1) +
+					"."
+				: "";
+
+			if (correct) {
+				return <span>✅ Correct! {capitalisedExplanation}</span>;
+			}
+
+			// Generate proper feedback based on question type
+			if (mode === "Data Types") {
+				const correctType = question.dataType as DataType;
+				const article = correctType === "integer" ? "an" : "a";
+				return (
+					<span>
+						❌ No, this is {article}{" "}
+						<strong>
+							{correctType === "boolean" ? "Boolean" : correctType}
+						</strong>{" "}
+						because {question.explanation}.
+					</span>
+				);
+			} else if (mode === "Constructs") {
+				const expectedConstructs = question.usedConstructs || [];
+				const constructList = expectedConstructs.join(", ");
+				return (
+					<span>
+						❌ No, this code uses: <strong>{constructList}</strong>.<br />
+						{capitalisedExplanation}
+					</span>
+				);
+			} else if (mode === "Operators") {
+				return (
+					<span>
+						❌ No, the answer is <strong>{question.answer}</strong>.<br />
+						{capitalisedExplanation}
+					</span>
+				);
+			}
+
+			return "❌ Unable to generate feedback.";
+		},
+		[],
+	);
 
 	// Check the user's answer
 	const checkAnswer = useCallback(() => {
@@ -169,16 +230,17 @@ export function QuizComponent({
 		let correct = false;
 
 		// Determine the actual mode for checking (important for champion mode)
-		const actualMode: Mode = currentQuestion.sourceMode || mode;
+		const actualMode: Mode = (currentQuestion.sourceMode as Mode) || mode;
 
 		if (actualMode === "Data Types") {
-			correct = userAnswer.toLowerCase() === currentQuestion.type.toLowerCase();
+			correct =
+				userAnswer.toLowerCase() === currentQuestion.dataType?.toLowerCase();
 		} else if (actualMode === "Constructs") {
 			// For constructs, check if selected checkboxes match expected constructs
 			const selectedConstructs = Object.entries(constructsChecked)
 				.filter(([_, checked]) => checked)
 				.map(([construct, _]) => construct);
-			const expectedConstructs = currentQuestion.constructs;
+			const expectedConstructs = currentQuestion.usedConstructs || [];
 
 			correct =
 				selectedConstructs.length === expectedConstructs.length &&
@@ -191,7 +253,11 @@ export function QuizComponent({
 
 		setIsCorrect(correct);
 		setShowFeedback(true);
-		const generatedFeedback = generateFeedback(correct, actualMode, currentQuestion);
+		const generatedFeedback = generateFeedback(
+			correct,
+			actualMode,
+			currentQuestion,
+		);
 		setFeedback(generatedFeedback);
 
 		// Update the streak
@@ -210,55 +276,8 @@ export function QuizComponent({
 		mode,
 		onScoreUpdate,
 		stats.currentQuestionType,
+		generateFeedback,
 	]);
-
-	const generateFeedback = (correct: boolean, mode: Mode, question: any) => {
-		const capitalisedExplanation = question.explanation 
-				? question.explanation.charAt(0).toUpperCase() + question.explanation.slice(1) + '.'
-				: "";
-		
-		if (correct) {
-			return (
-				<span>
-					✅ Correct! {capitalisedExplanation}
-				</span>
-			);
-		}
-
-		// Generate proper feedback based on question type
-		if (mode === "Data Types") {
-			const correctType = question.type as
-				| "character"
-				| "string"
-				| "integer"
-				| "float"
-				| "boolean";
-			const article = correctType === "integer" ? "an" : "a";
-			return (
-				<span>
-					❌ No, this is {article} <strong>{correctType === 'boolean' ? "Boolean" : correctType}</strong> because {question.explanation}.
-				</span>
-			);
-		} else if (mode === "Constructs") {
-			const expectedConstructs = question.constructs;
-			const constructList = expectedConstructs.join(", ");
-			return (
-				<span>
-					❌ No, this code uses: <strong>{constructList}</strong>.<br />
-					{capitalisedExplanation}
-				</span>
-			);
-		} else if (mode === "Operators") {
-			return (
-				<span>
-					❌ No, the answer is <strong>{question.answer}</strong>.<br />
-					{capitalisedExplanation}
-				</span>
-			);
-		}
-		
-		return "❌ Unable to generate feedback.";
-	}
 
 	// Handle next question (either from feedback or Enter key)
 	const handleNext = useCallback(() => {
@@ -327,7 +346,9 @@ export function QuizComponent({
 				<div className="space-y-3">
 					<div className="bg-white p-3 rounded-lg border-l-4 border-blue-500 shadow-sm">
 						<div className="font-bold text-blue-600 mb-1">Character</div>
-						<div className="text-gray-600 mb-2">A single letter, number or symbol</div>
+						<div className="text-gray-600 mb-2">
+							A single letter, number or symbol
+						</div>
 						<div className="font-mono text-sm bg-gray-50 px-2 py-1 rounded text-gray-700">
 							'a', '!', '2', ' '
 						</div>
@@ -369,7 +390,9 @@ export function QuizComponent({
 				<div className="space-y-3">
 					<div className="bg-white p-3 rounded-lg border-l-4 border-blue-500 shadow-sm">
 						<div className="font-bold text-blue-600 mb-1">Sequence</div>
-						<div className="text-gray-600 mb-2">Instructions executed one after another in order.</div>
+						<div className="text-gray-600 mb-2">
+							Instructions executed one after another in order.
+						</div>
 						<div className="font-mono text-sm bg-gray-50 px-2 py-1 rounded text-gray-700">
 							Always present in any code.
 						</div>
@@ -390,7 +413,19 @@ export function QuizComponent({
 					</div>
 					<div className="bg-blue-100 p-3 rounded-lg border border-blue-300">
 						<div className="text-blue-700 font-medium text-center">
-							💡 Use checkboxes or press keys <kbd className="px-1 py-0.5 bg-white rounded border text-xs">1</kbd>, <kbd className="px-1 py-0.5 bg-white rounded border text-xs">2</kbd>, <kbd className="px-1 py-0.5 bg-white rounded border text-xs">3</kbd> to toggle
+							💡 Use checkboxes or press keys{" "}
+							<kbd className="px-1 py-0.5 bg-white rounded border text-xs">
+								1
+							</kbd>
+							,{" "}
+							<kbd className="px-1 py-0.5 bg-white rounded border text-xs">
+								2
+							</kbd>
+							,{" "}
+							<kbd className="px-1 py-0.5 bg-white rounded border text-xs">
+								3
+							</kbd>{" "}
+							to toggle
 						</div>
 					</div>
 				</div>
@@ -401,24 +436,33 @@ export function QuizComponent({
 			return (
 				<div className="space-y-3">
 					<div className="bg-white p-3 rounded-lg border-l-4 border-blue-500 shadow-sm">
-						<div className="font-bold text-blue-600 mb-1">Arithmetic Operators</div>
+						<div className="font-bold text-blue-600 mb-1">
+							Arithmetic Operators
+						</div>
 						<div className="text-gray-600 mb-2">Mathematical operations.</div>
 						<div className="font-mono text-sm bg-gray-50 px-2 py-1 rounded text-gray-700">
 							+ (add), - (subtract), * (multiply), / (divide)
 						</div>
 					</div>
 					<div className="bg-white p-3 rounded-lg border-l-4 border-blue-500 shadow-sm">
-						<div className="font-bold text-blue-600 mb-1">Special Operators</div>
+						<div className="font-bold text-blue-600 mb-1">
+							Special Operators
+						</div>
 						<div className="text-gray-600 mb-2">OCR specific operations.</div>
 						<div className="font-mono text-sm bg-gray-50 px-2 py-1 rounded text-gray-700">
 							MOD (remainder), DIV (integer division), ^ (power)
 						</div>
 					</div>
 					<div className="bg-white p-3 rounded-lg border-l-4 border-blue-500 shadow-sm">
-						<div className="font-bold text-blue-600 mb-1">Comparison Operators</div>
-						<div className="text-gray-600 mb-2">Compare values (result is true or false).</div>
+						<div className="font-bold text-blue-600 mb-1">
+							Comparison Operators
+						</div>
+						<div className="text-gray-600 mb-2">
+							Compare values (result is true or false).
+						</div>
 						<div className="font-mono text-sm bg-gray-50 px-2 py-1 rounded text-gray-700">
-							== (equal), != (not equal), &lt; (less than), &gt; (greater than), &lt;= (less than or equal to), &gt;= (greater than or equal to)
+							== (equal), != (not equal), &lt; (less than), &gt; (greater than),
+							&lt;= (less than or equal to), &gt;= (greater than or equal to)
 						</div>
 					</div>
 				</div>
@@ -654,9 +698,7 @@ export function QuizComponent({
 								</span>
 							</summary>
 							<div className="p-5 mt-3 border border-blue-200 rounded-lg shadow-sm bg-gradient-to-br from-slate-50 to-blue-50">
-								<div className="text-base">
-									{getHintContent()}
-								</div>
+								<div className="text-base">{getHintContent()}</div>
 							</div>
 						</details>
 					)}
