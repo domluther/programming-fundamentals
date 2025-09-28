@@ -31,7 +31,7 @@ export interface Level {
 export const SITE_CONFIG: SiteConfig = {
 	siteKey: "programming-fundamentals",
 	title: "Programming Fundamentals",
-	subtitle: "Master the basics of programming concepts",
+	subtitle: "Master the core concepts of programming",
 	icon: "🦆",
 	scoring: {
 		customLevels: [

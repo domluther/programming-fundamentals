@@ -3,8 +3,8 @@ import { useEffect, useId } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import type { ScoreManager } from "@/lib/scoreManager";
-import { cn } from "@/lib/utils";
+import type { ScoreManager, DetailedStats } from "@/lib/scoreManager";
+import { cn } from '@/lib/utils';
 
 interface StatsModalProps {
 	isOpen: boolean;
@@ -15,8 +15,8 @@ interface StatsModalProps {
 }
 
 /**
- * Reusable statistics modal for GCSE CS practice sites
- * Shows level progress, statistics, and breakdown by category
+ * Statistics modal for Programming Fundamentals practice site
+ * Shows level progress, overall statistics, mode breakdown, and detailed category breakdown
  */
 export function StatsModal({
 	isOpen,
@@ -24,28 +24,30 @@ export function StatsModal({
 	scoreManager,
 	title = "Your Progress",
 }: StatsModalProps) {
-	const headerIcon = "🏆";
 	const titleId = useId();
+	const headerIcon = "🏆";
 
-	// Handle Escape key
+	// Close modal on escape key press
 	useEffect(() => {
-		const handleEscape = (e: KeyboardEvent) => {
-			if (e.key === "Escape" && isOpen) {
+		if (!isOpen) return;
+
+		const handleKeyDown = (event: KeyboardEvent) => {
+			if (event.key === "Escape") {
 				onClose();
 			}
 		};
 
-		if (isOpen) {
-			document.addEventListener("keydown", handleEscape);
-			return () => document.removeEventListener("keydown", handleEscape);
-		}
+		document.addEventListener("keydown", handleKeyDown);
+		return () => document.removeEventListener("keydown", handleKeyDown);
 	}, [isOpen, onClose]);
 
+	// Prevent render if modal is closed
 	if (!isOpen) return null;
 
 	const overallStats = scoreManager.getOverallStats();
-	const typeStats = scoreManager.getScoresByType();
+	const allModeStats = scoreManager.getAllModeStats();
 
+	console.log(overallStats.currentLevel)
 	const handleResetScores = () => {
 		if (
 			confirm(
@@ -56,7 +58,7 @@ export function StatsModal({
 			window.location.reload(); // Refresh to update all displays
 		}
 	};
-
+	
 	return (
 		<div
 			className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30 backdrop-blur-xs"
@@ -98,20 +100,20 @@ export function StatsModal({
 				{/* Content */}
 				<div className="p-4 overflow-y-auto max-h-[calc(80vh-140px)]">
 					{overallStats.totalAttempts > 0 ? (
-						<div className="space-y-4 ">
+						<div className="space-y-6">
 							{/* Level Info Card */}
 							<Card className="text-white bg-indigo-600">
 								<CardHeader className="text-white ">
 									<div className="flex items-center gap-4">
 										<div className="text-5xl animate-gentle-bounce">
-											{overallStats.level.emoji}
+											{overallStats.currentLevel.emoji}
 										</div>
 										<div className="flex-1 text-left">
 											<CardTitle className="text-2xl text-indigo-50">
-												{overallStats.level.title}
+												{overallStats.currentLevel.title}
 											</CardTitle>
 											<p className="mt-1 text-indigo-100">
-												{overallStats.level.description}
+												{overallStats.currentLevel.description}
 											</p>
 										</div>
 									</div>
@@ -137,13 +139,13 @@ export function StatsModal({
 											className="h-2 mb-3 [&>div]:bg-green-600 "
 										/>
 										{/* Detailed requirements */}
-										<div className="space-y-1 text-sm text-white">
+										<div className="text-sm text-white space-y-1">
 											{overallStats.accuracy <
 												overallStats.nextLevel.minAccuracy && (
 												<div>
 													🎯 {Math.round(overallStats.nextLevel.minAccuracy)}%
 													accuracy required (currently{" "}
-													{Math.floor(overallStats.accuracy)}%)
+													{Math.round(overallStats.accuracy)}%)
 												</div>
 											)}
 										</div>
@@ -164,7 +166,6 @@ export function StatsModal({
 									</CardContent>
 								)}
 							</Card>
-
 							{/* Overall Statistics */}
 							<Card className="gap-4 p-4">
 								<CardHeader className="px-2 mb-0">
@@ -176,9 +177,9 @@ export function StatsModal({
 									<div className="grid grid-cols-1 gap-4 md:grid-cols-3">
 										<div className="p-4 text-center border-l-4 border-green-500 rounded-lg bg-green-50">
 											<div className="text-2xl font-bold text-green-600">
-												{overallStats.totalCorrect}
+												{overallStats.totalPoints}
 											</div>
-											<div className="text-sm text-gray-600">Correct</div>
+											<div className="text-sm text-gray-600">Total Points</div>
 										</div>
 										<div className="p-4 text-center border-l-4 border-blue-500 rounded-lg bg-blue-50">
 											<div className="text-2xl font-bold text-blue-600">
@@ -198,7 +199,7 @@ export function StatsModal({
 								</CardContent>
 							</Card>
 
-							{/* Breakdown by Category */}
+							{/* Category Breakdown */}
 							<Card className="gap-4 p-4">
 								<CardHeader className="px-2 mb-0">
 									<CardTitle className="flex items-center">
@@ -207,44 +208,78 @@ export function StatsModal({
 								</CardHeader>
 								<CardContent className="px-2">
 									<div className="space-y-4">
-										{Object.entries(typeStats).map(
-											([type, stats]) =>
-												stats.attempts > 0 && (
-													<div
-														key={type}
-														className="flex items-center justify-between p-4 bg-gray-100 rounded-lg"
+									{Object.entries(allModeStats).map(([mode, stats]) => {
+										if (!stats || stats.totalQuestions === 0) return null;
+										
+										const accuracy = Math.round((stats.correctAnswers / stats.totalQuestions) * 100);
+										
+										return (
+												<div
+													key={mode}
+													className="flex items-center justify-between p-4 bg-gray-100 rounded-lg"
 													>
-														<div>
-															<div className="text-lg font-semibold">
-																{type === "none" ? "Invalid Items" : type}
-															</div>
-															<div className="text-sm text-gray-600">
-																{stats.correct} correct out of {stats.attempts}{" "}
-																attempts
-															</div>
-														</div>
-														<div className="text-right">
-															<div
-																className={cn(
-																	"text-2xl font-bold",
-																	stats.accuracy >= 80
-																		? "text-green-600"
-																		: stats.accuracy >= 60
-																			? "text-yellow-600"
-																			: "text-red-600",
-																)}
-															>
-																{Math.round(stats.accuracy)}%
-															</div>
-															<div className="text-xs text-gray-500">
-																accuracy
-															</div>
-														</div>
+												<div>
+													<div className="text-lg font-semibold">
+														{mode === "none" ? "Invalid Items" : mode}
 													</div>
-												),
-										)}
-									</div>
+													<div className="text-sm text-gray-600">
+														{stats.correctAnswers} correct out of {stats.totalQuestions}{" "}
+														attempts
+													</div>										
+												</div>
+												<div className="text-right">
+													<div
+														className={cn(
+															"text-2xl font-bold",
+															accuracy >= 80
+																? "text-green-600"
+																: accuracy >= 60
+																	? "text-yellow-600"
+																	: "text-red-600",
+														)}
+													>
+														{Math.round(accuracy)}%
+													</div>
+													<div className="text-xs text-gray-500">
+														accuracy
+													</div>
+												</div>
+											</div>
+										);
+									})}
+								</div>
 								</CardContent>
+							</Card>
+
+							{/* Detailed Statistics */}
+							<Card>
+								<h3 className="text-lg font-semibold mb-4 p-4 pb-0">Detailed Breakdown</h3>
+								<div className="space-y-4 p-4">
+									{Object.entries(allModeStats).map(([mode, stats]) => {
+										if (!stats || stats.totalQuestions === 0) return null;
+										
+										return (
+											<div key={mode} className="border-l-4 border-blue-500 pl-4">
+												<h4 className="font-semibold capitalize mb-2">{mode}</h4>
+												{Object.entries(stats.detailed || {}).map(([subcat, subcatStats]) => {
+													const detailedStat = subcatStats as DetailedStats;
+													if (!detailedStat || detailedStat.total === 0) return null;
+													
+													const subcatAccuracy = Math.round((detailedStat.correct / detailedStat.total) * 100);
+													
+													return (
+														<div key={subcat} className="flex justify-between items-center text-sm mb-2">
+															<span className="capitalize">{subcat.replace(/([A-Z])/g, ' $1').replace('-', ' ').trim()}</span>
+															<span className="font-medium">
+																{detailedStat.correct}/{detailedStat.total} ({subcatAccuracy}%)
+															</span>
+														</div>
+													);
+												})}
+											</div>
+										);
+									})}
+								</div>
 							</Card>
 						</div>
 					) : (

@@ -85,5 +85,5 @@ export function detectCurrentSite(): string {
 		}
 	}
 
-	return "network-addresses"; // Default fallback
+	return "programming-fundamentals"; // Default fallback
 }

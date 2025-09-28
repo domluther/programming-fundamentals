@@ -1,16 +1,17 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ScoreButton, SiteLayout, StatsModal } from "@/components";
 import { ScoreManager } from "@/lib/scoreManager";
 import { SITE_CONFIG } from "@/lib/siteConfig";
 import { ModeMenu } from "./ModeMenu";
 
 interface SharedLayoutProps {
+	mode?: 'datatypes' | 'constructs' | 'operators' | 'champion';
 	children: (
 		recordScoreAndUpdate: (isCorrect: boolean, questionType: string) => void,
 	) => React.ReactNode;
 }
 
-export function useSharedLayout() {
+export function useSharedLayout(mode?: 'datatypes' | 'constructs' | 'operators' | 'champion') {
 	const [showStatsModal, setShowStatsModal] = useState(false);
 	// Score update trigger to force re-renders when score changes
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -20,14 +21,21 @@ export function useSharedLayout() {
 
 	// Score manager
 	const [scoreManager] = useState(
-		() => new ScoreManager(siteConfig.siteKey, siteConfig.scoring.customLevels),
+		() => new ScoreManager(siteConfig.scoring.customLevels),
 	);
+
+	// Set the current mode whenever it changes
+	useEffect(() => {
+		if (mode) {
+			scoreManager.setCurrentMode(mode);
+		}
+	}, [scoreManager, mode]);
 
 	const overallStats = scoreManager.getOverallStats();
 
 	// Function to record score and trigger re-render
 	const recordScoreAndUpdate = (isCorrect: boolean, questionType: string) => {
-		scoreManager.recordScore(isCorrect, questionType);
+		scoreManager.recordScore(isCorrect, questionType, mode);
 		setScoreUpdateTrigger((prev) => prev + 1);
 	};
 
@@ -41,7 +49,7 @@ export function useSharedLayout() {
 	};
 }
 
-export function SharedLayout({ children }: SharedLayoutProps) {
+export function SharedLayout({ mode, children }: SharedLayoutProps) {
 	const {
 		showStatsModal,
 		setShowStatsModal,
@@ -49,7 +57,7 @@ export function SharedLayout({ children }: SharedLayoutProps) {
 		scoreManager,
 		overallStats,
 		recordScoreAndUpdate,
-	} = useSharedLayout();
+	} = useSharedLayout(mode);
 
 	return (
 		<SiteLayout
@@ -58,8 +66,8 @@ export function SharedLayout({ children }: SharedLayoutProps) {
 			titleIcon={siteConfig.icon}
 			scoreButton={
 				<ScoreButton
-					levelEmoji={overallStats.level.emoji}
-					levelTitle={overallStats.level.title}
+					levelEmoji={overallStats.currentLevel.emoji}
+					levelTitle={overallStats.currentLevel.title}
 					points={overallStats.totalPoints}
 					onClick={() => setShowStatsModal(true)}
 				/>
@@ -76,7 +84,7 @@ export function SharedLayout({ children }: SharedLayoutProps) {
 				isOpen={showStatsModal}
 				onClose={() => setShowStatsModal(false)}
 				scoreManager={scoreManager}
-				title="Your Network Mastery"
+				title="Your Programming Progress"
 			/>
 		</SiteLayout>
 	);

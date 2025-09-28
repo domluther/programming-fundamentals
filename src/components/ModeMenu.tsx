@@ -1,12 +1,12 @@
 import { Link, useLocation } from "@tanstack/react-router";
 import { QuizButton } from "./QuizButton";
 
-// Mode button data
-const MODES = [
-	{ label: "Units", path: "/unitconverter" },
-	{ label: "Capacity", path: "/capacitycalculator" },
-	{ label: "File Size", path: "/filesize" },
-	{ label: "Multiple Choice", path: "/multiplechoice" },
+// Quiz mode button data
+const QUIZ_MODES = [
+	{ label: "Data Types", path: "/datatypes", emoji: "📝" },
+	{ label: "Constructs", path: "/constructs", emoji: "🏗️" },
+	{ label: "Operators", path: "/operators", emoji: "🔢" },
+	{ label: "Champion", path: "/champion", emoji: "🏆" },
 ];
 
 export const ModeMenu = () => {
@@ -14,7 +14,7 @@ export const ModeMenu = () => {
 
 	return (
 		<div className="flex flex-row justify-center gap-2 px-4 mt-2 mb-4 sm:gap-4">
-			{MODES.map((mode) => (
+			{QUIZ_MODES.map((mode) => (
 				<Link key={mode.path} to={mode.path} className="flex-1 sm:flex-none">
 					<QuizButton
 						variant="menu"
@@ -24,7 +24,7 @@ export const ModeMenu = () => {
 								: ""
 						}`}
 					>
-						{mode.label}
+						{mode.emoji} {mode.label}
 					</QuizButton>
 				</Link>
 			))}
