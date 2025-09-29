@@ -148,10 +148,11 @@ export class ScoreManager {
 			if (stored) {
 				return JSON.parse(stored);
 			}
-			return { ...blankScoreData };
+			// Return a deep copy to avoid mutations affecting the constant
+			return JSON.parse(JSON.stringify(blankScoreData));
 		} catch (error) {
 			console.warn("Error loading scores:", error);
-			return { ...blankScoreData };
+			return JSON.parse(JSON.stringify(blankScoreData));
 		}
 	}
 
@@ -421,7 +422,7 @@ export class ScoreManager {
 	}
 
 	resetAllScores(): void {
-		this.scores = { ...blankScoreData };
+		this.scores = JSON.parse(JSON.stringify(blankScoreData));
 		this.saveScores();
 	}
 
