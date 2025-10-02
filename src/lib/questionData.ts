@@ -43,7 +43,7 @@ export interface OperatorQuestion {
 	operatorCategory: string;
 }
 
-export type KeywordQuestionType = 
+export type KeywordQuestionType =
 	| "identify-variables"
 	| "find-concatenation"
 	| "identify-casting"
@@ -499,9 +499,7 @@ print("Area: " + str(c))`,
 				boolean: [],
 			},
 			concatenationLines: [4],
-			castingUsed: [
-				{ type: "str()", line: 4 },
-			],
+			castingUsed: [{ type: "str()", line: 4 }],
 			dataTypes: {
 				integers: ["a", "b", "c"],
 				floats: [],
@@ -550,9 +548,7 @@ print("Area is " + str(area))`,
 				boolean: [],
 			},
 			concatenationLines: [4],
-			castingUsed: [
-				{ type: "str()", line: 4 },
-			],
+			castingUsed: [{ type: "str()", line: 4 }],
 			dataTypes: {
 				integers: ["width", "length", "area"],
 				floats: [],
@@ -577,9 +573,7 @@ print("Total: £" + str(total))`,
 				boolean: [],
 			},
 			concatenationLines: [4],
-			castingUsed: [
-				{ type: "str()", line: 4 },
-			],
+			castingUsed: [{ type: "str()", line: 4 }],
 			dataTypes: {
 				integers: [],
 				floats: ["price", "tax", "total"],
@@ -691,9 +685,7 @@ endif`,
 				boolean: [],
 			},
 			concatenationLines: [],
-			castingUsed: [
-				{ type: "int()", line: 1 },
-			],
+			castingUsed: [{ type: "int()", line: 1 }],
 			dataTypes: {
 				integers: ["age"],
 				floats: [],
@@ -752,9 +744,7 @@ endswitch`,
 				boolean: [],
 			},
 			concatenationLines: [],
-			castingUsed: [
-				{ type: "int()", line: 1 },
-			],
+			castingUsed: [{ type: "int()", line: 1 }],
 			dataTypes: {
 				integers: ["number"],
 				floats: [],
@@ -815,9 +805,7 @@ endif`,
 				boolean: [],
 			},
 			concatenationLines: [],
-			castingUsed: [
-				{ type: "int()", line: 1 },
-			],
+			castingUsed: [{ type: "int()", line: 1 }],
 			dataTypes: {
 				integers: ["temperature"],
 				floats: [],
@@ -845,9 +833,7 @@ endif`,
 				boolean: [],
 			},
 			concatenationLines: [4],
-			castingUsed: [
-				{ type: "int()", line: 2 },
-			],
+			castingUsed: [{ type: "int()", line: 2 }],
 			dataTypes: {
 				integers: ["age"],
 				floats: [],
@@ -888,7 +874,8 @@ endif`,
 				booleans: [],
 			},
 		},
-	},	{
+	},
+	{
 		code: `password = input("Enter password: ")
 if password == "secret123" then
 ${INDENT}print("Access granted")
@@ -937,9 +924,7 @@ endif`,
 				boolean: [],
 			},
 			concatenationLines: [],
-			castingUsed: [
-				{ type: "int()", line: 1 },
-			],
+			castingUsed: [{ type: "int()", line: 1 }],
 			dataTypes: {
 				integers: ["grade"],
 				floats: [],
@@ -1053,9 +1038,7 @@ endif`,
 				boolean: [],
 			},
 			concatenationLines: [],
-			castingUsed: [
-				{ type: "int()", line: 1 },
-			],
+			castingUsed: [{ type: "int()", line: 1 }],
 			dataTypes: {
 				integers: ["year"],
 				floats: [],
@@ -1083,9 +1066,7 @@ print("Final: " + str(total))`,
 				boolean: [],
 			},
 			concatenationLines: [5],
-			castingUsed: [
-				{ type: "str()", line: 5 },
-			],
+			castingUsed: [{ type: "str()", line: 5 }],
 			dataTypes: {
 				integers: ["total", "i"],
 				floats: [],
@@ -1247,9 +1228,7 @@ until count > 5`,
 				boolean: [],
 			},
 			concatenationLines: [3],
-			castingUsed: [
-				{ type: "str()", line: 3 },
-			],
+			castingUsed: [{ type: "str()", line: 3 }],
 			dataTypes: {
 				integers: ["count"],
 				floats: [],
@@ -1275,9 +1254,7 @@ print("Factorial is " + str(total))`,
 				boolean: [],
 			},
 			concatenationLines: [5],
-			castingUsed: [
-				{ type: "str()", line: 5 },
-			],
+			castingUsed: [{ type: "str()", line: 5 }],
 			dataTypes: {
 				integers: ["total", "i"],
 				floats: [],
@@ -1335,9 +1312,7 @@ print("Total: " + str(total))`,
 				boolean: [],
 			},
 			concatenationLines: [7],
-			castingUsed: [
-				{ type: "str()", line: 7 },
-			],
+			castingUsed: [{ type: "str()", line: 7 }],
 			dataTypes: {
 				integers: ["count", "total"],
 				floats: [],
@@ -1393,9 +1368,7 @@ endwhile`,
 				boolean: [],
 			},
 			concatenationLines: [4],
-			castingUsed: [
-				{ type: "str()", line: 4 },
-			],
+			castingUsed: [{ type: "str()", line: 4 }],
 			dataTypes: {
 				integers: ["count"],
 				floats: [],
@@ -1420,9 +1393,7 @@ next i`,
 				boolean: [],
 			},
 			concatenationLines: [3],
-			castingUsed: [
-				{ type: "str()", line: 3 },
-			],
+			castingUsed: [{ type: "str()", line: 3 }],
 			dataTypes: {
 				integers: ["i"],
 				floats: [],
@@ -1513,9 +1484,7 @@ print("Correct!")`,
 				boolean: [],
 			},
 			concatenationLines: [],
-			castingUsed: [
-				{ type: "int()", line: 4 },
-			],
+			castingUsed: [{ type: "int()", line: 4 }],
 			dataTypes: {
 				integers: ["target", "guess"],
 				floats: [],

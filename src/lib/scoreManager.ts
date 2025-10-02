@@ -19,7 +19,12 @@ export interface ModeStats {
 	detailed: Record<string, DetailedStats>;
 }
 
-export type Mode = "Data Types" | "Constructs" | "Operators" | "Keywords" | "Champion";
+export type Mode =
+	| "Data Types"
+	| "Constructs"
+	| "Operators"
+	| "Keywords"
+	| "Champion";
 
 export interface ScoreData {
 	"Data Types": ModeStats;
@@ -163,7 +168,7 @@ export class ScoreManager {
 			const stored = localStorage.getItem(this.storageKey);
 			if (stored) {
 				const parsedScores = JSON.parse(stored);
-				
+
 				// Validate and migrate the score data structure
 				const validatedScores = this.validateAndMigrateScores(parsedScores);
 				return validatedScores;
@@ -179,24 +184,45 @@ export class ScoreManager {
 	/**
 	 * Validates the score data structure and adds missing modes if needed
 	 */
-	private validateAndMigrateScores(scores: any): ScoreData {
+	private validateAndMigrateScores(scores: unknown): ScoreData {
 		try {
+			// Type guard: ensure scores is an object
+			if (!scores || typeof scores !== "object") {
+				console.warn("Invalid scores format, returning blank");
+				return JSON.parse(JSON.stringify(blankScoreData));
+			}
+
+			// Cast to a record type for safe access
+			const scoresRecord = scores as Record<string, unknown>;
+
 			// Check if all required modes exist
-			const requiredModes: Mode[] = ["Data Types", "Constructs", "Operators", "Keywords", "Champion"];
+			const requiredModes: Mode[] = [
+				"Data Types",
+				"Constructs",
+				"Operators",
+				"Keywords",
+				"Champion",
+			];
 			const blank = JSON.parse(JSON.stringify(blankScoreData)) as ScoreData;
-			
+
 			for (const mode of requiredModes) {
+				const modeData = scoresRecord[mode];
 				// If mode doesn't exist or is invalid, use blank data for that mode
-				if (!scores[mode] || 
-					typeof scores[mode].streak !== 'number' || 
-					typeof scores[mode].attempts !== 'number' ||
-					typeof scores[mode].correct !== 'number') {
-					console.warn(`Missing or invalid mode '${mode}', adding from blank data`);
-					scores[mode] = blank[mode];
+				if (
+					!modeData ||
+					typeof modeData !== "object" ||
+					typeof (modeData as Record<string, unknown>).streak !== "number" ||
+					typeof (modeData as Record<string, unknown>).attempts !== "number" ||
+					typeof (modeData as Record<string, unknown>).correct !== "number"
+				) {
+					console.warn(
+						`Missing or invalid mode '${mode}', adding from blank data`,
+					);
+					scoresRecord[mode] = blank[mode];
 				}
 			}
-			
-			return scores as ScoreData;
+
+			return scoresRecord as unknown as ScoreData;
 		} catch (error) {
 			console.warn("Error validating scores, returning blank:", error);
 			return JSON.parse(JSON.stringify(blankScoreData));
@@ -217,26 +243,26 @@ export class ScoreManager {
 
 	getStreak(mode?: Mode): number {
 		const modeToUse = mode || this.currentMode;
-		
+
 		// Defensive check: ensure mode data exists
 		if (!this.scores[modeToUse]) {
 			console.warn(`Mode '${modeToUse}' not found in scores, reinitializing`);
 			this.scores = this.validateAndMigrateScores(this.scores);
 			this.saveScores();
 		}
-		
+
 		return this.scores[modeToUse]?.streak ?? 0;
 	}
 
 	resetStreak(mode?: Mode): void {
 		const modeToUse = mode || this.currentMode;
-		
+
 		// Defensive check: ensure mode data exists
 		if (!this.scores[modeToUse]) {
 			console.warn(`Mode '${modeToUse}' not found in scores, reinitializing`);
 			this.scores = this.validateAndMigrateScores(this.scores);
 		}
-		
+
 		this.scores[modeToUse].streak = 0;
 		this.saveScores();
 	}
@@ -247,13 +273,13 @@ export class ScoreManager {
 		}
 
 		const modeToUse = mode || this.currentMode;
-		
+
 		// Defensive check: ensure mode data exists
 		if (!this.scores[modeToUse]) {
 			console.warn(`Mode '${modeToUse}' not found in scores, reinitializing`);
 			this.scores = this.validateAndMigrateScores(this.scores);
 		}
-		
+
 		const currentStats = this.scores[modeToUse];
 
 		currentStats.attempts++;
@@ -469,22 +495,28 @@ export class ScoreManager {
 
 	getAllModeStats(): ScoreData {
 		// Defensive check: ensure all modes exist
-		const requiredModes: Mode[] = ["Data Types", "Constructs", "Operators", "Keywords", "Champion"];
+		const requiredModes: Mode[] = [
+			"Data Types",
+			"Constructs",
+			"Operators",
+			"Keywords",
+			"Champion",
+		];
 		let needsMigration = false;
-		
+
 		for (const mode of requiredModes) {
 			if (!this.scores[mode]) {
 				needsMigration = true;
 				break;
 			}
 		}
-		
+
 		if (needsMigration) {
-			console.warn('Some modes missing from scores, migrating data');
+			console.warn("Some modes missing from scores, migrating data");
 			this.scores = this.validateAndMigrateScores(this.scores);
 			this.saveScores();
 		}
-		
+
 		return this.scores;
 	}
 

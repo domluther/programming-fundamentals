@@ -74,7 +74,6 @@ export const GCSE_NAVIGATION_MENU: NavMenuItem[] = [
 		id: "boolean-algebra",
 		keywords: ["booleanalgebrapractice", "boolean", "logic"],
 	},
-
 ];
 
 /**
