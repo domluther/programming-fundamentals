@@ -8,7 +8,6 @@ import {
 	constructQuestions,
 	type DataType,
 	dataTypeQuestions,
-	keywordTestQuestions,
 	operatorQuestions,
 } from "@/lib/questionData";
 import type { Mode, ScoreManager } from "@/lib/scoreManager";
@@ -107,8 +106,8 @@ export function QuizComponent({
 
 			case "Keywords": {
 				const baseQuestion =
-					keywordTestQuestions[
-						Math.floor(Math.random() * keywordTestQuestions.length)
+					constructQuestions[
+						Math.floor(Math.random() * constructQuestions.length)
 					];
 				
 				// Generate a random question type based on available metadata
@@ -191,9 +190,9 @@ export function QuizComponent({
 					);
 				}
 
-				// Generate Keywords questions from the test questions
+				// Generate Keywords questions from the construct questions
 				const keywordQuestionsWithCategory = [];
-				for (const baseQuestion of keywordTestQuestions) {
+				for (const baseQuestion of constructQuestions) {
 					const metadata = baseQuestion.metadata;
 					const availableQuestionTypes = [];
 					
@@ -205,6 +204,7 @@ export function QuizComponent({
 					}
 					if (metadata?.castingUsed && metadata.castingUsed.length > 0) {
 						availableQuestionTypes.push('identify-casting');
+						availableQuestionTypes.push('find-casting');
 					}
 					if (metadata?.operators?.arithmetic && metadata.operators.arithmetic.length > 0) {
 						availableQuestionTypes.push('identify-arithmetic-operator');
@@ -230,6 +230,10 @@ export function QuizComponent({
 							case 'identify-casting':
 								prompt = "Identify the process that converts data to a different type.";
 								answer = metadata?.castingUsed?.map(c => c.type) || [];
+								break;
+							case 'find-casting':
+								prompt = "Identify the line number where there is casting.";
+								answer = metadata?.castingUsed?.map(c => c.line.toString()) || [];
 								break;
 							case 'identify-arithmetic-operator':
 								prompt = "Give one arithmetic operator used in the algorithm.";
