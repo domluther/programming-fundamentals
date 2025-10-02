@@ -6,6 +6,7 @@ const QUIZ_MODES = [
 	{ label: "Data Types", path: "/datatypes", emoji: "📝" },
 	{ label: "Constructs", path: "/constructs", emoji: "🏗️" },
 	{ label: "Operators", path: "/operators", emoji: "🔢" },
+	{ label: "Keywords", path: "/keywords", emoji: "🔍" },
 	{ label: "Champion", path: "/champion", emoji: "🏆" },
 ];
 

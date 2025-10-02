@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as OperatorsRouteImport } from './routes/operators'
+import { Route as KeywordsRouteImport } from './routes/keywords'
 import { Route as DatatypesRouteImport } from './routes/datatypes'
 import { Route as ConstructsRouteImport } from './routes/constructs'
 import { Route as ChampionRouteImport } from './routes/champion'
@@ -18,6 +19,11 @@ import { Route as IndexRouteImport } from './routes/index'
 const OperatorsRoute = OperatorsRouteImport.update({
   id: '/operators',
   path: '/operators',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KeywordsRoute = KeywordsRouteImport.update({
+  id: '/keywords',
+  path: '/keywords',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DatatypesRoute = DatatypesRouteImport.update({
@@ -46,6 +52,7 @@ export interface FileRoutesByFullPath {
   '/champion': typeof ChampionRoute
   '/constructs': typeof ConstructsRoute
   '/datatypes': typeof DatatypesRoute
+  '/keywords': typeof KeywordsRoute
   '/operators': typeof OperatorsRoute
 }
 export interface FileRoutesByTo {
@@ -53,6 +60,7 @@ export interface FileRoutesByTo {
   '/champion': typeof ChampionRoute
   '/constructs': typeof ConstructsRoute
   '/datatypes': typeof DatatypesRoute
+  '/keywords': typeof KeywordsRoute
   '/operators': typeof OperatorsRoute
 }
 export interface FileRoutesById {
@@ -61,19 +69,33 @@ export interface FileRoutesById {
   '/champion': typeof ChampionRoute
   '/constructs': typeof ConstructsRoute
   '/datatypes': typeof DatatypesRoute
+  '/keywords': typeof KeywordsRoute
   '/operators': typeof OperatorsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/champion' | '/constructs' | '/datatypes' | '/operators'
+  fullPaths:
+    | '/'
+    | '/champion'
+    | '/constructs'
+    | '/datatypes'
+    | '/keywords'
+    | '/operators'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/champion' | '/constructs' | '/datatypes' | '/operators'
+  to:
+    | '/'
+    | '/champion'
+    | '/constructs'
+    | '/datatypes'
+    | '/keywords'
+    | '/operators'
   id:
     | '__root__'
     | '/'
     | '/champion'
     | '/constructs'
     | '/datatypes'
+    | '/keywords'
     | '/operators'
   fileRoutesById: FileRoutesById
 }
@@ -82,6 +104,7 @@ export interface RootRouteChildren {
   ChampionRoute: typeof ChampionRoute
   ConstructsRoute: typeof ConstructsRoute
   DatatypesRoute: typeof DatatypesRoute
+  KeywordsRoute: typeof KeywordsRoute
   OperatorsRoute: typeof OperatorsRoute
 }
 
@@ -92,6 +115,13 @@ declare module '@tanstack/react-router' {
       path: '/operators'
       fullPath: '/operators'
       preLoaderRoute: typeof OperatorsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/keywords': {
+      id: '/keywords'
+      path: '/keywords'
+      fullPath: '/keywords'
+      preLoaderRoute: typeof KeywordsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/datatypes': {
@@ -130,6 +160,7 @@ const rootRouteChildren: RootRouteChildren = {
   ChampionRoute: ChampionRoute,
   ConstructsRoute: ConstructsRoute,
   DatatypesRoute: DatatypesRoute,
+  KeywordsRoute: KeywordsRoute,
   OperatorsRoute: OperatorsRoute,
 }
 export const routeTree = rootRouteImport

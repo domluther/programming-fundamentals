@@ -17,6 +17,8 @@ function IndexPage() {
 				return "/constructs";
 			case "Operators":
 				return "/operators";
+			case "Keywords":
+				return "/keywords";
 			case "Champion":
 				return "/champion";
 			default:

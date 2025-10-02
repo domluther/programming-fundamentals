@@ -8,6 +8,7 @@ import {
 	constructQuestions,
 	type DataType,
 	dataTypeQuestions,
+	keywordTestQuestions,
 	operatorQuestions,
 } from "@/lib/questionData";
 import type { Mode, ScoreManager } from "@/lib/scoreManager";
@@ -23,6 +24,10 @@ interface QuestionData {
 	answer?: string; // Only for Operators mode
 	operatorCategory?: string; // Only for Operators mode
 	sourceMode?: string; // To track original mode in Champion mode
+	// Keyword mode specific
+	keywordPrompt?: string; // Dynamic prompt for keyword questions
+	keywordAnswer?: string | string[]; // Answer(s) for keyword questions
+	keywordType?: string; // Type of keyword question
 }
 
 interface QuizComponentProps {
@@ -99,6 +104,79 @@ export function QuizComponent({
 				questionType = `Operators-${question.operatorCategory}`;
 				break;
 
+			case "Keywords": {
+				const baseQuestion =
+					keywordTestQuestions[
+						Math.floor(Math.random() * keywordTestQuestions.length)
+					];
+				
+				// Generate a random question type based on available metadata
+				const availableQuestionTypes = [];
+				const metadata = baseQuestion.metadata;
+				
+				if (metadata?.variables && metadata.variables.length >= 1) {
+					availableQuestionTypes.push('identify-variable');
+				}
+				if (metadata?.concatenationLines && metadata.concatenationLines.length > 0) {
+					availableQuestionTypes.push('find-concatenation');
+				}
+				if (metadata?.castingUsed && metadata.castingUsed.length > 0) {
+					availableQuestionTypes.push('identify-casting');
+					availableQuestionTypes.push('find-casting');
+				}
+				if (metadata?.operators?.arithmetic && metadata.operators.arithmetic.length > 0) {
+					availableQuestionTypes.push('identify-arithmetic-operator');
+				}
+				if (metadata?.operators?.comparison && metadata.operators.comparison.length > 0) {
+					availableQuestionTypes.push('identify-comparison-operator');
+				}
+				
+				// Pick a random question type from available ones
+				const selectedQuestionType = availableQuestionTypes.length > 0 
+					? availableQuestionTypes[Math.floor(Math.random() * availableQuestionTypes.length)]
+					: 'identify-variable'; // fallback
+				
+				// Generate question based on type
+				let prompt = "";
+				let answer: string | string[] = "";
+				
+				switch (selectedQuestionType) {
+					case 'identify-variable':
+						prompt = "Give the identifier of one variable used in the algorithm.";
+						answer = metadata?.variables || [];
+						break;
+					case 'find-concatenation':
+						prompt = "Give the line number where there is concatenation.";
+						answer = metadata?.concatenationLines?.map(n => n.toString()) || [];
+						break;
+					case 'identify-casting':
+						prompt = "Identify the process that converts data to a different type.";
+						answer = metadata?.castingUsed?.map(c => c.type) || [];
+						break;
+					case 'find-casting':
+						prompt = "Identify the line number where there is casting.";
+						answer = metadata?.castingUsed?.map(c => c.line.toString()) || [];
+						break;
+					case 'identify-arithmetic-operator':
+						prompt = "Give one arithmetic operator used in the algorithm.";
+						answer = metadata?.operators?.arithmetic || [];
+						break;
+					case 'identify-comparison-operator':
+						prompt = "Give one comparison operator used in the algorithm.";
+						answer = metadata?.operators?.comparison || [];
+						break;
+				}
+				
+				question = {
+					...baseQuestion,
+					keywordPrompt: prompt,
+					keywordAnswer: answer,
+					keywordType: selectedQuestionType,
+				};
+				questionType = `Keywords-${selectedQuestionType}`;
+				break;
+			}
+
 			case "Champion": {
 				// Mix of all question types
 				const dataTypeQuestionsWithCategory = [];
@@ -162,6 +240,61 @@ export function QuizComponent({
 					question.explanation.slice(1) +
 					"."
 				: "";
+
+			// Keywords mode always shows generic hint
+			if (mode === "Keywords") {
+				const keywordAnswers = question.keywordAnswer;
+				let answerDisplay = "";
+				
+				if (Array.isArray(keywordAnswers)) {
+					if (keywordAnswers.length === 1) {
+						answerDisplay = keywordAnswers[0].toString();
+					} else {
+						answerDisplay = `Any of: ${keywordAnswers.join(", ")}`;
+					}
+				} else if (typeof keywordAnswers === 'string') {
+					answerDisplay = keywordAnswers;
+				}
+				
+				// Generate generic hint based on question type
+				let hint = "";
+				switch (question.keywordType) {
+					case 'identify-variable':
+						hint = "Variables are identifiers used to store data values.";
+						break;
+					case 'find-concatenation':
+						hint = "Concatenation joins strings together, often using the + operator.";
+						break;
+					case 'identify-casting':
+					case 'find-casting':
+						hint = "Casting converts data from one type to another (e.g., str(), int(), float()).";
+						break;
+					case 'identify-arithmetic-operator':
+						hint = "Arithmetic operators perform mathematical operations: +, -, *, /, %, **, //.";
+						break;
+					case 'identify-comparison-operator':
+						hint = "Comparison operators compare values: ==, !=, <, >, <=, >=.";
+						break;
+					default:
+						hint = "Review the code carefully to identify the answer.";
+				}
+				
+				if (correct) {
+					return (
+						<span>
+							✅ Correct!<br />
+							{hint}
+						</span>
+					);
+				} else {
+					return (
+						<span>
+							❌ No, the answer is: <strong>{answerDisplay}</strong>.<br />
+							{hint}
+						</span>
+					);
+				}
+			}
 
 			if (correct) {
 				return <span>✅ Correct! {capitalisedExplanation}</span>;
@@ -263,6 +396,19 @@ export function QuizComponent({
 				);
 		} else if (actualMode === "Operators") {
 			correct = userAnswer.trim() === currentQuestion.answer;
+		} else if (actualMode === "Keywords") {
+			// For keywords, check if answer matches any of the valid answers
+			const keywordAnswers = currentQuestion.keywordAnswer;
+			const userAnswerTrimmed = userAnswer.trim().toLowerCase();
+			
+			if (Array.isArray(keywordAnswers)) {
+				// Accept any of the valid answers (case-insensitive)
+				correct = keywordAnswers.some(ans => 
+					ans.toString().toLowerCase() === userAnswerTrimmed
+				);
+			} else if (typeof keywordAnswers === 'string') {
+				correct = keywordAnswers.toLowerCase() === userAnswerTrimmed;
+			}
 		}
 
 		setIsCorrect(correct);
@@ -483,6 +629,54 @@ export function QuizComponent({
 			);
 		}
 
+		if (actualMode === "Keywords") {
+			return (
+				<div className="space-y-3">
+					<div className="p-3 bg-white border-l-4 border-blue-500 rounded-lg shadow-sm">
+						<div className="mb-1 font-bold text-blue-600">Variables</div>
+						<div className="mb-2 text-gray-600">
+							Named storage locations - look for assignment statements.
+						</div>
+						<div className="px-2 py-1 font-mono text-sm text-gray-700 rounded bg-gray-50">
+							Examples: age, name, total, price
+						</div>
+					</div>
+					<div className="p-3 bg-white border-l-4 border-blue-500 rounded-lg shadow-sm">
+						<div className="mb-1 font-bold text-blue-600">Concatenation</div>
+						<div className="mb-2 text-gray-600">
+							Joining strings together using the + operator.
+						</div>
+						<div className="px-2 py-1 font-mono text-sm text-gray-700 rounded bg-gray-50">
+							"Hello " + name → Joins text strings
+						</div>
+					</div>
+					<div className="p-3 bg-white border-l-4 border-blue-500 rounded-lg shadow-sm">
+						<div className="mb-1 font-bold text-blue-600">Casting</div>
+						<div className="mb-2 text-gray-600">
+							Converting data from one type to another.
+						</div>
+						<div className="px-2 py-1 font-mono text-sm text-gray-700 rounded bg-gray-50">
+							str(), int(), float() - conversion functions
+						</div>
+					</div>
+					<div className="p-3 bg-white border-l-4 border-blue-500 rounded-lg shadow-sm">
+						<div className="mb-1 font-bold text-blue-600">Operators</div>
+						<div className="mb-2 text-gray-600">
+							Symbols that perform operations.
+						</div>
+						<div className="px-2 py-1 font-mono text-sm text-gray-700 rounded bg-gray-50">
+							Arithmetic: +, -, *, / | Comparison: &lt;, &gt;, ==, !=
+						</div>
+					</div>
+					<div className="p-3 bg-blue-100 border border-blue-300 rounded-lg">
+						<div className="font-medium text-center text-blue-700">
+							💡 Read the code line by line to find what the question asks for
+						</div>
+					</div>
+				</div>
+			);
+		}
+
 		return null;
 	};
 
@@ -564,6 +758,26 @@ export function QuizComponent({
 								</p>
 								<pre className="p-4 mb-4 overflow-x-auto text-xl text-left bg-gray-100 rounded-lg">
 									<code className="font-light">{currentQuestion.code}</code>
+								</pre>
+							</div>
+						)}
+
+						{mode === "Keywords" && (
+							<div>
+								<p className="p-4 mb-2 text-lg font-semibold text-left text-white bg-indigo-600 rounded-lg shadow">
+									{currentQuestion.keywordPrompt || "Answer the question about the code"}
+								</p>
+								<pre className="p-4 mb-4 overflow-x-auto text-xl text-left bg-gray-100 rounded-lg">
+									<code className="font-light">
+										{(currentQuestion.code || '').split('\n').map((line, index) => (
+											<div key={index} className="flex">
+												<span className="inline-block w-8 mr-4 text-right text-gray-500 select-none">
+													{index + 1}
+												</span>
+												<span>{line}</span>
+											</div>
+										))}
+									</code>
 								</pre>
 							</div>
 						)}

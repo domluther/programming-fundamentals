@@ -9,10 +9,31 @@ export interface DataTypeQuestion {
 
 export type DataType = "character" | "string" | "integer" | "float" | "boolean";
 
+export interface KeywordMetadata {
+	variables?: string[];
+	operators?: {
+		arithmetic?: string[];
+		comparison?: string[];
+		boolean?: string[];
+	};
+	concatenationLines?: number[];
+	castingUsed?: {
+		type: string;
+		line: number;
+	}[];
+	dataTypes?: {
+		integers?: string[];
+		floats?: string[];
+		strings?: string[];
+		booleans?: string[];
+	};
+}
+
 export interface ConstructQuestion {
 	code: string;
 	usedConstructs: string[];
 	explanation: string;
+	metadata?: KeywordMetadata;
 }
 
 export interface OperatorQuestion {
@@ -20,6 +41,23 @@ export interface OperatorQuestion {
 	answer: string;
 	explanation: string;
 	operatorCategory: string;
+}
+
+export type KeywordQuestionType = 
+	| "identify-variables"
+	| "find-concatenation"
+	| "identify-casting"
+	| "classify-operators"
+	| "identify-boolean-operator"
+	| "count-variables";
+
+export interface KeywordQuestion {
+	code: string;
+	questionType: KeywordQuestionType;
+	prompt: string;
+	answer: string | string[];
+	explanation: string;
+	marks: number;
 }
 
 export interface QuizMode {
@@ -47,6 +85,12 @@ export const QUIZ_MODES: Record<string, QuizMode> = {
 		title: "Operators",
 		description: "Solve operator expressions and comparisons",
 		emoji: "🔢",
+	},
+	Keywords: {
+		id: "Keywords",
+		title: "Keywords",
+		description: "Identify variables, operators, and programming concepts",
+		emoji: "🔍",
 	},
 	Champion: {
 		id: "Champion",
@@ -1448,5 +1492,452 @@ export const operatorQuestions: OperatorQuestion[] = [
 		answer: "10",
 		explanation: "Brackets first (2+3=5), then multiplication (5*2=10)",
 		operatorCategory: "mixed",
+	},
+];
+
+// TEST KEYWORD QUESTIONS - First 15 construct questions with metadata
+export const keywordTestQuestions: ConstructQuestion[] = [
+	// Question 1
+	{
+		code: `a = 5
+b = 10
+print(a + b)`,
+		usedConstructs: ["sequence"],
+		explanation:
+			"the code only uses sequence as instructions are executed in order without any decisions or loops",
+		metadata: {
+			variables: ["a", "b"],
+			operators: {
+				arithmetic: ["+"],
+				comparison: [],
+				boolean: [],
+			},
+			concatenationLines: [],
+			castingUsed: [],
+			dataTypes: {
+				integers: ["a", "b"],
+				floats: [],
+				strings: [],
+				booleans: [],
+			},
+		},
+	},
+	// Question 2
+	{
+		code: `a = 3
+b = 4
+c = a * b
+print("Area: " + str(c))`,
+		usedConstructs: ["sequence"],
+		explanation:
+			"the code only uses sequence as instructions are carried out one after another without decisions or loops",
+		metadata: {
+			variables: ["a", "b", "c"],
+			operators: {
+				arithmetic: ["*"],
+				comparison: [],
+				boolean: [],
+			},
+			concatenationLines: [4],
+			castingUsed: [
+				{ type: "str()", line: 4 },
+			],
+			dataTypes: {
+				integers: ["a", "b", "c"],
+				floats: [],
+				strings: [],
+				booleans: [],
+			},
+		},
+	},
+	// Question 3
+	{
+		code: `name = input("Enter your name: ")
+greeting = "Hello, " + name
+print(greeting)`,
+		usedConstructs: ["sequence"],
+		explanation:
+			"the code only uses sequence as it just takes input, creates a message, and prints it in order",
+		metadata: {
+			variables: ["name", "greeting"],
+			operators: {
+				arithmetic: [],
+				comparison: [],
+				boolean: [],
+			},
+			concatenationLines: [2],
+			castingUsed: [],
+			dataTypes: {
+				integers: [],
+				floats: [],
+				strings: ["name", "greeting"],
+				booleans: [],
+			},
+		},
+	},
+	// Question 4
+	{
+		code: `width = 5
+length = 8
+area = width * length
+print("Area is " + str(area))`,
+		usedConstructs: ["sequence"],
+		explanation:
+			"the code only uses sequence as it performs calculations and prints the result in order",
+		metadata: {
+			variables: ["width", "length", "area"],
+			operators: {
+				arithmetic: ["*"],
+				comparison: [],
+				boolean: [],
+			},
+			concatenationLines: [4],
+			castingUsed: [
+				{ type: "str()", line: 4 },
+			],
+			dataTypes: {
+				integers: ["width", "length", "area"],
+				floats: [],
+				strings: [],
+				booleans: [],
+			},
+		},
+	},
+	// Question 5
+	{
+		code: `price = 25.50
+tax = price * 0.1
+total = price + tax
+print("Total: £" + str(total))`,
+		usedConstructs: ["sequence"],
+		explanation:
+			"the code only uses sequence as it calculates tax and total step by step",
+		metadata: {
+			variables: ["price", "tax", "total"],
+			operators: {
+				arithmetic: ["*", "+"],
+				comparison: [],
+				boolean: [],
+			},
+			concatenationLines: [4],
+			castingUsed: [
+				{ type: "str()", line: 4 },
+			],
+			dataTypes: {
+				integers: [],
+				floats: ["price", "tax", "total"],
+				strings: [],
+				booleans: [],
+			},
+		},
+	},
+	// Question 6
+	{
+		code: `firstName = input("First name: ")
+lastName = input("Last name: ")
+fullName = firstName + " " + lastName
+print("Hello " + fullName)`,
+		usedConstructs: ["sequence"],
+		explanation:
+			"the code only uses sequence as it gets inputs and combines them in order",
+		metadata: {
+			variables: ["firstName", "lastName", "fullName"],
+			operators: {
+				arithmetic: [],
+				comparison: [],
+				boolean: [],
+			},
+			concatenationLines: [3, 4],
+			castingUsed: [],
+			dataTypes: {
+				integers: [],
+				floats: [],
+				strings: ["firstName", "lastName", "fullName"],
+				booleans: [],
+			},
+		},
+	},
+	// Question 7
+	{
+		code: `radius = float(input("Enter radius: "))
+pi = 3.14159
+area = pi * radius * radius
+circumference = 2 * pi * radius
+print("Area: " + str(area))
+print("Circumference: " + str(circumference))`,
+		usedConstructs: ["sequence"],
+		explanation:
+			"the code only uses sequence as it performs calculations and displays results in order",
+		metadata: {
+			variables: ["radius", "pi", "area", "circumference"],
+			operators: {
+				arithmetic: ["*"],
+				comparison: [],
+				boolean: [],
+			},
+			concatenationLines: [5, 6],
+			castingUsed: [
+				{ type: "float()", line: 1 },
+				{ type: "str()", line: 5 },
+				{ type: "str()", line: 6 },
+			],
+			dataTypes: {
+				integers: [],
+				floats: ["radius", "pi", "area", "circumference"],
+				strings: [],
+				booleans: [],
+			},
+		},
+	},
+	// Question 8
+	{
+		code: `temperature = int(input("Temperature in Celsius: "))
+fahrenheit = (temperature * 9 / 5) + 32
+print(str(temperature) + "°C = " + str(fahrenheit) + "°F")`,
+		usedConstructs: ["sequence"],
+		explanation:
+			"the code only uses sequence as it converts temperature and prints the result",
+		metadata: {
+			variables: ["temperature", "fahrenheit"],
+			operators: {
+				arithmetic: ["*", "/", "+"],
+				comparison: [],
+				boolean: [],
+			},
+			concatenationLines: [3],
+			castingUsed: [
+				{ type: "int()", line: 1 },
+				{ type: "str()", line: 3 },
+			],
+			dataTypes: {
+				integers: ["temperature"],
+				floats: ["fahrenheit"],
+				strings: [],
+				booleans: [],
+			},
+		},
+	},
+	// Question 9
+	{
+		code: `age = int(input("How old are you?"))
+if age < 18 then
+${INDENT}print("You are a student!")
+else
+${INDENT}print("You finished school")
+endif`,
+		usedConstructs: ["sequence", "selection"],
+		explanation:
+			"the code uses sequence to get input and selection (if-else) to make a decision",
+		metadata: {
+			variables: ["age"],
+			operators: {
+				arithmetic: [],
+				comparison: ["<"],
+				boolean: [],
+			},
+			concatenationLines: [],
+			castingUsed: [
+				{ type: "int()", line: 1 },
+			],
+			dataTypes: {
+				integers: ["age"],
+				floats: [],
+				strings: [],
+				booleans: [],
+			},
+		},
+	},
+	// Question 10
+	{
+		code: `score = 75
+if score >= 90 then
+${INDENT}print("Grade A")
+elseif score >= 70 then
+${INDENT}print("Grade B")
+else
+${INDENT}print("Grade C")
+endif`,
+		usedConstructs: ["sequence", "selection"],
+		explanation:
+			"the code uses sequence to set the score and selection (if-elseif-else) to determine the grade",
+		metadata: {
+			variables: ["score"],
+			operators: {
+				arithmetic: [],
+				comparison: [">="],
+				boolean: [],
+			},
+			concatenationLines: [],
+			castingUsed: [],
+			dataTypes: {
+				integers: ["score"],
+				floats: [],
+				strings: [],
+				booleans: [],
+			},
+		},
+	},
+	// Question 11
+	{
+		code: `number = int(input("Enter a number: "))
+switch number
+case 1:
+${INDENT}print("One")
+case 2:
+${INDENT}print("Two")
+default:
+${INDENT}print("Other")
+endswitch`,
+		usedConstructs: ["sequence", "selection"],
+		explanation:
+			"the code uses sequence for input and selection (switch case) to choose between different outputs",
+		metadata: {
+			variables: ["number"],
+			operators: {
+				arithmetic: [],
+				comparison: [],
+				boolean: [],
+			},
+			concatenationLines: [],
+			castingUsed: [
+				{ type: "int()", line: 1 },
+			],
+			dataTypes: {
+				integers: ["number"],
+				floats: [],
+				strings: [],
+				booleans: [],
+			},
+		},
+	},
+	// Question 12
+	{
+		code: `day = input("Enter day: ")
+switch day
+case "Monday":
+${INDENT}print("Start of week")
+case "Friday":
+${INDENT}print("Almost weekend")
+default:
+${INDENT}print("Normal day")
+endswitch`,
+		usedConstructs: ["sequence", "selection"],
+		explanation:
+			"the code uses sequence for input and selection (switch case) to decide based on the day",
+		metadata: {
+			variables: ["day"],
+			operators: {
+				arithmetic: [],
+				comparison: [],
+				boolean: [],
+			},
+			concatenationLines: [],
+			castingUsed: [],
+			dataTypes: {
+				integers: [],
+				floats: [],
+				strings: ["day"],
+				booleans: [],
+			},
+		},
+	},
+	// Question 13
+	{
+		code: `temperature = int(input("Enter temperature: "))
+if temperature < 0 then
+${INDENT}print("Freezing")
+elseif temperature < 20 then
+${INDENT}print("Cold")
+elseif temperature < 30 then
+${INDENT}print("Warm")
+else
+${INDENT}print("Hot")
+endif`,
+		usedConstructs: ["sequence", "selection"],
+		explanation:
+			"the code uses sequence for input and selection (if-elseif-else) to classify the temperature",
+		metadata: {
+			variables: ["temperature"],
+			operators: {
+				arithmetic: [],
+				comparison: ["<"],
+				boolean: [],
+			},
+			concatenationLines: [],
+			castingUsed: [
+				{ type: "int()", line: 1 },
+			],
+			dataTypes: {
+				integers: ["temperature"],
+				floats: [],
+				strings: [],
+				booleans: [],
+			},
+		},
+	},
+	// Question 14
+	{
+		code: `name = input("Enter your name: ")
+age = int(input("Enter your age: "))
+if age >= 18 then
+${INDENT}print("Welcome, " + name)
+else
+${INDENT}print("Sorry, too young")
+endif`,
+		usedConstructs: ["sequence", "selection"],
+		explanation:
+			"the code uses sequence for input and selection (if-else) to make a decision based on age",
+		metadata: {
+			variables: ["name", "age"],
+			operators: {
+				arithmetic: [],
+				comparison: [">="],
+				boolean: [],
+			},
+			concatenationLines: [4],
+			castingUsed: [
+				{ type: "int()", line: 2 },
+			],
+			dataTypes: {
+				integers: ["age"],
+				floats: [],
+				strings: ["name"],
+				booleans: [],
+			},
+		},
+	},
+	// Question 15
+	{
+		code: `num1 = int(input("Enter first number: "))
+num2 = int(input("Enter second number: "))
+if num1 > num2 then
+${INDENT}print("First number is larger")
+elseif num1 < num2 then
+${INDENT}print("Second number is larger")
+else
+${INDENT}print("Numbers are equal")
+endif`,
+		usedConstructs: ["sequence", "selection"],
+		explanation:
+			"the code uses sequence for input and selection (if-elseif-else) to compare the numbers",
+		metadata: {
+			variables: ["num1", "num2"],
+			operators: {
+				arithmetic: [],
+				comparison: [">", "<"],
+				boolean: [],
+			},
+			concatenationLines: [],
+			castingUsed: [
+				{ type: "int()", line: 1 },
+				{ type: "int()", line: 2 },
+			],
+			dataTypes: {
+				integers: ["num1", "num2"],
+				floats: [],
+				strings: [],
+				booleans: [],
+			},
+		},
 	},
 ];
