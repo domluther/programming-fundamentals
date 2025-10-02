@@ -165,7 +165,7 @@ export function QuizComponent({
 						break;
 					case "identify-casting":
 						prompt =
-							"Identify the process that converts data to a different type.";
+							"Identify the function that converts data to a different type.";
 						answer = metadata?.castingUsed?.map((c) => c.type) || [];
 						break;
 					case "find-casting":
