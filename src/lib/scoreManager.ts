@@ -78,12 +78,12 @@ const blankScoreData: ScoreData = {
 		streak: 0,
 		recordStreak: 0,
 		detailed: {
-			"identify-variables": { correct: 0, attempts: 0 },
+			"identify-variable": { correct: 0, attempts: 0 },
 			"find-concatenation": { correct: 0, attempts: 0 },
+			"find-casting": { correct: 0, attempts: 0 },
 			"identify-casting": { correct: 0, attempts: 0 },
-			"classify-operators": { correct: 0, attempts: 0 },
-			"identify-boolean-operator": { correct: 0, attempts: 0 },
-			"count-variables": { correct: 0, attempts: 0 },
+			"identify-arithmetic-operator": { correct: 0, attempts: 0 },
+			"identify-comparison-operator": { correct: 0, attempts: 0 },
 		},
 	},
 	Champion: {
@@ -95,6 +95,7 @@ const blankScoreData: ScoreData = {
 			"Data Types": { correct: 0, attempts: 0 },
 			Constructs: { correct: 0, attempts: 0 },
 			Operators: { correct: 0, attempts: 0 },
+			Keywords: { correct: 0, attempts: 0 },
 		},
 	},
 };
@@ -305,12 +306,13 @@ export class ScoreManager {
 		mode: Mode,
 	): void {
 		if (mode === "Champion") {
-			// In champion mode, the questionType is already in the format "Data Types-character", "Constructs-sequence", etc.
+			// In champion mode, the questionType is already in the format "Data Types-character", "Constructs-sequence", "Keywords-identify-variable", etc.
 			const championStats = this.scores.Champion;
 			const actualMode = questionType.split("-")[0] as
 				| "Data Types"
 				| "Constructs"
-				| "Operators";
+				| "Operators"
+				| "Keywords";
 			const originalModeStats = this.scores[actualMode];
 
 			// Track in champion mode breakdown by actual mode
@@ -373,6 +375,13 @@ export class ScoreManager {
 		} else if (mode === "Operators") {
 			// For operators, the category is the second part (e.g., "operators-addition" -> "addition")
 			return parts[1] || "";
+		} else if (mode === "Keywords") {
+			// For Keywords, the category is everything after "Keywords-"
+			// e.g., "Keywords-identify-variable" -> "identify-variable"
+			if (parts.length > 1) {
+				return parts.slice(1).join("-");
+			}
+			return "";
 		}
 
 		return "";

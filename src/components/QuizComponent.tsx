@@ -24,6 +24,7 @@ interface QuestionData {
 	answer?: string; // Only for Operators mode
 	operatorCategory?: string; // Only for Operators mode
 	sourceMode?: string; // To track original mode in Champion mode
+	category?: string; // To track category in Champion mode
 	// Keyword mode specific
 	keywordPrompt?: string; // Dynamic prompt for keyword questions
 	keywordAnswer?: string | string[]; // Answer(s) for keyword questions
@@ -190,6 +191,67 @@ export function QuizComponent({
 					);
 				}
 
+				// Generate Keywords questions from the test questions
+				const keywordQuestionsWithCategory = [];
+				for (const baseQuestion of keywordTestQuestions) {
+					const metadata = baseQuestion.metadata;
+					const availableQuestionTypes = [];
+					
+					if (metadata?.variables && metadata.variables.length >= 1) {
+						availableQuestionTypes.push('identify-variable');
+					}
+					if (metadata?.concatenationLines && metadata.concatenationLines.length > 0) {
+						availableQuestionTypes.push('find-concatenation');
+					}
+					if (metadata?.castingUsed && metadata.castingUsed.length > 0) {
+						availableQuestionTypes.push('identify-casting');
+					}
+					if (metadata?.operators?.arithmetic && metadata.operators.arithmetic.length > 0) {
+						availableQuestionTypes.push('identify-arithmetic-operator');
+					}
+					if (metadata?.operators?.comparison && metadata.operators.comparison.length > 0) {
+						availableQuestionTypes.push('identify-comparison-operator');
+					}
+					
+					// Create a question for each available type
+					for (const questionType of availableQuestionTypes) {
+						let prompt = "";
+						let answer: string | string[] = "";
+						
+						switch (questionType) {
+							case 'identify-variable':
+								prompt = "Give the identifier of one variable used in the algorithm.";
+								answer = metadata?.variables || [];
+								break;
+							case 'find-concatenation':
+								prompt = "Give the line number where there is concatenation.";
+								answer = metadata?.concatenationLines?.map(n => n.toString()) || [];
+								break;
+							case 'identify-casting':
+								prompt = "Identify the process that converts data to a different type.";
+								answer = metadata?.castingUsed?.map(c => c.type) || [];
+								break;
+							case 'identify-arithmetic-operator':
+								prompt = "Give one arithmetic operator used in the algorithm.";
+								answer = metadata?.operators?.arithmetic || [];
+								break;
+							case 'identify-comparison-operator':
+								prompt = "Give one comparison operator used in the algorithm.";
+								answer = metadata?.operators?.comparison || [];
+								break;
+						}
+						
+						keywordQuestionsWithCategory.push({
+							...baseQuestion,
+							sourceMode: "Keywords",
+							category: questionType,
+							keywordPrompt: prompt,
+							keywordAnswer: answer,
+							keywordType: questionType,
+						});
+					}
+				}
+
 				const allQuestions = [
 					...dataTypeQuestionsWithCategory,
 					...constructQuestions.map((q) => ({
@@ -202,11 +264,12 @@ export function QuizComponent({
 						sourceMode: "Operators",
 						category: q.operatorCategory,
 					})),
+					...keywordQuestionsWithCategory,
 				];
 
 				question =
 					allQuestions[Math.floor(Math.random() * allQuestions.length)];
-				questionType = `${question.sourceMode}-${question.operatorCategory}`;
+				questionType = `${question.sourceMode}-${question.category}`;
 				break;
 			}
 
@@ -762,7 +825,9 @@ export function QuizComponent({
 							</div>
 						)}
 
-						{mode === "Keywords" && (
+						{(mode === "Keywords" ||
+							(mode === "Champion" &&
+								currentQuestion.sourceMode === "Keywords")) && (
 							<div>
 								<p className="p-4 mb-2 text-lg font-semibold text-left text-white bg-indigo-600 rounded-lg shadow">
 									{currentQuestion.keywordPrompt || "Answer the question about the code"}
