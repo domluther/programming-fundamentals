@@ -45,6 +45,7 @@ export function QuizComponent({
 	const sequenceId = useId();
 	const selectionId = useId();
 	const iterationId = useId();
+	const answerInputId = useId();
 	const [currentQuestion, setCurrentQuestion] = useState<QuestionData | null>(
 		null,
 	);
@@ -1002,7 +1003,11 @@ export function QuizComponent({
 					) : (
 						// Text input for other modes
 						<div className="mb-4">
+							<label htmlFor={answerInputId} className="sr-only">
+								Your answer
+							</label>
 							<Input
+								id={answerInputId}
 								ref={inputRef}
 								type="text"
 								value={userAnswer}
@@ -1011,6 +1016,7 @@ export function QuizComponent({
 								onKeyPress={(e) => e.key === "Enter" && handleNext()}
 								className="p-6 text-lg font-bold text-center border-2 shadow-lg border-button-primary transition-all duration-200 sm:text-2xl focus:border-button-primary-hover focus:ring-4 focus:ring-button-primary/20 rounded-xl bg-muted focus-visible:ring-button-primary/50"
 								disabled={showFeedback}
+								aria-label="Enter your answer to the question"
 							/>
 							<p className="mt-1 text-xs text-center text-muted-foreground">
 								Press Enter to submit
