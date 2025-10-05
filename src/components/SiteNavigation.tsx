@@ -59,7 +59,7 @@ export function SiteNavigation({
 							"flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-1 sm:py-2 rounded-lg",
 							"bg-nav-button-bg hover:bg-nav-button-bg-hover backdrop-blur-sm",
 							"text-nav-button-text font-medium transition-all duration-200",
-							"border border-white/20 hover:border-white/30",
+							"border border-muted/20 hover:border-muted/30",
 						)}
 					>
 						{/* Responsive display */}

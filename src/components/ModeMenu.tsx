@@ -21,7 +21,7 @@ export const ModeMenu = () => {
 						variant="menu"
 						className={`w-full sm:w-auto text-sm sm:text-base p-3 sm:p-6 ${
 							location.pathname === mode.path
-								? "text-white bg-green-600  hover:bg-green-700 hover:shadow-lg"
+								? "text-action-button-text bg-action-button-bg hover:bg-action-button-bg-hover hover:shadow-lg"
 								: ""
 						}`}
 					>

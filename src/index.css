@@ -104,11 +104,11 @@
 
 :root {
 	--radius: 0.625rem;
-	--background: oklch(1 0 0);
+	--background: oklch(0.985 0.002 235);
 	--foreground: oklch(0.145 0.001 235);
-	--card: oklch(1 0 0);
+	--card: oklch(0.99 0.002 235);
 	--card-foreground: oklch(0.145 0.001 235);
-	--popover: oklch(1 0 0);
+	--popover: oklch(0.99 0.002 235);
 	--popover-foreground: oklch(0.145 0.001 235);
 	--primary: oklch(0.21 0.034 235);
 	--primary-foreground: oklch(0.985 0 0);
@@ -135,73 +135,73 @@
 	--sidebar-accent-foreground: oklch(0.205 0.001 235);
 	--sidebar-border: oklch(0.922 0.002 235);
 	--sidebar-ring: oklch(0.708 0.005 235);
-	--header: oklch(0.21 0.034 235); /* gray-900 with deep blue tint */
+	--header: oklch(0.21 0.034 235); /* deep blue-900 */
 	
 	/* Semantic color variables for light mode */
 	--header-text: oklch(0.96 0.02 235); /* deep blue-50 */
 	--header-subtitle: oklch(0.85 0.08 235); /* deep blue-200 */
 	--link: oklch(0.72 0.12 235); /* deep blue-300 */
-	--link-hover: oklch(1 0 0); /* white */
+	--link-hover: var(--primary-foreground); /* white */
 	--button-primary: oklch(0.45 0.15 235); /* deep blue-600 */
 	--button-primary-hover: oklch(0.38 0.14 235); /* deep blue-700 */
-	--button-primary-text: oklch(0.96 0.02 235); /* deep blue-50 */
+	--button-primary-text: var(--header-text); /* deep blue-50 */
 	--nav-button-bg: oklch(1 0 0 / 0.1); /* white/10 */
 	--nav-button-bg-hover: oklch(1 0 0 / 0.2); /* white/20 */
-	--nav-button-text: oklch(1 0 0); /* white */
+	--nav-button-text: var(--primary-foreground); /* white */
 	--nav-item-text: oklch(0.36 0.02 235); /* gray-800 with blue tint */
-	--nav-item-text-hover: oklch(0.45 0.15 235); /* deep blue-600 */
+	--nav-item-text-hover: var(--button-primary); /* deep blue-600 */
 	--nav-item-description: oklch(0.55 0.015 235); /* gray-600 with blue tint */
-	--nav-item-active-bg: oklch(0.93 0.04 235); /* deep blue-100 */
-	--nav-item-active-border: oklch(0.45 0.15 235); /* deep blue-600 */
+	--nav-item-active-bg: oklch(0.93 0.08 235); /* deep blue-100 */
+	--nav-item-active-border: var(--button-primary); /* deep blue-600 */
 	--modal-overlay: oklch(0 0 0 / 0.3); /* black/30 */
-	--modal-header-text: oklch(1 0 0); /* white */
-	--level-card-bg: oklch(0.45 0.15 235); /* deep blue-600 */
-	--level-card-text: oklch(1 0 0); /* white */
+	--modal-header-text: var(--primary-foreground); /* white */
+	--level-card-bg: var(--button-primary); /* deep blue-600 */
+	--level-card-text: var(--primary-foreground); /* white */
 	--progress-bar: oklch(0.589 0.151 154.449); /* green-600 */
 	
 	/* Hint card variables for light mode */
-	--hint-card-bg: oklch(1 0 0); /* white */
+	--hint-card-bg: var(--card); /* very light blue-white */
 	--hint-card-border: oklch(0.55 0.18 235); /* deep blue-500 */
 	--hint-card-title: oklch(0.48 0.17 235); /* deep blue-600 */
 	--hint-card-text: oklch(0.55 0.015 235); /* gray-600 with blue tint */
 	--hint-card-code-bg: oklch(0.981 0.002 235); /* gray-50 with blue tint */
 	--hint-card-code-text: oklch(0.45 0.015 235); /* gray-700 with blue tint */
-	--hint-tip-bg: oklch(0.93 0.08 235); /* deep blue-100 */
-	--hint-tip-border: oklch(0.72 0.12 235); /* deep blue-300 */
+	--hint-tip-bg: var(--nav-item-active-bg); /* deep blue-100 */
+	--hint-tip-border: var(--link); /* deep blue-300 */
 	--hint-tip-text: oklch(0.38 0.14 235); /* deep blue-700 */
 	
 	/* Quiz component variables for light mode */
 	--stats-card-bg: oklch(0.97 0.02 235); /* deep blue-50 */
-	--stats-card-border: oklch(0.55 0.18 235); /* deep blue-500 */
+	--stats-card-border: var(--hint-card-border); /* deep blue-500 */
 	--stats-points: oklch(0.48 0.17 235); /* deep blue-600 */
-	--stats-streak: oklch(0.589 0.151 154.449); /* green-600 */
+	--stats-streak: var(--progress-bar); /* green-600 */
 	--stats-record: oklch(0.516 0.178 303.9); /* purple-600 */
-	--stats-accuracy-high: oklch(0.589 0.151 154.449); /* green-600 */
+	--stats-accuracy-high: var(--progress-bar); /* green-600 */
 	--stats-accuracy-medium: oklch(0.706 0.188 84.429); /* yellow-600 */
 	--stats-accuracy-low: oklch(0.627 0.257 27.325); /* red-600 */
 	--stats-label: oklch(0.55 0.015 235); /* gray-600 with blue tint */
-	--question-prompt-bg: oklch(0.45 0.15 235); /* deep blue-600 */
-	--question-prompt-text: oklch(1 0 0); /* white */
+	--question-prompt-bg: var(--button-primary); /* deep blue-600 */
+	--question-prompt-text: var(--primary-foreground); /* white */
 	--code-display-bg: oklch(0.971 0.002 235); /* gray-100 with blue tint */
 	--code-display-text: oklch(0.145 0 0); /* near-black */
 	--code-line-number: oklch(0.608 0.015 235); /* gray-500 with blue tint */
 	--checkbox-label-border: oklch(0.905 0.002 235); /* gray-200 with blue tint */
-	--checkbox-label-border-hover: oklch(0.72 0.12 235); /* deep blue-300 */
-	--checkbox-label-bg-hover: oklch(0.97 0.02 235); /* deep blue-50 */
-	--checkbox-kbd-bg: oklch(0.971 0.002 235); /* gray-100 with blue tint */
-	--action-button-bg: oklch(0.589 0.151 154.449); /* green-600 */
+	--checkbox-label-border-hover: var(--link); /* deep blue-300 */
+	--checkbox-label-bg-hover: var(--stats-card-bg); /* deep blue-50 */
+	--checkbox-kbd-bg: var(--code-display-bg); /* gray-100 with blue tint */
+	--action-button-bg: var(--progress-bar); /* green-600 */
 	--action-button-bg-hover: oklch(0.522 0.131 154.449); /* green-700 */
-	--action-button-text: oklch(1 0 0); /* white */
+	--action-button-text: var(--primary-foreground); /* white */
 	--action-button-disabled: oklch(0.608 0.013 235); /* gray-400 with blue tint */
 	--feedback-success-bg: oklch(0.977 0.031 154.449); /* green-50 */
 	--feedback-success-text: oklch(0.422 0.111 154.449); /* green-800 */
 	--feedback-error-bg: oklch(0.977 0.051 27.325); /* red-50 */
 	--feedback-error-text: oklch(0.437 0.217 27.325); /* red-800 */
-	--hint-summary-bg: oklch(0.97 0.02 235); /* deep blue-50 */
-	--hint-summary-bg-hover: oklch(0.93 0.08 235); /* deep blue-100 */
-	--hint-summary-border: oklch(0.72 0.12 235); /* deep blue-200 */
+	--hint-summary-bg: var(--stats-card-bg); /* deep blue-50 */
+	--hint-summary-bg-hover: var(--nav-item-active-bg); /* deep blue-100 */
+	--hint-summary-border: var(--link); /* deep blue-300 */
 	--hint-summary-text: oklch(0.38 0.14 235); /* deep blue-800 */
-	--hint-content-bg: oklch(0.97 0.02 235); /* deep blue-50 */
+	--hint-content-bg: var(--stats-card-bg); /* deep blue-50 */
 }
 
 .dark {
@@ -238,33 +238,33 @@
 	--sidebar-ring: oklch(0.556 0 0);
 	
 	/* Semantic color variables for dark mode */
-	--header-text: oklch(0.92 0.04 235); /* Lighter deep blue for contrast */
-	--header-subtitle: oklch(0.75 0.12 235); /* Lighter deep blue-200 */
-	--link: oklch(0.82 0.15 235); /* Brighter deep blue */
-	--link-hover: oklch(0.985 0 0); /* Near white */
-	--button-primary: oklch(0.55 0.18 235); /* Lighter deep blue */
-	--button-primary-hover: oklch(0.50 0.16 235); /* Slightly darker on hover */
-	--button-primary-text: oklch(0.96 0.02 235); /* Light text */
+	--header-text: oklch(0.92 0.04 235); /* lighter deep blue for contrast */
+	--header-subtitle: oklch(0.75 0.12 235); /* lighter deep blue-200 */
+	--link: oklch(0.82 0.15 235); /* brighter deep blue */
+	--link-hover: var(--foreground); /* near white */
+	--button-primary: oklch(0.55 0.18 235); /* lighter deep blue */
+	--button-primary-hover: oklch(0.50 0.16 235); /* slightly darker on hover */
+	--button-primary-text: oklch(0.96 0.02 235); /* light text */
 	--nav-button-bg: oklch(1 0 0 / 0.1); /* white/10 */
 	--nav-button-bg-hover: oklch(1 0 0 / 0.2); /* white/20 */
-	--nav-button-text: oklch(0.985 0 0); /* Near white */
-	--nav-item-text: oklch(0.905 0.002 235); /* Light gray with blue tint */
-	--nav-item-text-hover: oklch(0.65 0.18 235); /* Lighter deep blue on hover */
-	--nav-item-description: oklch(0.708 0.015 235); /* Mid-light gray with blue tint */
-	--nav-item-active-bg: oklch(0.269 0.04 235); /* Dark deep blue background */
-	--nav-item-active-border: oklch(0.55 0.18 235); /* Lighter deep blue border */
-	--modal-overlay: oklch(0 0 0 / 0.5); /* Darker overlay */
-	--modal-header-text: oklch(0.985 0 0); /* Near white */
-	--level-card-bg: oklch(0.55 0.18 235); /* Lighter deep blue */
-	--level-card-text: oklch(0.985 0 0); /* Near white */
-	--progress-bar: oklch(0.689 0.171 154.449); /* Brighter green */
+	--nav-button-text: var(--foreground); /* near white */
+	--nav-item-text: oklch(0.905 0.002 235); /* light gray with blue tint */
+	--nav-item-text-hover: oklch(0.65 0.18 235); /* lighter deep blue on hover */
+	--nav-item-description: oklch(0.708 0.015 235); /* mid-light gray with blue tint */
+	--nav-item-active-bg: oklch(0.269 0.04 235); /* dark deep blue background */
+	--nav-item-active-border: var(--button-primary); /* lighter deep blue border */
+	--modal-overlay: oklch(0 0 0 / 0.5); /* darker overlay */
+	--modal-header-text: var(--foreground); /* near white */
+	--level-card-bg: oklch(0.45 0.15 235); /* deep blue-600 */
+	--level-card-text: var(--foreground); /* near white */
+	--progress-bar: oklch(0.689 0.171 154.449); /* brighter green */
 	
 	/* Hint card variables for dark mode */
-	--hint-card-bg: oklch(0.269 0 0); /* dark gray card background */
+	--hint-card-bg: var(--muted); /* dark gray card background */
 	--hint-card-border: oklch(0.65 0.18 235); /* lighter deep blue-500 */
 	--hint-card-title: oklch(0.68 0.18 235); /* lighter deep blue-600 */
 	--hint-card-text: oklch(0.808 0.015 235); /* lighter gray-400 with blue tint */
-	--hint-card-code-bg: oklch(0.205 0 0); /* darker background for code */
+	--hint-card-code-bg: var(--background); /* darker background for code */
 	--hint-card-code-text: oklch(0.853 0.015 235); /* light gray-300 with blue tint */
 	--hint-tip-bg: oklch(0.269 0.08 235); /* dark deep blue-900 equivalent */
 	--hint-tip-border: oklch(0.45 0.12 235); /* darker deep blue-600 */
@@ -272,36 +272,36 @@
 	
 	/* Quiz component variables for dark mode */
 	--stats-card-bg: oklch(0.269 0.02 235); /* darker deep blue */
-	--stats-card-border: oklch(0.65 0.18 235); /* lighter deep blue-500 */
+	--stats-card-border: var(--hint-card-border); /* lighter deep blue-500 */
 	--stats-points: oklch(0.68 0.18 235); /* lighter deep blue-400 */
-	--stats-streak: oklch(0.689 0.171 154.449); /* brighter green */
-	--stats-record: oklch(0.716 0.198 303.9); /* lighter purple */
-	--stats-accuracy-high: oklch(0.689 0.171 154.449); /* brighter green */
-	--stats-accuracy-medium: oklch(0.806 0.208 84.429); /* brighter yellow */
-	--stats-accuracy-low: oklch(0.727 0.277 27.325); /* brighter red */
+	--stats-streak: oklch(0.72 0.16 154.449); /* lighter green for dark mode */
+	--stats-record: oklch(0.75 0.20 303.9); /* lighter purple for dark mode */
+	--stats-accuracy-high: var(--stats-streak); /* lighter green for dark mode */
+	--stats-accuracy-medium: oklch(0.82 0.20 84.429); /* lighter yellow for dark mode */
+	--stats-accuracy-low: oklch(0.75 0.26 27.325); /* lighter red for dark mode */
 	--stats-label: oklch(0.708 0.015 235); /* lighter gray with deep blue tint */
-	--question-prompt-bg: oklch(0.55 0.18 235); /* lighter deep blue */
-	--question-prompt-text: oklch(0.985 0 0); /* near white */
-	--code-display-bg:  oklch(0.269 0.02 235); /* dark background with deep blue tint */
+	--question-prompt-bg: var(--button-primary); /* lighter deep blue */
+	--question-prompt-text: var(--foreground); /* near white */
+	--code-display-bg: var(--stats-card-bg); /* dark background with deep blue tint */
 	--code-display-text: oklch(0.905 0 0); /* light text */
-	--code-line-number: oklch(0.608 0.015 235); /* gray-500 with deep blue tint */
+	--code-line-number: oklch(0.65 0.015 235); /* lighter gray-400 with deep blue tint for dark mode */
 	--checkbox-label-border: oklch(0.369 0.002 235); /* dark gray-700 with deep blue tint */
 	--checkbox-label-border-hover: oklch(0.55 0.15 235); /* deep blue-500 in dark */
-	--checkbox-label-bg-hover: oklch(0.269 0.02 235); /* dark deep blue */
+	--checkbox-label-bg-hover: var(--stats-card-bg); /* dark deep blue */
 	--checkbox-kbd-bg: oklch(0.269 0.002 235); /* dark gray with deep blue tint */
 	--action-button-bg: oklch(0.619 0.151 154.449); /* green-600 adjusted for dark */
 	--action-button-bg-hover: oklch(0.552 0.131 154.449); /* green-700 adjusted */
-	--action-button-text: oklch(0.985 0 0); /* near white */
+	--action-button-text: var(--foreground); /* near white */
 	--action-button-disabled: oklch(0.408 0.015 235); /* darker gray with deep blue tint */
 	--feedback-success-bg: oklch(0.269 0.031 154.449); /* dark green */
 	--feedback-success-text: oklch(0.789 0.111 154.449); /* light green text */
 	--feedback-error-bg: oklch(0.269 0.051 27.325); /* dark red */
 	--feedback-error-text: oklch(0.837 0.217 27.325); /* light red text */
-	--hint-summary-bg: oklch(0.269 0.02 235); /* darker deep blue */
+	--hint-summary-bg: var(--stats-card-bg); /* darker deep blue */
 	--hint-summary-bg-hover: oklch(0.339 0.08 235); /* slightly lighter deep blue */
-	--hint-summary-border: oklch(0.45 0.12 235); /* darker deep blue */
-	--hint-summary-text: oklch(0.72 0.15 235); /* lighter deep blue text */
-	--hint-content-bg: oklch(0.269 0.02 235); /* dark deep blue */
+	--hint-summary-border: var(--hint-tip-border); /* darker deep blue */
+	--hint-summary-text: var(--hint-tip-text); /* lighter deep blue text */
+	--hint-content-bg: var(--stats-card-bg); /* dark deep blue */
 }
 
 * {
