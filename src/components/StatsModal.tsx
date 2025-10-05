@@ -15,8 +15,8 @@ interface StatsModalProps {
 }
 
 /**
- * Statistics modal for Programming Fundamentals practice site
- * Shows level progress, overall statistics, mode breakdown, and detailed category breakdown
+ * Reusable statistics modal for GCSE CS practice sites
+ * Shows level progress, statistics, and breakdown by category
  */
 export function StatsModal({
 	isOpen,
@@ -82,7 +82,7 @@ export function StatsModal({
 				<div className="flex items-center justify-between px-6 py-4 text-modal-header-text bg-header/80">
 					<h2
 						id={titleId}
-						className="flex items-center text-2xl font-bold gap-2"
+						className="flex items-center gap-2 text-2xl font-bold"
 					>
 						{headerIcon} {title}
 					</h2>
@@ -98,7 +98,7 @@ export function StatsModal({
 				{/* Content */}
 				<div className="p-4 overflow-y-auto max-h-[calc(80vh-140px)]">
 					{overallStats.totalAttempts > 0 ? (
-						<div className="space-y-6">
+						<div className="space-y-4">
 							{/* Level Info Card */}
 							<Card className="text-level-card-text bg-level-card-bg">
 								<CardHeader className="text-level-card-text">
@@ -137,7 +137,7 @@ export function StatsModal({
 											className="h-2 mb-3 [&>div]:bg-progress-bar"
 										/>
 										{/* Detailed requirements */}
-										<div className="text-sm space-y-1">
+										<div className="space-y-1 text-sm">
 											{overallStats.accuracy <
 												overallStats.nextLevel.minAccuracy && (
 												<div>
@@ -164,7 +164,9 @@ export function StatsModal({
 									</CardContent>
 								)}
 							</Card>
-							<Card className="p-4 gap-4">
+
+							{/* Overall Statistics */}
+							<Card className="gap-4 p-4">
 								<CardHeader className="px-2 mb-0">
 									<CardTitle className="flex items-center">
 										📈 Overall Statistics
@@ -183,7 +185,7 @@ export function StatsModal({
 												{overallStats.totalAttempts}
 											</div>
 											<div className="text-sm text-muted-foreground">
-												Total Attempts
+												Attempts
 											</div>
 										</div>
 										<div className="p-4 text-center border-l-4 rounded-lg bg-stats-card-bg border-stats-record">
@@ -197,7 +199,7 @@ export function StatsModal({
 							</Card>
 
 							{/* Category Breakdown */}
-							<Card className="p-4 gap-4">
+							<Card className="gap-4 p-4">
 								<CardHeader className="px-2 mb-0">
 									<CardTitle className="flex items-center">
 										📋 Breakdown by Category
@@ -251,7 +253,7 @@ export function StatsModal({
 							</Card>
 
 							{/* Detailed Statistics */}
-							<Card className="p-4 gap-4">
+							<Card className="gap-4 p-4">
 								<CardHeader className="px-2 mb-0">
 									<CardTitle className="flex items-center">
 										🔍 Detailed Breakdown
