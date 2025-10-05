@@ -614,7 +614,9 @@ export function QuizComponent({
 					</div>
 					<div className="p-3 border-l-4 rounded-lg bg-hint-card-bg border-hint-card-border shadow-sm">
 						<div className="mb-1 font-bold text-hint-card-title">String</div>
-						<div className="mb-2 text-hint-card-text">A collection of characters</div>
+						<div className="mb-2 text-hint-card-text">
+							A collection of characters
+						</div>
 						<div className="px-2 py-1 font-mono text-sm rounded text-hint-card-code-text bg-hint-card-code-bg">
 							'hello', "panda1", ":D"
 						</div>
@@ -627,8 +629,12 @@ export function QuizComponent({
 						</div>
 					</div>
 					<div className="p-3 border-l-4 rounded-lg bg-hint-card-bg border-hint-card-border shadow-sm">
-						<div className="mb-1 font-bold text-hint-card-title">Float / Real</div>
-						<div className="mb-2 text-hint-card-text">A number with a decimal</div>
+						<div className="mb-1 font-bold text-hint-card-title">
+							Float / Real
+						</div>
+						<div className="mb-2 text-hint-card-text">
+							A number with a decimal
+						</div>
 						<div className="px-2 py-1 font-mono text-sm rounded text-hint-card-code-text bg-hint-card-code-bg">
 							-2.2, 3.14
 						</div>
@@ -658,14 +664,18 @@ export function QuizComponent({
 					</div>
 					<div className="p-3 border-l-4 rounded-lg bg-hint-card-bg border-hint-card-border shadow-sm">
 						<div className="mb-1 font-bold text-hint-card-title">Selection</div>
-						<div className="mb-2 text-hint-card-text">Making decisions in code.</div>
+						<div className="mb-2 text-hint-card-text">
+							Making decisions in code.
+						</div>
 						<div className="px-2 py-1 font-mono text-sm rounded text-hint-card-code-text bg-hint-card-code-bg">
 							Look for: if, elif, else, switch
 						</div>
 					</div>
 					<div className="p-3 border-l-4 rounded-lg bg-hint-card-bg border-hint-card-border shadow-sm">
 						<div className="mb-1 font-bold text-hint-card-title">Iteration</div>
-						<div className="mb-2 text-hint-card-text">Repeating code (loops).</div>
+						<div className="mb-2 text-hint-card-text">
+							Repeating code (loops).
+						</div>
 						<div className="px-2 py-1 font-mono text-sm rounded text-hint-card-code-text bg-hint-card-code-bg">
 							Look for: for, while, do until
 						</div>
@@ -698,7 +708,9 @@ export function QuizComponent({
 						<div className="mb-1 font-bold text-hint-card-title">
 							Arithmetic Operators
 						</div>
-						<div className="mb-2 text-hint-card-text">Mathematical operations.</div>
+						<div className="mb-2 text-hint-card-text">
+							Mathematical operations.
+						</div>
 						<div className="px-2 py-1 font-mono text-sm rounded text-hint-card-code-text bg-hint-card-code-bg">
 							+ (add), - (subtract), * (multiply), / (divide)
 						</div>
@@ -707,7 +719,9 @@ export function QuizComponent({
 						<div className="mb-1 font-bold text-hint-card-title">
 							Special Operators
 						</div>
-						<div className="mb-2 text-hint-card-text">OCR specific operations.</div>
+						<div className="mb-2 text-hint-card-text">
+							OCR specific operations.
+						</div>
 						<div className="px-2 py-1 font-mono text-sm rounded text-hint-card-code-text bg-hint-card-code-bg">
 							MOD (remainder), DIV (integer division), ^ (power)
 						</div>
@@ -741,7 +755,9 @@ export function QuizComponent({
 						</div>
 					</div>
 					<div className="p-3 border-l-4 rounded-lg bg-hint-card-bg border-hint-card-border shadow-sm">
-						<div className="mb-1 font-bold text-hint-card-title">Concatenation</div>
+						<div className="mb-1 font-bold text-hint-card-title">
+							Concatenation
+						</div>
 						<div className="mb-2 text-hint-card-text">
 							Joining strings together using the + operator.
 						</div>
@@ -967,20 +983,21 @@ export function QuizComponent({
 								</label>
 							</div>
 							{!showFeedback && (
-							<div className="text-center">
-								<Button
-									onClick={checkAnswer}
-									disabled={
-										showFeedback ||
-										(!constructsChecked.sequence &&
-										!constructsChecked.selection &&
-										!constructsChecked.iteration)
-									}
-									className="px-8 py-3 font-semibold rounded-lg shadow-lg text-action-button-text transition-all duration-200 transform bg-action-button-bg hover:bg-action-button-bg-hover hover:shadow-xl hover:-translate-y-1 disabled:bg-action-button-disabled disabled:hover:shadow-lg disabled:transform-none"
-								>
-									Submit Answer
-								</Button>
-							</div> )}
+								<div className="text-center">
+									<Button
+										onClick={checkAnswer}
+										disabled={
+											showFeedback ||
+											(!constructsChecked.sequence &&
+												!constructsChecked.selection &&
+												!constructsChecked.iteration)
+										}
+										className="px-8 py-3 font-semibold rounded-lg shadow-lg text-action-button-text transition-all duration-200 transform bg-action-button-bg hover:bg-action-button-bg-hover hover:shadow-xl hover:-translate-y-1 disabled:bg-action-button-disabled disabled:hover:shadow-lg disabled:transform-none"
+									>
+										Submit Answer
+									</Button>
+								</div>
+							)}
 						</div>
 					) : (
 						// Text input for other modes
