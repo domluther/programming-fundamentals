@@ -16,7 +16,9 @@ const router = createRouter({
 					Oops! Something went wrong
 				</h2>
 				<p className="mb-4 text-muted-foreground">
-					{error instanceof Error ? error.message : "An unexpected error occurred"}
+					{error instanceof Error
+						? error.message
+						: "An unexpected error occurred"}
 				</p>
 				<button
 					type="button"

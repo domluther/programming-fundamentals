@@ -15,7 +15,7 @@ interface SiteLayoutProps {
 }
 
 /**
- * Reusable layout component for Programming Fundamentals practice sites
+ * Reusable layout component for GCSE CS practice sites
  * Provides consistent header, navigation, and content structure
  */
 export function SiteLayout({

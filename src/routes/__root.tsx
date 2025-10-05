@@ -8,7 +8,6 @@ export const Route = createRootRoute({
 	component: () => (
 		<ThemeProvider defaultTheme="system" storageKey="ui-theme">
 			<div className="flex flex-col items-center justify-center min-h-screen p-2 sm:p-5 bg-background">
-				{/* Settings/Theme Toggle - positioned absolutely in top right  - disabled for now*/}
 				<div className="fixed z-50 top-2 right-2 sm:top-4 sm:right-4">
 					<SimpleThemeToggle />
 				</div>
