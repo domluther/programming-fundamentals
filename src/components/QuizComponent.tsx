@@ -603,40 +603,40 @@ export function QuizComponent({
 		if (actualMode === "Data Types") {
 			return (
 				<div className="space-y-3">
-					<div className="p-3 bg-hint-card-bg border-l-4 border-hint-card-border rounded-lg shadow-sm">
+					<div className="p-3 border-l-4 rounded-lg bg-hint-card-bg border-hint-card-border shadow-sm">
 						<div className="mb-1 font-bold text-hint-card-title">Character</div>
 						<div className="mb-2 text-hint-card-text">
 							A single letter, number or symbol
 						</div>
-						<div className="px-2 py-1 font-mono text-sm text-hint-card-code-text rounded bg-hint-card-code-bg">
+						<div className="px-2 py-1 font-mono text-sm rounded text-hint-card-code-text bg-hint-card-code-bg">
 							'a', '!', '2', ' '
 						</div>
 					</div>
-					<div className="p-3 bg-hint-card-bg border-l-4 border-hint-card-border rounded-lg shadow-sm">
+					<div className="p-3 border-l-4 rounded-lg bg-hint-card-bg border-hint-card-border shadow-sm">
 						<div className="mb-1 font-bold text-hint-card-title">String</div>
 						<div className="mb-2 text-hint-card-text">A collection of characters</div>
-						<div className="px-2 py-1 font-mono text-sm text-hint-card-code-text rounded bg-hint-card-code-bg">
+						<div className="px-2 py-1 font-mono text-sm rounded text-hint-card-code-text bg-hint-card-code-bg">
 							'hello', "panda1", ":D"
 						</div>
 					</div>
-					<div className="p-3 bg-hint-card-bg border-l-4 border-hint-card-border rounded-lg shadow-sm">
+					<div className="p-3 border-l-4 rounded-lg bg-hint-card-bg border-hint-card-border shadow-sm">
 						<div className="mb-1 font-bold text-hint-card-title">Integer</div>
 						<div className="mb-2 text-hint-card-text">A whole number</div>
-						<div className="px-2 py-1 font-mono text-sm text-hint-card-code-text rounded bg-hint-card-code-bg">
+						<div className="px-2 py-1 font-mono text-sm rounded text-hint-card-code-text bg-hint-card-code-bg">
 							2, 5, -1
 						</div>
 					</div>
-					<div className="p-3 bg-hint-card-bg border-l-4 border-hint-card-border rounded-lg shadow-sm">
+					<div className="p-3 border-l-4 rounded-lg bg-hint-card-bg border-hint-card-border shadow-sm">
 						<div className="mb-1 font-bold text-hint-card-title">Float / Real</div>
 						<div className="mb-2 text-hint-card-text">A number with a decimal</div>
-						<div className="px-2 py-1 font-mono text-sm text-hint-card-code-text rounded bg-hint-card-code-bg">
+						<div className="px-2 py-1 font-mono text-sm rounded text-hint-card-code-text bg-hint-card-code-bg">
 							-2.2, 3.14
 						</div>
 					</div>
-					<div className="p-3 bg-hint-card-bg border-l-4 border-hint-card-border rounded-lg shadow-sm">
+					<div className="p-3 border-l-4 rounded-lg bg-hint-card-bg border-hint-card-border shadow-sm">
 						<div className="mb-1 font-bold text-hint-card-title">Boolean</div>
 						<div className="mb-2 text-hint-card-text">Has only two options</div>
-						<div className="px-2 py-1 font-mono text-sm text-hint-card-code-text rounded bg-hint-card-code-bg">
+						<div className="px-2 py-1 font-mono text-sm rounded text-hint-card-code-text bg-hint-card-code-bg">
 							True or False
 						</div>
 					</div>
@@ -647,30 +647,30 @@ export function QuizComponent({
 		if (actualMode === "Constructs") {
 			return (
 				<div className="space-y-3">
-					<div className="p-3 bg-hint-card-bg border-l-4 border-hint-card-border rounded-lg shadow-sm">
+					<div className="p-3 border-l-4 rounded-lg bg-hint-card-bg border-hint-card-border shadow-sm">
 						<div className="mb-1 font-bold text-hint-card-title">Sequence</div>
 						<div className="mb-2 text-hint-card-text">
 							Instructions executed one after another in order.
 						</div>
-						<div className="px-2 py-1 font-mono text-sm text-hint-card-code-text rounded bg-hint-card-code-bg">
+						<div className="px-2 py-1 font-mono text-sm rounded text-hint-card-code-text bg-hint-card-code-bg">
 							Always present in any code.
 						</div>
 					</div>
-					<div className="p-3 bg-hint-card-bg border-l-4 border-hint-card-border rounded-lg shadow-sm">
+					<div className="p-3 border-l-4 rounded-lg bg-hint-card-bg border-hint-card-border shadow-sm">
 						<div className="mb-1 font-bold text-hint-card-title">Selection</div>
 						<div className="mb-2 text-hint-card-text">Making decisions in code.</div>
-						<div className="px-2 py-1 font-mono text-sm text-hint-card-code-text rounded bg-hint-card-code-bg">
+						<div className="px-2 py-1 font-mono text-sm rounded text-hint-card-code-text bg-hint-card-code-bg">
 							Look for: if, elif, else, switch
 						</div>
 					</div>
-					<div className="p-3 bg-hint-card-bg border-l-4 border-hint-card-border rounded-lg shadow-sm">
+					<div className="p-3 border-l-4 rounded-lg bg-hint-card-bg border-hint-card-border shadow-sm">
 						<div className="mb-1 font-bold text-hint-card-title">Iteration</div>
 						<div className="mb-2 text-hint-card-text">Repeating code (loops).</div>
-						<div className="px-2 py-1 font-mono text-sm text-hint-card-code-text rounded bg-hint-card-code-bg">
+						<div className="px-2 py-1 font-mono text-sm rounded text-hint-card-code-text bg-hint-card-code-bg">
 							Look for: for, while, do until
 						</div>
 					</div>
-					<div className="p-3 bg-hint-tip-bg border border-hint-tip-border rounded-lg">
+					<div className="p-3 border rounded-lg bg-hint-tip-bg border-hint-tip-border">
 						<div className="font-medium text-center text-hint-tip-text">
 							💡 Use checkboxes or press keys{" "}
 							<kbd className="px-1 py-0.5 bg-background rounded border text-xs">
@@ -694,32 +694,32 @@ export function QuizComponent({
 		if (actualMode === "Operators") {
 			return (
 				<div className="space-y-3">
-					<div className="p-3 bg-hint-card-bg border-l-4 border-hint-card-border rounded-lg shadow-sm">
+					<div className="p-3 border-l-4 rounded-lg bg-hint-card-bg border-hint-card-border shadow-sm">
 						<div className="mb-1 font-bold text-hint-card-title">
 							Arithmetic Operators
 						</div>
 						<div className="mb-2 text-hint-card-text">Mathematical operations.</div>
-						<div className="px-2 py-1 font-mono text-sm text-hint-card-code-text rounded bg-hint-card-code-bg">
+						<div className="px-2 py-1 font-mono text-sm rounded text-hint-card-code-text bg-hint-card-code-bg">
 							+ (add), - (subtract), * (multiply), / (divide)
 						</div>
 					</div>
-					<div className="p-3 bg-hint-card-bg border-l-4 border-hint-card-border rounded-lg shadow-sm">
+					<div className="p-3 border-l-4 rounded-lg bg-hint-card-bg border-hint-card-border shadow-sm">
 						<div className="mb-1 font-bold text-hint-card-title">
 							Special Operators
 						</div>
 						<div className="mb-2 text-hint-card-text">OCR specific operations.</div>
-						<div className="px-2 py-1 font-mono text-sm text-hint-card-code-text rounded bg-hint-card-code-bg">
+						<div className="px-2 py-1 font-mono text-sm rounded text-hint-card-code-text bg-hint-card-code-bg">
 							MOD (remainder), DIV (integer division), ^ (power)
 						</div>
 					</div>
-					<div className="p-3 bg-hint-card-bg border-l-4 border-hint-card-border rounded-lg shadow-sm">
+					<div className="p-3 border-l-4 rounded-lg bg-hint-card-bg border-hint-card-border shadow-sm">
 						<div className="mb-1 font-bold text-hint-card-title">
 							Comparison Operators
 						</div>
 						<div className="mb-2 text-hint-card-text">
 							Compare values (result is true or false).
 						</div>
-						<div className="px-2 py-1 font-mono text-sm text-hint-card-code-text rounded bg-hint-card-code-bg">
+						<div className="px-2 py-1 font-mono text-sm rounded text-hint-card-code-text bg-hint-card-code-bg">
 							== (equal), != (not equal), &lt; (less than), &gt; (greater than),
 							&lt;= (less than or equal to), &gt;= (greater than or equal to)
 						</div>
@@ -731,43 +731,43 @@ export function QuizComponent({
 		if (actualMode === "Keywords") {
 			return (
 				<div className="space-y-3">
-					<div className="p-3 bg-hint-card-bg border-l-4 border-hint-card-border rounded-lg shadow-sm">
+					<div className="p-3 border-l-4 rounded-lg bg-hint-card-bg border-hint-card-border shadow-sm">
 						<div className="mb-1 font-bold text-hint-card-title">Variables</div>
 						<div className="mb-2 text-hint-card-text">
 							Named storage locations - look for assignment statements.
 						</div>
-						<div className="px-2 py-1 font-mono text-sm text-hint-card-code-text rounded bg-hint-card-code-bg">
+						<div className="px-2 py-1 font-mono text-sm rounded text-hint-card-code-text bg-hint-card-code-bg">
 							Examples: age, name, total, price
 						</div>
 					</div>
-					<div className="p-3 bg-hint-card-bg border-l-4 border-hint-card-border rounded-lg shadow-sm">
+					<div className="p-3 border-l-4 rounded-lg bg-hint-card-bg border-hint-card-border shadow-sm">
 						<div className="mb-1 font-bold text-hint-card-title">Concatenation</div>
 						<div className="mb-2 text-hint-card-text">
 							Joining strings together using the + operator.
 						</div>
-						<div className="px-2 py-1 font-mono text-sm text-hint-card-code-text rounded bg-hint-card-code-bg">
+						<div className="px-2 py-1 font-mono text-sm rounded text-hint-card-code-text bg-hint-card-code-bg">
 							"Hello " + name → Joins text strings
 						</div>
 					</div>
-					<div className="p-3 bg-hint-card-bg border-l-4 border-hint-card-border rounded-lg shadow-sm">
+					<div className="p-3 border-l-4 rounded-lg bg-hint-card-bg border-hint-card-border shadow-sm">
 						<div className="mb-1 font-bold text-hint-card-title">Casting</div>
 						<div className="mb-2 text-hint-card-text">
 							Converting data from one type to another.
 						</div>
-						<div className="px-2 py-1 font-mono text-sm text-hint-card-code-text rounded bg-hint-card-code-bg">
+						<div className="px-2 py-1 font-mono text-sm rounded text-hint-card-code-text bg-hint-card-code-bg">
 							str(), int(), float() - conversion functions
 						</div>
 					</div>
-					<div className="p-3 bg-hint-card-bg border-l-4 border-hint-card-border rounded-lg shadow-sm">
+					<div className="p-3 border-l-4 rounded-lg bg-hint-card-bg border-hint-card-border shadow-sm">
 						<div className="mb-1 font-bold text-hint-card-title">Operators</div>
 						<div className="mb-2 text-hint-card-text">
 							Symbols that perform operations.
 						</div>
-						<div className="px-2 py-1 font-mono text-sm text-hint-card-code-text rounded bg-hint-card-code-bg">
+						<div className="px-2 py-1 font-mono text-sm rounded text-hint-card-code-text bg-hint-card-code-bg">
 							Arithmetic: +, -, *, / | Comparison: &lt;, &gt;, ==, !=
 						</div>
 					</div>
-					<div className="p-3 bg-hint-tip-bg border border-hint-tip-border rounded-lg">
+					<div className="p-3 border rounded-lg bg-hint-tip-bg border-hint-tip-border">
 						<div className="font-medium text-center text-hint-tip-text">
 							💡 Read the code line by line to find what the question asks for
 						</div>
@@ -820,16 +820,16 @@ export function QuizComponent({
 
 			{/* Question Section */}
 			{currentQuestion && (
-				<Card className="p-6 bg-card shadow-lg">
+				<Card className="p-6 shadow-lg bg-card">
 					<div className="mb-4 text-center">
 						{(mode === "Data Types" ||
 							(mode === "Champion" &&
 								currentQuestion.sourceMode === "Data Types")) && (
 							<div>
-								<p className="p-4 mb-2 text-lg font-semibold text-left text-question-prompt-text bg-question-prompt-bg rounded-lg shadow">
+								<p className="p-4 mb-2 text-lg font-semibold text-left rounded-lg shadow text-question-prompt-text bg-question-prompt-bg">
 									Identify the data type
 								</p>
-								<div className="p-4 mb-4 font-mono text-xl font-light text-left text-code-display-text bg-code-display-bg rounded-lg">
+								<div className="p-4 mb-4 font-mono text-xl font-light text-left rounded-lg text-code-display-text bg-code-display-bg">
 									{currentQuestion.value}
 								</div>
 							</div>
@@ -839,10 +839,10 @@ export function QuizComponent({
 							(mode === "Champion" &&
 								currentQuestion.sourceMode === "Constructs")) && (
 							<div>
-								<p className="p-4 mb-2 text-lg font-semibold text-left text-question-prompt-text bg-question-prompt-bg rounded-lg shadow">
+								<p className="p-4 mb-2 text-lg font-semibold text-left rounded-lg shadow text-question-prompt-text bg-question-prompt-bg">
 									Identify the programming constructs used
 								</p>
-								<pre className="p-4 mb-4 overflow-x-auto text-xl text-left text-code-display-text bg-code-display-bg rounded-lg">
+								<pre className="p-4 mb-4 overflow-x-auto text-xl text-left rounded-lg text-code-display-text bg-code-display-bg">
 									<code className="font-light">{currentQuestion.code}</code>
 								</pre>
 							</div>
@@ -852,10 +852,10 @@ export function QuizComponent({
 							(mode === "Champion" &&
 								currentQuestion.sourceMode === "Operators")) && (
 							<div>
-								<p className="p-4 mb-2 text-lg font-semibold text-left text-question-prompt-text bg-question-prompt-bg rounded-lg shadow">
+								<p className="p-4 mb-2 text-lg font-semibold text-left rounded-lg shadow text-question-prompt-text bg-question-prompt-bg">
 									State the result of the following expression
 								</p>
-								<pre className="p-4 mb-4 overflow-x-auto text-xl text-left text-code-display-text bg-code-display-bg rounded-lg">
+								<pre className="p-4 mb-4 overflow-x-auto text-xl text-left rounded-lg text-code-display-text bg-code-display-bg">
 									<code className="font-light">{currentQuestion.code}</code>
 								</pre>
 							</div>
@@ -865,11 +865,11 @@ export function QuizComponent({
 							(mode === "Champion" &&
 								currentQuestion.sourceMode === "Keywords")) && (
 							<div>
-								<p className="p-4 mb-2 text-lg font-semibold text-left text-question-prompt-text bg-question-prompt-bg rounded-lg shadow">
+								<p className="p-4 mb-2 text-lg font-semibold text-left rounded-lg shadow text-question-prompt-text bg-question-prompt-bg">
 									{currentQuestion.keywordPrompt ||
 										"Answer the question about the code"}
 								</p>
-								<pre className="p-4 mb-4 overflow-x-auto text-xl text-left text-code-display-text bg-code-display-bg rounded-lg">
+								<pre className="p-4 mb-4 overflow-x-auto text-xl text-left rounded-lg text-code-display-text bg-code-display-bg">
 									<code className="font-light">
 										{(currentQuestion.code || "")
 											.split("\n")
@@ -878,7 +878,7 @@ export function QuizComponent({
 													key={`line-${index}-${line.slice(0, 20)}`}
 													className="flex"
 												>
-													<span className="inline-block w-8 mr-4 text-right text-code-line-number select-none">
+													<span className="inline-block w-8 mr-4 text-right select-none text-code-line-number">
 														{index + 1}
 													</span>
 													<span>{line}</span>
@@ -913,7 +913,7 @@ export function QuizComponent({
 										className="w-5 h-5"
 									/>
 									<span className="text-sm font-medium leading-none select-none">
-										<kbd className="px-2 py-1 mr-2 font-mono text-xs bg-checkbox-kbd-bg border rounded">
+										<kbd className="px-2 py-1 mr-2 font-mono text-xs border rounded bg-checkbox-kbd-bg">
 											1
 										</kbd>
 										Sequence
@@ -936,7 +936,7 @@ export function QuizComponent({
 										className="w-5 h-5"
 									/>
 									<span className="text-sm font-medium leading-none select-none">
-										<kbd className="px-2 py-1 mr-2 font-mono text-xs bg-checkbox-kbd-bg border rounded">
+										<kbd className="px-2 py-1 mr-2 font-mono text-xs border rounded bg-checkbox-kbd-bg">
 											2
 										</kbd>
 										Selection
@@ -959,14 +959,14 @@ export function QuizComponent({
 										className="w-5 h-5"
 									/>
 									<span className="text-sm font-medium leading-none select-none">
-										<kbd className="px-2 py-1 mr-2 font-mono text-xs bg-checkbox-kbd-bg border rounded">
+										<kbd className="px-2 py-1 mr-2 font-mono text-xs border rounded bg-checkbox-kbd-bg">
 											3
 										</kbd>
 										Iteration
 									</span>
 								</label>
 							</div>
-
+							{!showFeedback && (
 							<div className="text-center">
 								<Button
 									onClick={checkAnswer}
@@ -976,11 +976,11 @@ export function QuizComponent({
 										!constructsChecked.selection &&
 										!constructsChecked.iteration)
 									}
-									className="px-8 py-3 font-semibold text-action-button-text rounded-lg shadow-lg transition-all duration-200 transform bg-action-button-bg hover:bg-action-button-bg-hover hover:shadow-xl hover:-translate-y-1 disabled:bg-action-button-disabled disabled:hover:shadow-lg disabled:transform-none"
+									className="px-8 py-3 font-semibold rounded-lg shadow-lg text-action-button-text transition-all duration-200 transform bg-action-button-bg hover:bg-action-button-bg-hover hover:shadow-xl hover:-translate-y-1 disabled:bg-action-button-disabled disabled:hover:shadow-lg disabled:transform-none"
 								>
 									Submit Answer
 								</Button>
-							</div>
+							</div> )}
 						</div>
 					) : (
 						// Text input for other modes
@@ -992,7 +992,7 @@ export function QuizComponent({
 								onChange={(e) => setUserAnswer(e.target.value)}
 								placeholder="Enter your answer and press Enter..."
 								onKeyPress={(e) => e.key === "Enter" && handleNext()}
-								className="p-6 text-lg font-bold text-center border-2 border-button-primary shadow-lg transition-all duration-200 sm:text-2xl focus:border-button-primary-hover focus:ring-4 focus:ring-button-primary/20 rounded-xl bg-gradient-to-r from-background to-button-primary/10 focus-visible:ring-button-primary/50"
+								className="p-6 text-lg font-bold text-center border-2 shadow-lg border-button-primary transition-all duration-200 sm:text-2xl focus:border-button-primary-hover focus:ring-4 focus:ring-button-primary/20 rounded-xl bg-muted focus-visible:ring-button-primary/50"
 								disabled={showFeedback}
 							/>
 							<p className="mt-1 text-xs text-center text-muted-foreground">
@@ -1012,7 +1012,7 @@ export function QuizComponent({
 									type="button"
 									onClick={() => generateQuestion()}
 									aria-label="Generate next question"
-									className="px-8 py-3 font-semibold text-action-button-text rounded-lg shadow-lg transition-all duration-200 transform bg-action-button-bg hover:bg-action-button-bg-hover hover:shadow-xl hover:-translate-y-1"
+									className="px-8 py-3 font-semibold rounded-lg shadow-lg text-action-button-text transition-all duration-200 transform bg-action-button-bg hover:bg-action-button-bg-hover hover:shadow-xl hover:-translate-y-1"
 								>
 									<span className="mr-2">🎯</span>
 									Next Question
@@ -1023,7 +1023,7 @@ export function QuizComponent({
 
 					{/* Hints Section - Details/Summary Pattern. Not in champion mode */}
 					{mode !== "Champion" && (
-						<details className="mt-6 group">
+						<details className="group">
 							<summary className="cursor-pointer focus:outline-none focus:ring-2 focus:ring-button-primary focus:ring-offset-2 rounded-lg px-4 py-3 bg-hint-summary-bg border border-hint-summary-border hover:bg-hint-summary-bg-hover transition-all duration-200 shadow-sm hover:shadow-md list-none [&::-webkit-details-marker]:hidden">
 								<span className="flex items-center font-semibold text-hint-summary-text">
 									<span className="mr-2 text-lg">💡</span>
@@ -1033,7 +1033,7 @@ export function QuizComponent({
 									</span>
 								</span>
 							</summary>
-							<div className="p-5 mt-3 border border-hint-summary-border rounded-lg shadow-sm bg-hint-content-bg">
+							<div className="p-5 mt-3 border rounded-lg border-hint-summary-border shadow-sm bg-hint-content-bg">
 								<div className="text-base">{getHintContent()}</div>
 							</div>
 						</details>

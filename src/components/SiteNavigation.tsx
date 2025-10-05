@@ -91,7 +91,7 @@ export function SiteNavigation({
 					sideOffset={8}
 				>
 					{/* Header */}
-					<div className="p-3 text-xs font-semibold text-center text-nav-button-text uppercase sm:p-4 sm:text-sm bg-header/90 ">
+					<div className="p-3 text-xs font-semibold text-center uppercase text-nav-button-text sm:p-4 sm:text-sm bg-header/90 ">
 						Computer Science Practice
 					</div>
 

@@ -82,7 +82,7 @@ export function StatsModal({
 				<div className="flex items-center justify-between px-6 py-4 text-modal-header-text bg-header/80">
 					<h2
 						id={titleId}
-						className="flex items-center text-2xl font-bold gap-2"
+						className="flex items-center gap-2 text-2xl font-bold"
 					>
 						{headerIcon} {title}
 					</h2>
@@ -137,7 +137,7 @@ export function StatsModal({
 											className="h-2 mb-3 [&>div]:bg-progress-bar"
 										/>
 										{/* Detailed requirements */}
-										<div className="text-sm space-y-1">
+										<div className="space-y-1 text-sm">
 											{overallStats.accuracy <
 												overallStats.nextLevel.minAccuracy && (
 												<div>
@@ -152,7 +152,7 @@ export function StatsModal({
 								{!overallStats.nextLevel && (
 									<CardContent className="pt-4">
 										<div className="text-center">
-											<div className="p-3 text-white rounded-lg bg-yellow-500">
+											<div className="p-3 text-white bg-yellow-500 rounded-lg">
 												<p className="text-lg font-semibold">
 													🎉 Maximum Level Reached!
 												</p>
@@ -164,8 +164,7 @@ export function StatsModal({
 									</CardContent>
 								)}
 							</Card>
-							{/* Overall Statistics */}
-							<Card className="p-4 gap-4">
+							<Card className="gap-4 p-4">
 								<CardHeader className="px-2 mb-0">
 									<CardTitle className="flex items-center">
 										📈 Overall Statistics
@@ -173,22 +172,22 @@ export function StatsModal({
 								</CardHeader>
 								<CardContent className="px-2">
 									<div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-										<div className="p-4 text-center border-l-4 border-green-500 rounded-lg bg-green-50">
-											<div className="text-2xl font-bold text-green-600">
+										<div className="p-4 text-center border-l-4 rounded-lg bg-stats-card-bg border-stats-accuracy-high">
+											<div className="text-2xl font-bold text-stats-accuracy-high">
 												{overallStats.totalPoints}
 											</div>
 											<div className="text-sm text-muted-foreground">Total Points</div>
 										</div>
-										<div className="p-4 text-center border-l-4 border-blue-500 rounded-lg bg-blue-50">
-											<div className="text-2xl font-bold text-blue-600">
+										<div className="p-4 text-center border-l-4 rounded-lg bg-stats-card-bg border-stats-points">
+											<div className="text-2xl font-bold text-stats-points">
 												{overallStats.totalAttempts}
 											</div>
 											<div className="text-sm text-muted-foreground">
 												Total Attempts
 											</div>
 										</div>
-										<div className="p-4 text-center border-l-4 border-purple-500 rounded-lg bg-purple-50">
-											<div className="text-2xl font-bold text-purple-600">
+										<div className="p-4 text-center border-l-4 rounded-lg bg-stats-card-bg border-stats-record">
+											<div className="text-2xl font-bold text-stats-record">
 												{Math.floor(overallStats.accuracy)}%
 											</div>
 											<div className="text-sm text-muted-foreground">Accuracy</div>
@@ -198,7 +197,7 @@ export function StatsModal({
 							</Card>
 
 							{/* Category Breakdown */}
-							<Card className="p-4 gap-4">
+							<Card className="gap-4 p-4">
 								<CardHeader className="px-2 mb-0">
 									<CardTitle className="flex items-center">
 										📋 Breakdown by Category
@@ -216,7 +215,7 @@ export function StatsModal({
 											return (
 												<div
 													key={mode}
-													className="flex items-center justify-between p-4 bg-muted rounded-lg"
+													className="flex items-center justify-between p-4 rounded-lg bg-muted"
 												>
 													<div>
 														<div className="text-lg font-semibold">
@@ -252,7 +251,7 @@ export function StatsModal({
 							</Card>
 
 							{/* Detailed Statistics */}
-							<Card className="p-4 gap-4">
+							<Card className="gap-4 p-4">
 								<CardHeader className="px-2 mb-0">
 									<CardTitle className="flex items-center">
 										🔍 Detailed Breakdown

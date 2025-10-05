@@ -6,7 +6,7 @@ export function Footer() {
 				href="https://mrluthercodes.netlify.app/"
 				target="_blank"
 				rel="noopener noreferrer"
-				className="text-link underline hover:text-link-hover"
+				className="underline text-link hover:text-link-hover"
 			>
 				Mr Luther
 			</a>{" "}
