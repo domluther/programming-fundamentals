@@ -971,9 +971,10 @@ export function QuizComponent({
 								<Button
 									onClick={checkAnswer}
 									disabled={
-										!constructsChecked.sequence &&
+										showFeedback ||
+										(!constructsChecked.sequence &&
 										!constructsChecked.selection &&
-										!constructsChecked.iteration
+										!constructsChecked.iteration)
 									}
 									className="px-8 py-3 font-semibold text-white rounded-lg shadow-lg transition-all duration-200 transform bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 hover:shadow-xl hover:-translate-y-1 disabled:from-gray-400 disabled:to-gray-500 disabled:hover:shadow-lg disabled:transform-none"
 								>
