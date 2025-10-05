@@ -3,17 +3,18 @@
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
 
-/*.js
+/assets/*.js
   Content-Type: application/javascript; charset=utf-8
   Cache-Control: public, max-age=31536000, immutable
 
-/*.mjs  
+/assets/*.mjs  
   Content-Type: application/javascript; charset=utf-8
   Cache-Control: public, max-age=31536000, immutable
 
-/*.ts
-  Content-Type: application/javascript; charset=utf-8
+/assets/*.css
+  Content-Type: text/css; charset=utf-8
   Cache-Control: public, max-age=31536000, immutable
 
 /index.html
+  Content-Type: text/html; charset=utf-8
   Cache-Control: public, max-age=0, must-revalidate
