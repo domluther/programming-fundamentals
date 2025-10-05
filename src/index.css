@@ -345,6 +345,10 @@
 	body {
 		@apply bg-background text-foreground;
 	}
+
+	a.underline {
+		text-decoration: underline !important;
+	}
 }
 
 /* Screen reader only utility class for accessibility */
