@@ -140,7 +140,9 @@
 	/* Semantic color variables for light mode */
 	--header-text: oklch(0.96 0.02 235); /* deep blue-50 */
 	--header-subtitle: oklch(0.85 0.08 235); /* deep blue-200 */
-	--link: oklch(0.72 0.12 235); /* deep blue-300 */
+	--link: oklch(
+		0.82 0.12 235
+	); /* deep blue-200 - lighter for better contrast on dark backgrounds */
 	--link-hover: var(--primary-foreground); /* white */
 	--button-primary: oklch(0.45 0.15 235); /* deep blue-600 */
 	--button-primary-hover: oklch(0.38 0.14 235); /* deep blue-700 */

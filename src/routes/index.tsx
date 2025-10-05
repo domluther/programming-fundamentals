@@ -29,29 +29,29 @@ function IndexPage() {
 	return (
 		<SharedLayout>
 			{() => (
-				<div className="text-center space-y-8">
+				<div className="space-y-8 text-center">
 					<div className="mb-12">
-						<h2 className="mb-4 text-3xl font-bold text-gray-800">
+						<h2 className="mb-4 text-3xl font-bold text-foreground">
 							Choose Your Quiz Mode
 						</h2>
-						<p className="text-lg text-gray-600">
+						<p className="text-lg text-muted-foreground">
 							Master programming fundamentals with interactive quizzes
 						</p>
 					</div>
 
-					<div className="mb-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+					<div className="grid grid-cols-1 gap-6 mb-8 md:grid-cols-2">
 						{Object.values(QUIZ_MODES).map((mode) => (
 							<Card
 								key={mode.id}
-								className="p-6 cursor-pointer hover:shadow-lg transition-shadow"
+								className="p-6 transition-shadow cursor-pointer hover:shadow-lg"
 							>
 								<Link to={getRoutePath(mode.id)} className="block h-full">
 									<div className="text-center">
 										<div className="mb-4 text-6xl">{mode.emoji}</div>
-										<h3 className="mb-2 text-2xl font-bold text-indigo-600">
+										<h3 className="mb-2 text-2xl font-bold text-button-primary">
 											{mode.title}
 										</h3>
-										<p className="text-gray-600">{mode.description}</p>
+										<p className="text-muted-foreground">{mode.description}</p>
 									</div>
 								</Link>
 							</Card>
