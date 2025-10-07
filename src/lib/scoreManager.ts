@@ -34,6 +34,17 @@ export interface ScoreData {
 	Champion: ModeStats;
 }
 
+export interface OverallStats {
+	accuracy: number;
+	totalPoints: number;
+	totalAttempts: number;
+	totalCorrect: number;
+	currentLevel: LevelInfo;
+	progress: number;
+	nextLevel: LevelInfo | null;
+	streak: number;
+}
+
 const blankScoreData: ScoreData = {
 	"Data Types": {
 		attempts: 0,
@@ -413,16 +424,7 @@ export class ScoreManager {
 		return "";
 	}
 
-	getOverallStats(): {
-		totalAttempts: number;
-		totalCorrect: number;
-		accuracy: number;
-		totalPoints: number;
-		currentLevel: LevelInfo;
-		progress: number;
-		nextLevel: LevelInfo | null;
-		streak: number;
-	} {
+	getOverallStats(): OverallStats {
 		// Calculate overall stats from all modes
 		let totalAttempts = 0;
 		let totalCorrect = 0;
