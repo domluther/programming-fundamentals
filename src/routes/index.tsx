@@ -29,7 +29,7 @@ function IndexPage() {
 	return (
 		<SharedLayout>
 			{() => (
-				<div className="space-y-8 text-center">
+				<div className="text-center space-y-8">
 					<div className="mb-12">
 						<h2 className="mb-4 text-3xl font-bold text-foreground">
 							Choose Your Quiz Mode
@@ -39,11 +39,11 @@ function IndexPage() {
 						</p>
 					</div>
 
-					<div className="grid grid-cols-1 gap-6 mb-8 md:grid-cols-2">
+					<div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2">
 						{Object.values(QUIZ_MODES).map((mode) => (
 							<Card
 								key={mode.id}
-								className="p-6 transition-shadow cursor-pointer hover:shadow-lg"
+								className="p-6 cursor-pointer transition-shadow hover:shadow-lg"
 							>
 								<Link to={getRoutePath(mode.id)} className="block h-full">
 									<div className="text-center">

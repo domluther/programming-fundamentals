@@ -480,7 +480,7 @@ export function QuizComponent({
 				boolean: "boolean",
 			};
 			const lookedUpAnswer =
-				dataTypeLookup[userAnswer.toLowerCase()] || "failed";
+				dataTypeLookup[userAnswer.trim().toLowerCase()] || "failed";
 			correct = lookedUpAnswer === currentQuestion.dataType?.toLowerCase();
 		} else if (actualMode === "Constructs") {
 			// For constructs, check if selected checkboxes match expected constructs
@@ -495,7 +495,9 @@ export function QuizComponent({
 					expectedConstructs.includes(construct),
 				);
 		} else if (actualMode === "Operators") {
-			correct = userAnswer.trim() === currentQuestion.answer;
+			correct =
+				userAnswer.trim().toLowerCase() ===
+				currentQuestion.answer?.toLowerCase();
 		} else if (actualMode === "Keywords") {
 			// For keywords, check if answer matches any of the valid answers
 			const keywordAnswers = currentQuestion.keywordAnswer;
@@ -892,6 +894,7 @@ export function QuizComponent({
 											.split("\n")
 											.map((line, index) => (
 												<div
+													// biome-ignore lint/suspicious/noArrayIndexKey: lines are static code display, order never changes
 													key={`line-${index}-${line.slice(0, 20)}`}
 													className="flex"
 												>
@@ -916,7 +919,7 @@ export function QuizComponent({
 							<div className="flex flex-wrap justify-center mb-4 gap-3 sm:gap-4">
 								<label
 									htmlFor={sequenceId}
-									className="flex items-center space-x-3 cursor-pointer p-3 border-2 border-checkbox-label-border rounded-lg hover:border-checkbox-label-border-hover hover:bg-checkbox-label-bg-hover transition-colors duration-200 min-w-[120px] justify-center"
+									className="flex items-center justify-center p-3 border-2 rounded-lg cursor-pointer space-x-3 border-checkbox-label-border hover:border-checkbox-label-border-hover hover:bg-checkbox-label-bg-hover transition-colors duration-200 min-w-30"
 								>
 									<Checkbox
 										id={sequenceId}
@@ -939,7 +942,7 @@ export function QuizComponent({
 
 								<label
 									htmlFor={selectionId}
-									className="flex items-center space-x-3 cursor-pointer p-3 border-2 border-checkbox-label-border rounded-lg hover:border-checkbox-label-border-hover hover:bg-checkbox-label-bg-hover transition-colors duration-200 min-w-[120px] justify-center"
+									className="flex items-center justify-center p-3 border-2 rounded-lg cursor-pointer space-x-3 border-checkbox-label-border hover:border-checkbox-label-border-hover hover:bg-checkbox-label-bg-hover transition-colors duration-200 min-w-30"
 								>
 									<Checkbox
 										id={selectionId}
@@ -962,7 +965,7 @@ export function QuizComponent({
 
 								<label
 									htmlFor={iterationId}
-									className="flex items-center space-x-3 cursor-pointer p-3 border-2 border-checkbox-label-border rounded-lg hover:border-checkbox-label-border-hover hover:bg-checkbox-label-bg-hover transition-colors duration-200 min-w-[120px] justify-center"
+									className="flex items-center justify-center p-3 border-2 rounded-lg cursor-pointer space-x-3 border-checkbox-label-border hover:border-checkbox-label-border-hover hover:bg-checkbox-label-bg-hover transition-colors duration-200 min-w-30"
 								>
 									<Checkbox
 										id={iterationId}

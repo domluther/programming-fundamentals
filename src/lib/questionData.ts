@@ -2037,7 +2037,7 @@ export const operatorQuestions: OperatorQuestion[] = [
 
 	// LESS THAN OR EQUAL (<=) OPERATORS
 	{
-		code: "l = 6 >= 6",
+		code: "m = 6 >= 6",
 		answer: "true",
 		explanation: "6 is greater than or equal to 6",
 		operatorCategory: "comparison",
