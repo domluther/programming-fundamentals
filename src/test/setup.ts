@@ -51,7 +51,7 @@ class LocalStorageMock {
 	}
 }
 
-global.localStorage = new LocalStorageMock() as unknown as Storage;
+globalThis.localStorage = new LocalStorageMock() as unknown as Storage;
 
 // Mock window.matchMedia
 Object.defineProperty(window, "matchMedia", {
