@@ -9,31 +9,16 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as OperatorsRouteImport } from './routes/operators'
-import { Route as KeywordsRouteImport } from './routes/keywords'
-import { Route as DatatypesRouteImport } from './routes/datatypes'
-import { Route as ConstructsRouteImport } from './routes/constructs'
-import { Route as ChampionRouteImport } from './routes/champion'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ChampionRouteImport } from './routes/champion'
+import { Route as ConstructsRouteImport } from './routes/constructs'
+import { Route as DatatypesRouteImport } from './routes/datatypes'
+import { Route as KeywordsRouteImport } from './routes/keywords'
+import { Route as OperatorsRouteImport } from './routes/operators'
 
-const OperatorsRoute = OperatorsRouteImport.update({
-  id: '/operators',
-  path: '/operators',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const KeywordsRoute = KeywordsRouteImport.update({
-  id: '/keywords',
-  path: '/keywords',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DatatypesRoute = DatatypesRouteImport.update({
-  id: '/datatypes',
-  path: '/datatypes',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ConstructsRoute = ConstructsRouteImport.update({
-  id: '/constructs',
-  path: '/constructs',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ChampionRoute = ChampionRouteImport.update({
@@ -41,9 +26,24 @@ const ChampionRoute = ChampionRouteImport.update({
   path: '/champion',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const ConstructsRoute = ConstructsRouteImport.update({
+  id: '/constructs',
+  path: '/constructs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DatatypesRoute = DatatypesRouteImport.update({
+  id: '/datatypes',
+  path: '/datatypes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KeywordsRoute = KeywordsRouteImport.update({
+  id: '/keywords',
+  path: '/keywords',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OperatorsRoute = OperatorsRouteImport.update({
+  id: '/operators',
+  path: '/operators',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -110,32 +110,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/operators': {
-      id: '/operators'
-      path: '/operators'
-      fullPath: '/operators'
-      preLoaderRoute: typeof OperatorsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/keywords': {
-      id: '/keywords'
-      path: '/keywords'
-      fullPath: '/keywords'
-      preLoaderRoute: typeof KeywordsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/datatypes': {
-      id: '/datatypes'
-      path: '/datatypes'
-      fullPath: '/datatypes'
-      preLoaderRoute: typeof DatatypesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/constructs': {
-      id: '/constructs'
-      path: '/constructs'
-      fullPath: '/constructs'
-      preLoaderRoute: typeof ConstructsRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/champion': {
@@ -145,11 +124,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ChampionRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/constructs': {
+      id: '/constructs'
+      path: '/constructs'
+      fullPath: '/constructs'
+      preLoaderRoute: typeof ConstructsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/datatypes': {
+      id: '/datatypes'
+      path: '/datatypes'
+      fullPath: '/datatypes'
+      preLoaderRoute: typeof DatatypesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/keywords': {
+      id: '/keywords'
+      path: '/keywords'
+      fullPath: '/keywords'
+      preLoaderRoute: typeof KeywordsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/operators': {
+      id: '/operators'
+      path: '/operators'
+      fullPath: '/operators'
+      preLoaderRoute: typeof OperatorsRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
