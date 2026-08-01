@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
+import { logEvent } from "@/lib/analytics";
 import {
 	constructQuestions,
 	type DataType,
@@ -531,6 +532,13 @@ export function QuizComponent({
 
 		// Report to the score manager
 		onScoreUpdate(correct, stats.currentQuestionType);
+
+		logEvent({
+			site: "programming-fundamentals",
+			game: mode,
+			question_ref: stats.currentQuestionType,
+			correct,
+		});
 	}, [
 		currentQuestion,
 		userAnswer,
