@@ -47,6 +47,11 @@ export function QuizComponent({
 	const selectionId = useId();
 	const iterationId = useId();
 	const answerInputId = useId();
+	const ks3ToggleId = useId();
+
+	// KS3 toggle: default false (GCSE)
+	const [isKS3, setIsKS3] = useState(false);
+
 	const [currentQuestion, setCurrentQuestion] = useState<QuestionData | null>(
 		null,
 	);
@@ -81,12 +86,24 @@ export function QuizComponent({
 		let questionType = "";
 		switch (mode) {
 			case "Data Types": {
-				const categories = Object.keys(dataTypeQuestions);
-				const randomCategory =
-					categories[Math.floor(Math.random() * categories.length)];
-				const questions = dataTypeQuestions[randomCategory];
-				question = questions[Math.floor(Math.random() * questions.length)];
-				questionType = `Data Types-${randomCategory}`;
+				// Flatten all data type questions into a single array
+				const allQuestions: QuestionData[] = Object.values(
+					dataTypeQuestions,
+				).flat() as QuestionData[];
+
+				// If KS3 is active, restrict to string, integer, float
+				if (isKS3) {
+					const allowed = ["string", "integer", "float"];
+					const pool = allQuestions.filter((q) =>
+						allowed.includes(String(q.dataType).toLowerCase()),
+					);
+					question = pool.length > 0 ? pool[Math.floor(Math.random() * pool.length)] : allQuestions[Math.floor(Math.random() * allQuestions.length)];
+				} else {
+					// GCSE: original behaviour - pick from all data type questions
+					question = allQuestions[Math.floor(Math.random() * allQuestions.length)];
+				}
+
+				questionType = `Data Types-${question?.dataType ?? ""}`;
 				break;
 			}
 
@@ -328,7 +345,7 @@ export function QuizComponent({
 				inputRef.current.focus();
 			}
 		}, 100);
-	}, [mode]);
+	}, [mode, isKS3]);
 
 	const generateFeedback = useCallback(
 		(correct: boolean, mode: Mode, question: QuestionData) => {
@@ -614,15 +631,18 @@ export function QuizComponent({
 		if (actualMode === "Data Types") {
 			return (
 				<div className="space-y-3">
-					<div className="p-3 border-l-4 rounded-lg shadow-sm bg-hint-card-bg border-hint-card-border">
-						<div className="mb-1 font-bold text-hint-card-title">Character</div>
-						<div className="mb-2 text-hint-card-text">
-							A single letter, number or symbol
+					{!isKS3 && (
+						<div className="p-3 border-l-4 rounded-lg shadow-sm bg-hint-card-bg border-hint-card-border">
+							<div className="mb-1 font-bold text-hint-card-title">Character</div>
+							<div className="mb-2 text-hint-card-text">
+								A single letter, number or symbol
+							</div>
+							<div className="px-2 py-1 font-mono text-sm rounded text-hint-card-code-text bg-hint-card-code-bg">
+								'a', '!', '2', ' '
+							</div>
 						</div>
-						<div className="px-2 py-1 font-mono text-sm rounded text-hint-card-code-text bg-hint-card-code-bg">
-							'a', '!', '2', ' '
-						</div>
-					</div>
+					)}
+
 					<div className="p-3 border-l-4 rounded-lg shadow-sm bg-hint-card-bg border-hint-card-border">
 						<div className="mb-1 font-bold text-hint-card-title">String</div>
 						<div className="mb-2 text-hint-card-text">
@@ -650,13 +670,16 @@ export function QuizComponent({
 							-2.2, 3.14
 						</div>
 					</div>
-					<div className="p-3 border-l-4 rounded-lg shadow-sm bg-hint-card-bg border-hint-card-border">
-						<div className="mb-1 font-bold text-hint-card-title">Boolean</div>
-						<div className="mb-2 text-hint-card-text">Has only two options</div>
-						<div className="px-2 py-1 font-mono text-sm rounded text-hint-card-code-text bg-hint-card-code-bg">
-							True or False
+
+					{!isKS3 && (
+						<div className="p-3 border-l-4 rounded-lg shadow-sm bg-hint-card-bg border-hint-card-border">
+							<div className="mb-1 font-bold text-hint-card-title">Boolean</div>
+							<div className="mb-2 text-hint-card-text">Has only two options</div>
+							<div className="px-2 py-1 font-mono text-sm rounded text-hint-card-code-text bg-hint-card-code-bg">
+								True or False
+							</div>
 						</div>
-					</div>
+					)}
 				</div>
 			);
 		}
@@ -853,6 +876,33 @@ export function QuizComponent({
 							(mode === "Champion" &&
 								currentQuestion.sourceMode === "Data Types")) && (
 							<div>
+								{/* KS3 toggle shown only when in Data Types mode directly */}
+								{mode === "Data Types" && (
+									<div className="flex items-center justify-center gap-4 mb-3">
+										<label
+											htmlFor={ks3ToggleId}
+											className="inline-flex items-center cursor-pointer select-none"
+										>
+											<Checkbox
+												id={ks3ToggleId}
+												checked={isKS3}
+												onCheckedChange={(checked) =>
+													setIsKS3(Boolean(checked))
+												}
+												className="w-5 h-5 mr-2"
+											/>
+											<span className="text-sm font-medium">
+												KS3 mode {isKS3 ? "(KS3)" : "(GCSE)"}
+											</span>
+										</label>
+										<span className="text-xs text-muted-foreground">
+											{isKS3
+												? "KS3: only String, Integer, Float questions"
+												: "GCSE: Character and Boolean included"}
+										</span>
+									</div>
+								)}
+
 								<p className="p-4 mb-2 text-lg font-semibold text-left rounded-lg shadow text-question-prompt-text bg-question-prompt-bg">
 									Identify the data type
 								</p>
