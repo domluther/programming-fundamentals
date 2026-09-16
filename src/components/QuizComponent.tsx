@@ -2,8 +2,8 @@ import type { ReactElement } from "react";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
+import { Switch } from "@/components/ui/switch";
 import { logEvent } from "@/lib/analytics";
 import {
 	constructQuestions,
@@ -35,12 +35,15 @@ interface QuizComponentProps {
 	mode: Mode;
 	onScoreUpdate: (isCorrect: boolean, questionType: string) => void;
 	scoreManager: ScoreManager;
+	/** Seeds the KS3 toggle, e.g. from a shareable URL. Defaults to GCSE. */
+	initialKS3?: boolean;
 }
 
 export function QuizComponent({
 	mode,
 	onScoreUpdate,
 	scoreManager,
+	initialKS3 = false,
 }: QuizComponentProps) {
 	const inputRef = useRef<HTMLInputElement>(null);
 	const sequenceId = useId();
@@ -49,8 +52,8 @@ export function QuizComponent({
 	const answerInputId = useId();
 	const ks3ToggleId = useId();
 
-	// KS3 toggle: default false (GCSE)
-	const [isKS3, setIsKS3] = useState(false);
+	// KS3 toggle: defaults to GCSE unless seeded via initialKS3
+	const [isKS3, setIsKS3] = useState(initialKS3);
 
 	const [currentQuestion, setCurrentQuestion] = useState<QuestionData | null>(
 		null,
@@ -97,10 +100,14 @@ export function QuizComponent({
 					const pool = allQuestions.filter((q) =>
 						allowed.includes(String(q.dataType).toLowerCase()),
 					);
-					question = pool.length > 0 ? pool[Math.floor(Math.random() * pool.length)] : allQuestions[Math.floor(Math.random() * allQuestions.length)];
+					question =
+						pool.length > 0
+							? pool[Math.floor(Math.random() * pool.length)]
+							: allQuestions[Math.floor(Math.random() * allQuestions.length)];
 				} else {
 					// GCSE: original behaviour - pick from all data type questions
-					question = allQuestions[Math.floor(Math.random() * allQuestions.length)];
+					question =
+						allQuestions[Math.floor(Math.random() * allQuestions.length)];
 				}
 
 				questionType = `Data Types-${question?.dataType ?? ""}`;
@@ -633,7 +640,9 @@ export function QuizComponent({
 				<div className="space-y-3">
 					{!isKS3 && (
 						<div className="p-3 border-l-4 rounded-lg shadow-sm bg-hint-card-bg border-hint-card-border">
-							<div className="mb-1 font-bold text-hint-card-title">Character</div>
+							<div className="mb-1 font-bold text-hint-card-title">
+								Character
+							</div>
 							<div className="mb-2 text-hint-card-text">
 								A single letter, number or symbol
 							</div>
@@ -674,7 +683,9 @@ export function QuizComponent({
 					{!isKS3 && (
 						<div className="p-3 border-l-4 rounded-lg shadow-sm bg-hint-card-bg border-hint-card-border">
 							<div className="mb-1 font-bold text-hint-card-title">Boolean</div>
-							<div className="mb-2 text-hint-card-text">Has only two options</div>
+							<div className="mb-2 text-hint-card-text">
+								Has only two options
+							</div>
 							<div className="px-2 py-1 font-mono text-sm rounded text-hint-card-code-text bg-hint-card-code-bg">
 								True or False
 							</div>
@@ -881,18 +892,30 @@ export function QuizComponent({
 									<div className="flex items-center justify-center gap-4 mb-3">
 										<label
 											htmlFor={ks3ToggleId}
-											className="inline-flex items-center cursor-pointer select-none"
+											className="inline-flex items-center gap-2 cursor-pointer select-none"
 										>
-											<Checkbox
+											<span
+												className={cn(
+													"text-sm font-medium",
+													!isKS3 && "text-foreground",
+													isKS3 && "text-muted-foreground",
+												)}
+											>
+												GCSE
+											</span>
+											<Switch
 												id={ks3ToggleId}
 												checked={isKS3}
-												onCheckedChange={(checked) =>
-													setIsKS3(Boolean(checked))
-												}
-												className="w-5 h-5 mr-2"
+												onCheckedChange={setIsKS3}
 											/>
-											<span className="text-sm font-medium">
-												KS3 mode {isKS3 ? "(KS3)" : "(GCSE)"}
+											<span
+												className={cn(
+													"text-sm font-medium",
+													isKS3 && "text-foreground",
+													!isKS3 && "text-muted-foreground",
+												)}
+											>
+												KS3
 											</span>
 										</label>
 										<span className="text-xs text-muted-foreground">
